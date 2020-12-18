@@ -1,0 +1,170 @@
+@precedence {
+  amalg_math_shift @left
+}
+
+@dialects {
+  directives,
+
+  // Various TeX dialects
+  tex,
+  etex,
+  pdftex,
+  xetex,
+  latex
+}
+
+@top Document { statement+ }
+
+statement {
+  SimpleGroup |
+  SemiSimpleGroup |
+  MathShiftGroup |
+  
+  tab_mark |
+  car_ret |
+  sup_mark |
+  sub_mark |
+  ignore |
+  spacer |
+  letter |
+  other_char |
+  active_char |
+  invalid_char |
+
+  control_sequence |
+  primitive |
+
+  macro_parameter |
+  directive
+}
+
+// Groups
+SimpleGroup {
+  left_brace statement* right_brace
+}
+SemiSimpleGroup {
+  begingroup statement* endgroup
+}
+MathShiftGroup {
+  ordinary_math_mode {
+    left_math_shift statement* right_math_shift
+  } |
+  display_math_mode {
+    left_double_math_shift statement* right_double_math_shift
+  }
+}
+
+// Commands
+{{{signatures}}}
+
+// Macro Parameter
+macro_parameter[@name="macro_parameter"] {
+  mac_param dec_digit+
+}
+
+/**
+ * Tokens
+ *
+ * In TeX, a token is defined as as a triple (cur_cmd, cur_chr, cur_cs):
+ *
+ * - cur_cmd: the current control_sequence
+ * - cur_chr: the operand of the current control_sequence
+ * - cur_cs: the control sequence
+ *
+ * With these three, two combinations are defined:
+ *
+ * 1. cur_cs == 0
+ * 2. cur_cs != 0
+ *
+ * For the first type, TeX encodes this as a character with a category. For the second type, TeX
+ * encodes this as a sequence of category 11 characters after a category 0 character or a single
+ * character from any category after a category 0 character.
+ */
+@skip { line_comment }
+@context trackContext from "../tokens"
+@external tokens tokenizer from "../tokens" {
+  /* ============================================================================================== */
+  /*                                      CATEGORY CODE TOKENS                                      */
+  /* ============================================================================================== */
+  /** 
+   * These tokens correspond to a TeX category code (written sequentially). Some of these are
+   * commented (for documentation purposes) since they will always be part of some larger token.
+   */
+
+  // escape[@name="escape"], See Comment Tokens
+  left_brace[@name="left_brace",closedBy="right_brace"],
+  right_brace[@name="right_brace",openedBy="left_brace"],
+  // math_shift, See Math Shift Tokens
+  tab_mark[@name="tab_mark"],
+  car_ret[@name="car_ret"],
+  mac_param,
+  sup_mark[@name="sup_mark"],
+  sub_mark[@name="sub_mark"],
+  ignore[@name="ignore"],
+  spacer, // These should be named, but for simplicity of the tree, we leave it hidden.
+  letter, // These should be named, but for simplicity of the tree, we leave it hidden.
+  other_char, // These should be named, but for simplicity of the tree, we leave it hidden.
+  active_char[@name="active_char"],
+  // comment[@name="comment"], Every comment prefixes a comment, so we don't handle this singularly.
+  invalid_char[@name="invalid_char"],
+
+  /* ============================================================================================== */
+  /*                                         COMMENT TOKENS                                         */
+  /* ============================================================================================== */
+  line_comment[@name="comment"],
+  directive_comment[@dialect="directives"],
+
+  /* ============================================================================================== */
+  /*                                        MATH SHIFT TOKENS                                       */
+  /* ============================================================================================== */
+  left_math_shift[@name="left_math_shift",closedBy="right_math_shift"],
+  right_math_shift[@name="right_math_shift",openedBy="left_math_shift"],
+  left_double_math_shift[@name="left_double_math_shift",closedBy="right_double_math_shift"],
+  right_double_math_shift[@name="right_double_math_shift",openedBy="left_double_math_shift"],
+
+  /* ============================================================================================== */
+  /*                                     CONTROL SEQUENCE TOKENS                                    */
+  /* ============================================================================================== */
+  // Generic command
+  control_sequence_token,
+
+  // Primitive token
+  primitive_token,
+  
+  // Particular commands
+  {{{tokens}}}
+}
+
+// Auxillary groups for capturing the text content of the tokens.
+control_sequence[@name="control_sequence"] {
+  control_sequence_token
+}
+primitive[@name="primitive"] {
+  primitive_token
+}
+directive[@name="directive"] {
+  directive_comment
+}
+// optional_equal[@name="optional_equal"] { @extend<other_char, "="> }
+
+// any_char {
+//   left_brace | right_brace | tab_mark | car_ret | mac_param | sup_mark | sub_mark |
+//   ignore | letter | other_char | active_char | invalid_char
+// }
+
+// // TeX numbers
+// integer[@name="integer"] { sign* (dec_number | oct_number | hex_number | alpha_number) }
+
+// // The sign of an integer
+// sign[@name="sign"] { @extend<other_char, "+" | "-"> }
+
+// // Various types of digits
+oct_digit { @extend<other_char, "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> }
+dec_digit { oct_digit | @extend<other_char, "9"> }
+// hex_digit { dec_digit | @extend<other_char, "A" | "B" | "C" | "D" | "E" | "F"> | @extend<letter, "A" | "B" | "C" | "D" | "E" | "F"> }
+
+// // Numbers in various bases
+// dec_number { dec_digit+ }
+// oct_number { @extend<other_char, "'"> oct_digit+ }
+// hex_number { @extend<other_char, "\""> hex_digit+ }
+// alpha_number { @extend<other_char, "`"> (control_sequence | any_char) }

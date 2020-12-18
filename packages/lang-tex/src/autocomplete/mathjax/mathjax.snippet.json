@@ -1,0 +1,3417 @@
+[
+  {
+    "label": "\\Arrowvert",
+    "snippet": "\\Arrowvert",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bbbk",
+    "snippet": "\\Bbbk",
+    "type": "constant"
+  },
+  {
+    "label": "\\Big",
+    "snippet": "\\Big",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bigg",
+    "snippet": "\\Bigg",
+    "type": "constant"
+  },
+  {
+    "label": "\\Biggl",
+    "snippet": "\\Biggl",
+    "type": "constant"
+  },
+  {
+    "label": "\\Biggr",
+    "snippet": "\\Biggr",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bigl",
+    "snippet": "\\Bigl",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bigm",
+    "snippet": "\\Bigm",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bigr",
+    "snippet": "\\Bigr",
+    "type": "constant"
+  },
+  {
+    "label": "\\Box",
+    "snippet": "\\Box",
+    "type": "constant"
+  },
+  {
+    "label": "\\Bumpeq",
+    "snippet": "\\Bumpeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\Cap",
+    "snippet": "\\Cap",
+    "type": "constant"
+  },
+  {
+    "label": "\\cite[#{}]{#{}}",
+    "snippet": "\\cite[#{}]{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\cite",
+    "snippet": "\\cite{#{}}",
+    "type": "constant"
+  },
+  {
+    "label": "\\Cup",
+    "snippet": "\\Cup",
+    "type": "constant"
+  },
+  {
+    "label": "\\DeclareMathOperator{#{}}{#{}}",
+    "snippet": "\\DeclareMathOperator{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\Delta",
+    "snippet": "\\Delta",
+    "type": "constant"
+  },
+  {
+    "label": "\\Downarrow",
+    "snippet": "\\Downarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Finv",
+    "snippet": "\\Finv",
+    "type": "constant"
+  },
+  {
+    "label": "\\Game",
+    "snippet": "\\Game",
+    "type": "constant"
+  },
+  {
+    "label": "\\Gamma",
+    "snippet": "\\Gamma",
+    "type": "constant"
+  },
+  {
+    "label": "\\Im",
+    "snippet": "\\Im",
+    "type": "constant"
+  },
+  {
+    "label": "\\Lambda",
+    "snippet": "\\Lambda",
+    "type": "constant"
+  },
+  {
+    "label": "\\Leftarrow",
+    "snippet": "\\Leftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Leftrightarrow",
+    "snippet": "\\Leftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Lleftarrow",
+    "snippet": "\\Lleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Longleftarrow",
+    "snippet": "\\Longleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Longleftrightarrow",
+    "snippet": "\\Longleftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Longrightarrow",
+    "snippet": "\\Longrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Lsh",
+    "snippet": "\\Lsh",
+    "type": "constant"
+  },
+  {
+    "label": "\\Omega",
+    "snippet": "\\Omega",
+    "type": "constant"
+  },
+  {
+    "label": "\\Phi",
+    "snippet": "\\Phi",
+    "type": "constant"
+  },
+  {
+    "label": "\\Pi",
+    "snippet": "\\Pi",
+    "type": "constant"
+  },
+  {
+    "label": "\\Pr",
+    "snippet": "\\Pr",
+    "type": "constant"
+  },
+  {
+    "label": "\\Psi",
+    "snippet": "\\Psi",
+    "type": "constant"
+  },
+  {
+    "label": "\\Re",
+    "snippet": "\\Re",
+    "type": "constant"
+  },
+  {
+    "label": "\\Rightarrow",
+    "snippet": "\\Rightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Rrightarrow",
+    "snippet": "\\Rrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Rsh",
+    "snippet": "\\Rsh",
+    "type": "constant"
+  },
+  {
+    "label": "\\S",
+    "snippet": "\\S",
+    "type": "constant"
+  },
+  {
+    "label": "\\Sigma",
+    "snippet": "\\Sigma",
+    "type": "constant"
+  },
+  {
+    "label": "\\Subset",
+    "snippet": "\\Subset",
+    "type": "constant"
+  },
+  {
+    "label": "\\Supset",
+    "snippet": "\\Supset",
+    "type": "constant"
+  },
+  {
+    "label": "\\TeX",
+    "snippet": "\\TeX",
+    "type": "constant"
+  },
+  {
+    "label": "\\Theta",
+    "snippet": "\\Theta",
+    "type": "constant"
+  },
+  {
+    "label": "\\Uparrow",
+    "snippet": "\\Uparrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Updownarrow",
+    "snippet": "\\Updownarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\Upsilon",
+    "snippet": "\\Upsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\Vdash",
+    "snippet": "\\Vdash",
+    "type": "constant"
+  },
+  {
+    "label": "\\Vert",
+    "snippet": "\\Vert",
+    "type": "constant"
+  },
+  {
+    "label": "\\Vvdash",
+    "snippet": "\\Vvdash",
+    "type": "constant"
+  },
+  {
+    "label": "\\Xi",
+    "snippet": "\\Xi",
+    "type": "constant"
+  },
+  {
+    "label": "\\above",
+    "snippet": "\\above",
+    "type": "constant"
+  },
+  {
+    "label": "\\abovewithdelims",
+    "snippet": "\\abovewithdelims",
+    "type": "constant"
+  },
+  {
+    "label": "\\acute{#{}}",
+    "snippet": "\\acute{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\aleph",
+    "snippet": "\\aleph",
+    "type": "constant"
+  },
+  {
+    "label": "\\alpha",
+    "snippet": "\\alpha",
+    "type": "constant"
+  },
+  {
+    "label": "\\amalg",
+    "snippet": "\\amalg",
+    "type": "constant"
+  },
+  {
+    "label": "\\angle",
+    "snippet": "\\angle",
+    "type": "constant"
+  },
+  {
+    "label": "\\approx",
+    "snippet": "\\approx",
+    "type": "constant"
+  },
+  {
+    "label": "\\approxeq",
+    "snippet": "\\approxeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\arccos",
+    "snippet": "\\arccos",
+    "type": "constant"
+  },
+  {
+    "label": "\\arcsin",
+    "snippet": "\\arcsin",
+    "type": "constant"
+  },
+  {
+    "label": "\\arctan",
+    "snippet": "\\arctan",
+    "type": "constant"
+  },
+  {
+    "label": "\\arg",
+    "snippet": "\\arg",
+    "type": "constant"
+  },
+  {
+    "label": "\\arrowvert",
+    "snippet": "\\arrowvert",
+    "type": "constant"
+  },
+  {
+    "label": "\\ast",
+    "snippet": "\\ast",
+    "type": "constant"
+  },
+  {
+    "label": "\\asymp",
+    "snippet": "\\asymp",
+    "type": "constant"
+  },
+  {
+    "label": "\\atop",
+    "snippet": "\\atop",
+    "type": "constant"
+  },
+  {
+    "label": "\\atopwithdelims",
+    "snippet": "\\atopwithdelims",
+    "type": "constant"
+  },
+  {
+    "label": "\\backepsilon",
+    "snippet": "\\backepsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\backprime",
+    "snippet": "\\backprime",
+    "type": "constant"
+  },
+  {
+    "label": "\\backsim",
+    "snippet": "\\backsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\backsimeq",
+    "snippet": "\\backsimeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\backslash",
+    "snippet": "\\backslash",
+    "type": "constant"
+  },
+  {
+    "label": "\\bar{#{}}",
+    "snippet": "\\bar{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\barwedge",
+    "snippet": "\\barwedge",
+    "type": "constant"
+  },
+  {
+    "label": "\\because",
+    "snippet": "\\because",
+    "type": "constant"
+  },
+  {
+    "label": "\\beta",
+    "snippet": "\\beta",
+    "type": "constant"
+  },
+  {
+    "label": "\\beth",
+    "snippet": "\\beth",
+    "type": "constant"
+  },
+  {
+    "label": "\\between",
+    "snippet": "\\between",
+    "type": "constant"
+  },
+  {
+    "label": "\\bf",
+    "snippet": "\\bf",
+    "type": "constant"
+  },
+  {
+    "label": "\\big",
+    "snippet": "\\big",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigcap",
+    "snippet": "\\bigcap",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigcirc",
+    "snippet": "\\bigcirc",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigcup",
+    "snippet": "\\bigcup",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigg",
+    "snippet": "\\bigg",
+    "type": "constant"
+  },
+  {
+    "label": "\\biggl",
+    "snippet": "\\biggl",
+    "type": "constant"
+  },
+  {
+    "label": "\\biggm",
+    "snippet": "\\biggm",
+    "type": "constant"
+  },
+  {
+    "label": "\\biggr",
+    "snippet": "\\biggr",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigl",
+    "snippet": "\\bigl",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigm",
+    "snippet": "\\bigm",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigodot",
+    "snippet": "\\bigodot",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigoplus",
+    "snippet": "\\bigoplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigotimes",
+    "snippet": "\\bigotimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigr\\}",
+    "snippet": "\\bigr\\}",
+    "type": "function"
+  },
+  {
+    "label": "\\bigsqcup",
+    "snippet": "\\bigsqcup",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigstar",
+    "snippet": "\\bigstar",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigtriangledown",
+    "snippet": "\\bigtriangledown",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigtriangleup",
+    "snippet": "\\bigtriangleup",
+    "type": "constant"
+  },
+  {
+    "label": "\\biguplus",
+    "snippet": "\\biguplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigvee",
+    "snippet": "\\bigvee",
+    "type": "constant"
+  },
+  {
+    "label": "\\bigwedge",
+    "snippet": "\\bigwedge",
+    "type": "constant"
+  },
+  {
+    "label": "\\binom{#{}}{#{}}",
+    "snippet": "\\binom{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\blacklozenge",
+    "snippet": "\\blacklozenge",
+    "type": "constant"
+  },
+  {
+    "label": "\\blacksquare",
+    "snippet": "\\blacksquare",
+    "type": "constant"
+  },
+  {
+    "label": "\\blacktriangle",
+    "snippet": "\\blacktriangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\blacktriangledown",
+    "snippet": "\\blacktriangledown",
+    "type": "constant"
+  },
+  {
+    "label": "\\blacktriangleleft",
+    "snippet": "\\blacktriangleleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\blacktriangleright",
+    "snippet": "\\blacktriangleright",
+    "type": "constant"
+  },
+  {
+    "label": "\\bmod",
+    "snippet": "\\bmod",
+    "type": "constant"
+  },
+  {
+    "label": "\\boldsymbol{#{}}",
+    "snippet": "\\boldsymbol{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\bot",
+    "snippet": "\\bot",
+    "type": "constant"
+  },
+  {
+    "label": "\\bowtie",
+    "snippet": "\\bowtie",
+    "type": "constant"
+  },
+  {
+    "label": "\\boxdot",
+    "snippet": "\\boxdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\boxed{#{}}",
+    "snippet": "\\boxed{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\boxminus",
+    "snippet": "\\boxminus",
+    "type": "constant"
+  },
+  {
+    "label": "\\boxplus",
+    "snippet": "\\boxplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\boxtimes",
+    "snippet": "\\boxtimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\brace",
+    "snippet": "\\brace",
+    "type": "constant"
+  },
+  {
+    "label": "\\bracevert",
+    "snippet": "\\bracevert",
+    "type": "constant"
+  },
+  {
+    "label": "\\brack",
+    "snippet": "\\brack",
+    "type": "constant"
+  },
+  {
+    "label": "\\breve{#{}}",
+    "snippet": "\\breve{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\buildrel",
+    "snippet": "\\buildrel",
+    "type": "constant"
+  },
+  {
+    "label": "\\bullet",
+    "snippet": "\\bullet",
+    "type": "constant"
+  },
+  {
+    "label": "\\bumpeq",
+    "snippet": "\\bumpeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\cal",
+    "snippet": "\\cal",
+    "type": "constant"
+  },
+  {
+    "label": "\\cap",
+    "snippet": "\\cap",
+    "type": "constant"
+  },
+  {
+    "label": "\\cases{#{}}",
+    "snippet": "\\cases{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\cdot",
+    "snippet": "\\cdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\cdotp",
+    "snippet": "\\cdotp",
+    "type": "constant"
+  },
+  {
+    "label": "\\cdots",
+    "snippet": "\\cdots",
+    "type": "constant"
+  },
+  {
+    "label": "\\centerdot",
+    "snippet": "\\centerdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\cfrac{#{}}{#{}}",
+    "snippet": "\\cfrac{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\check{#{}}",
+    "snippet": "\\check{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\checkmark",
+    "snippet": "\\checkmark",
+    "type": "constant"
+  },
+  {
+    "label": "\\chi",
+    "snippet": "\\chi",
+    "type": "constant"
+  },
+  {
+    "label": "\\choose",
+    "snippet": "\\choose",
+    "type": "constant"
+  },
+  {
+    "label": "\\circ",
+    "snippet": "\\circ",
+    "type": "constant"
+  },
+  {
+    "label": "\\circeq",
+    "snippet": "\\circeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\circlearrowleft",
+    "snippet": "\\circlearrowleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\circlearrowright",
+    "snippet": "\\circlearrowright",
+    "type": "constant"
+  },
+  {
+    "label": "\\circledS",
+    "snippet": "\\circledS",
+    "type": "constant"
+  },
+  {
+    "label": "\\circledast",
+    "snippet": "\\circledast",
+    "type": "constant"
+  },
+  {
+    "label": "\\circledcirc",
+    "snippet": "\\circledcirc",
+    "type": "constant"
+  },
+  {
+    "label": "\\circleddash",
+    "snippet": "\\circleddash",
+    "type": "constant"
+  },
+  {
+    "label": "\\clubsuit",
+    "snippet": "\\clubsuit",
+    "type": "constant"
+  },
+  {
+    "label": "\\colon",
+    "snippet": "\\colon",
+    "type": "constant"
+  },
+  {
+    "label": "\\complement",
+    "snippet": "\\complement",
+    "type": "constant"
+  },
+  {
+    "label": "\\cong",
+    "snippet": "\\cong",
+    "type": "constant"
+  },
+  {
+    "label": "\\coprod",
+    "snippet": "\\coprod",
+    "type": "constant"
+  },
+  {
+    "label": "\\cos",
+    "snippet": "\\cos",
+    "type": "constant"
+  },
+  {
+    "label": "\\cosh",
+    "snippet": "\\cosh",
+    "type": "constant"
+  },
+  {
+    "label": "\\cot",
+    "snippet": "\\cot",
+    "type": "constant"
+  },
+  {
+    "label": "\\coth",
+    "snippet": "\\coth",
+    "type": "constant"
+  },
+  {
+    "label": "\\cr",
+    "snippet": "\\cr",
+    "type": "constant"
+  },
+  {
+    "label": "\\csc",
+    "snippet": "\\csc",
+    "type": "constant"
+  },
+  {
+    "label": "\\cup",
+    "snippet": "\\cup",
+    "type": "constant"
+  },
+  {
+    "label": "\\curlyeqprec",
+    "snippet": "\\curlyeqprec",
+    "type": "constant"
+  },
+  {
+    "label": "\\curlyeqsucc",
+    "snippet": "\\curlyeqsucc",
+    "type": "constant"
+  },
+  {
+    "label": "\\curlyvee",
+    "snippet": "\\curlyvee",
+    "type": "constant"
+  },
+  {
+    "label": "\\curlywedge",
+    "snippet": "\\curlywedge",
+    "type": "constant"
+  },
+  {
+    "label": "\\curvearrowleft",
+    "snippet": "\\curvearrowleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\curvearrowright",
+    "snippet": "\\curvearrowright",
+    "type": "constant"
+  },
+  {
+    "label": "\\dagger",
+    "snippet": "\\dagger",
+    "type": "constant"
+  },
+  {
+    "label": "\\daleth",
+    "snippet": "\\daleth",
+    "type": "constant"
+  },
+  {
+    "label": "\\dashleftarrow",
+    "snippet": "\\dashleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\dashrightarrow",
+    "snippet": "\\dashrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\dashv",
+    "snippet": "\\dashv",
+    "type": "constant"
+  },
+  {
+    "label": "\\dbinom{#{}}{#{}}",
+    "snippet": "\\dbinom{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\ddagger",
+    "snippet": "\\ddagger",
+    "type": "constant"
+  },
+  {
+    "label": "\\ddddot{#{}}",
+    "snippet": "\\ddddot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\dddot{#{}}",
+    "snippet": "\\dddot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\ddot{#{}}",
+    "snippet": "\\ddot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\ddots",
+    "snippet": "\\ddots",
+    "type": "constant"
+  },
+  {
+    "label": "\\def",
+    "snippet": "\\def",
+    "type": "constant"
+  },
+  {
+    "label": "\\deg",
+    "snippet": "\\deg",
+    "type": "constant"
+  },
+  {
+    "label": "\\delta",
+    "snippet": "\\delta",
+    "type": "constant"
+  },
+  {
+    "label": "\\det",
+    "snippet": "\\det",
+    "type": "constant"
+  },
+  {
+    "label": "\\dfrac{#{}}{#{}}",
+    "snippet": "\\dfrac{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\diagdown",
+    "snippet": "\\diagdown",
+    "type": "constant"
+  },
+  {
+    "label": "\\diagup",
+    "snippet": "\\diagup",
+    "type": "constant"
+  },
+  {
+    "label": "\\diamond",
+    "snippet": "\\diamond",
+    "type": "constant"
+  },
+  {
+    "label": "\\diamondsuit",
+    "snippet": "\\diamondsuit",
+    "type": "constant"
+  },
+  {
+    "label": "\\digamma",
+    "snippet": "\\digamma",
+    "type": "constant"
+  },
+  {
+    "label": "\\dim",
+    "snippet": "\\dim",
+    "type": "constant"
+  },
+  {
+    "label": "\\displaylines",
+    "snippet": "\\displaylines",
+    "type": "constant"
+  },
+  {
+    "label": "\\displaystyle",
+    "snippet": "\\displaystyle",
+    "type": "constant"
+  },
+  {
+    "label": "\\div",
+    "snippet": "\\div",
+    "type": "constant"
+  },
+  {
+    "label": "\\divideontimes",
+    "snippet": "\\divideontimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\dot{#{}}",
+    "snippet": "\\dot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\doteq",
+    "snippet": "\\doteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\doteqdot",
+    "snippet": "\\doteqdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotplus",
+    "snippet": "\\dotplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\dots",
+    "snippet": "\\dots",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotsb",
+    "snippet": "\\dotsb",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotsc",
+    "snippet": "\\dotsc",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotsi",
+    "snippet": "\\dotsi",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotsm",
+    "snippet": "\\dotsm",
+    "type": "constant"
+  },
+  {
+    "label": "\\dotso",
+    "snippet": "\\dotso",
+    "type": "constant"
+  },
+  {
+    "label": "\\doublebarwedge",
+    "snippet": "\\doublebarwedge",
+    "type": "constant"
+  },
+  {
+    "label": "\\downarrow",
+    "snippet": "\\downarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\downdownarrows",
+    "snippet": "\\downdownarrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\downharpoonleft",
+    "snippet": "\\downharpoonleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\downharpoonright",
+    "snippet": "\\downharpoonright",
+    "type": "constant"
+  },
+  {
+    "label": "\\ell",
+    "snippet": "\\ell",
+    "type": "constant"
+  },
+  {
+    "label": "\\emptyset",
+    "snippet": "\\emptyset",
+    "type": "constant"
+  },
+  {
+    "label": "\\enspace",
+    "snippet": "\\enspace",
+    "type": "constant"
+  },
+  {
+    "label": "\\epsilon",
+    "snippet": "\\epsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\eqalign{#{}}",
+    "snippet": "\\eqalign{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\eqalignno{#{}}",
+    "snippet": "\\eqalignno{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\eqcirc",
+    "snippet": "\\eqcirc",
+    "type": "constant"
+  },
+  {
+    "label": "\\eqref{#{}}",
+    "snippet": "\\eqref{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\eqsim",
+    "snippet": "\\eqsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\eqslantgtr",
+    "snippet": "\\eqslantgtr",
+    "type": "constant"
+  },
+  {
+    "label": "\\eqslantless",
+    "snippet": "\\eqslantless",
+    "type": "constant"
+  },
+  {
+    "label": "\\equiv",
+    "snippet": "\\equiv",
+    "type": "constant"
+  },
+  {
+    "label": "\\eta",
+    "snippet": "\\eta",
+    "type": "constant"
+  },
+  {
+    "label": "\\eth",
+    "snippet": "\\eth",
+    "type": "constant"
+  },
+  {
+    "label": "\\exists",
+    "snippet": "\\exists",
+    "type": "constant"
+  },
+  {
+    "label": "\\exp",
+    "snippet": "\\exp",
+    "type": "constant"
+  },
+  {
+    "label": "\\fallingdotseq",
+    "snippet": "\\fallingdotseq",
+    "type": "constant"
+  },
+  {
+    "label": "\\flat",
+    "snippet": "\\flat",
+    "type": "constant"
+  },
+  {
+    "label": "\\forall",
+    "snippet": "\\forall",
+    "type": "constant"
+  },
+  {
+    "label": "\\frown",
+    "snippet": "\\frown",
+    "type": "constant"
+  },
+  {
+    "label": "\\gamma",
+    "snippet": "\\gamma",
+    "type": "constant"
+  },
+  {
+    "label": "\\gcd",
+    "snippet": "\\gcd",
+    "type": "constant"
+  },
+  {
+    "label": "\\ge",
+    "snippet": "\\ge",
+    "type": "constant"
+  },
+  {
+    "label": "\\geq",
+    "snippet": "\\geq",
+    "type": "constant"
+  },
+  {
+    "label": "\\geqq",
+    "snippet": "\\geqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\geqslant",
+    "snippet": "\\geqslant",
+    "type": "constant"
+  },
+  {
+    "label": "\\gets",
+    "snippet": "\\gets",
+    "type": "constant"
+  },
+  {
+    "label": "\\gg",
+    "snippet": "\\gg",
+    "type": "constant"
+  },
+  {
+    "label": "\\ggg",
+    "snippet": "\\ggg",
+    "type": "constant"
+  },
+  {
+    "label": "\\gimel",
+    "snippet": "\\gimel",
+    "type": "constant"
+  },
+  {
+    "label": "\\gnapprox",
+    "snippet": "\\gnapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\gneq",
+    "snippet": "\\gneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\gneqq",
+    "snippet": "\\gneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\gnsim",
+    "snippet": "\\gnsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\grave{#{}}",
+    "snippet": "\\grave{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\gtrapprox",
+    "snippet": "\\gtrapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\gtrdot",
+    "snippet": "\\gtrdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\gtreqless",
+    "snippet": "\\gtreqless",
+    "type": "constant"
+  },
+  {
+    "label": "\\gtreqqless",
+    "snippet": "\\gtreqqless",
+    "type": "constant"
+  },
+  {
+    "label": "\\gtrless",
+    "snippet": "\\gtrless",
+    "type": "constant"
+  },
+  {
+    "label": "\\gtrsim",
+    "snippet": "\\gtrsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\gvertneqq",
+    "snippet": "\\gvertneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\hat{#{}}",
+    "snippet": "\\hat{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\hbar",
+    "snippet": "\\hbar",
+    "type": "constant"
+  },
+  {
+    "label": "\\hbox",
+    "snippet": "\\hbox",
+    "type": "constant"
+  },
+  {
+    "label": "\\heartsuit",
+    "snippet": "\\heartsuit",
+    "type": "constant"
+  },
+  {
+    "label": "\\hfil",
+    "snippet": "\\hfil",
+    "type": "constant"
+  },
+  {
+    "label": "\\hfill",
+    "snippet": "\\hfill",
+    "type": "constant"
+  },
+  {
+    "label": "\\hom",
+    "snippet": "\\hom",
+    "type": "constant"
+  },
+  {
+    "label": "\\hookleftarrow",
+    "snippet": "\\hookleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\hookrightarrow",
+    "snippet": "\\hookrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\hphantom{#{}}",
+    "snippet": "\\hphantom{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\hskip",
+    "snippet": "\\hskip",
+    "type": "constant"
+  },
+  {
+    "label": "\\hslash",
+    "snippet": "\\hslash",
+    "type": "constant"
+  },
+  {
+    "label": "\\idotsint",
+    "snippet": "\\idotsint",
+    "type": "constant"
+  },
+  {
+    "label": "\\iff",
+    "snippet": "\\iff",
+    "type": "constant"
+  },
+  {
+    "label": "\\iiiint",
+    "snippet": "\\iiiint",
+    "type": "constant"
+  },
+  {
+    "label": "\\iiint",
+    "snippet": "\\iiint",
+    "type": "constant"
+  },
+  {
+    "label": "\\iint",
+    "snippet": "\\iint",
+    "type": "constant"
+  },
+  {
+    "label": "\\imath",
+    "snippet": "\\imath",
+    "type": "constant"
+  },
+  {
+    "label": "\\impliedby",
+    "snippet": "\\impliedby",
+    "type": "constant"
+  },
+  {
+    "label": "\\implies",
+    "snippet": "\\implies",
+    "type": "constant"
+  },
+  {
+    "label": "\\in",
+    "snippet": "\\in",
+    "type": "constant"
+  },
+  {
+    "label": "\\inf",
+    "snippet": "\\inf",
+    "type": "constant"
+  },
+  {
+    "label": "\\infty",
+    "snippet": "\\infty",
+    "type": "constant"
+  },
+  {
+    "label": "\\injlim",
+    "snippet": "\\injlim",
+    "type": "constant"
+  },
+  {
+    "label": "\\int\\limits_{#{}}^{#{}}",
+    "snippet": "\\int\\limits_{#{}}^{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\intercal",
+    "snippet": "\\intercal",
+    "type": "constant"
+  },
+  {
+    "label": "\\iota",
+    "snippet": "\\iota",
+    "type": "constant"
+  },
+  {
+    "label": "\\it",
+    "snippet": "\\it",
+    "type": "constant"
+  },
+  {
+    "label": "\\jmath",
+    "snippet": "\\jmath",
+    "type": "constant"
+  },
+  {
+    "label": "\\kappa",
+    "snippet": "\\kappa",
+    "type": "constant"
+  },
+  {
+    "label": "\\ker",
+    "snippet": "\\ker",
+    "type": "constant"
+  },
+  {
+    "label": "\\kern",
+    "snippet": "\\kern",
+    "type": "constant"
+  },
+  {
+    "label": "\\lVert",
+    "snippet": "\\lVert",
+    "type": "constant"
+  },
+  {
+    "label": "\\lambda",
+    "snippet": "\\lambda",
+    "type": "constant"
+  },
+  {
+    "label": "\\land",
+    "snippet": "\\land",
+    "type": "constant"
+  },
+  {
+    "label": "\\langle",
+    "snippet": "\\langle",
+    "type": "constant"
+  },
+  {
+    "label": "\\lbrace",
+    "snippet": "\\lbrace",
+    "type": "constant"
+  },
+  {
+    "label": "\\lbrack",
+    "snippet": "\\lbrack",
+    "type": "constant"
+  },
+  {
+    "label": "\\lceil",
+    "snippet": "\\lceil",
+    "type": "constant"
+  },
+  {
+    "label": "\\ldotp",
+    "snippet": "\\ldotp",
+    "type": "constant"
+  },
+  {
+    "label": "\\ldots",
+    "snippet": "\\ldots",
+    "type": "constant"
+  },
+  {
+    "label": "\\le",
+    "snippet": "\\le",
+    "type": "constant"
+  },
+  {
+    "label": "\\left",
+    "snippet": "\\left",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftarrow",
+    "snippet": "\\leftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftarrowtail",
+    "snippet": "\\leftarrowtail",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftharpoondown",
+    "snippet": "\\leftharpoondown",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftharpoonup",
+    "snippet": "\\leftharpoonup",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftleftarrows",
+    "snippet": "\\leftleftarrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftrightarrow",
+    "snippet": "\\leftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftrightarrows",
+    "snippet": "\\leftrightarrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftrightharpoons",
+    "snippet": "\\leftrightharpoons",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftrightsquigarrow",
+    "snippet": "\\leftrightsquigarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\leftroot{#{}}",
+    "snippet": "\\leftroot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\leftthreetimes",
+    "snippet": "\\leftthreetimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\leq",
+    "snippet": "\\leq",
+    "type": "constant"
+  },
+  {
+    "label": "\\leqalignno{#{}}",
+    "snippet": "\\leqalignno{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\leqq",
+    "snippet": "\\leqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\leqslant",
+    "snippet": "\\leqslant",
+    "type": "constant"
+  },
+  {
+    "label": "\\lessapprox",
+    "snippet": "\\lessapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\lessdot",
+    "snippet": "\\lessdot",
+    "type": "constant"
+  },
+  {
+    "label": "\\lesseqgtr",
+    "snippet": "\\lesseqgtr",
+    "type": "constant"
+  },
+  {
+    "label": "\\lesseqqgtr",
+    "snippet": "\\lesseqqgtr",
+    "type": "constant"
+  },
+  {
+    "label": "\\lessgtr",
+    "snippet": "\\lessgtr",
+    "type": "constant"
+  },
+  {
+    "label": "\\lesssim",
+    "snippet": "\\lesssim",
+    "type": "constant"
+  },
+  {
+    "label": "\\let{#{}}{#{}}",
+    "snippet": "\\let{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\lfloor",
+    "snippet": "\\lfloor",
+    "type": "constant"
+  },
+  {
+    "label": "\\lg",
+    "snippet": "\\lg",
+    "type": "constant"
+  },
+  {
+    "label": "\\lgroup",
+    "snippet": "\\lgroup",
+    "type": "constant"
+  },
+  {
+    "label": "\\lhd",
+    "snippet": "\\lhd",
+    "type": "constant"
+  },
+  {
+    "label": "\\lim",
+    "snippet": "\\lim",
+    "type": "constant"
+  },
+  {
+    "label": "\\liminf",
+    "snippet": "\\liminf",
+    "type": "constant"
+  },
+  {
+    "label": "\\limits_{#{}}^{#{}}",
+    "snippet": "\\limits_{#{}}^{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\limsup",
+    "snippet": "\\limsup",
+    "type": "constant"
+  },
+  {
+    "label": "\\ll",
+    "snippet": "\\ll",
+    "type": "constant"
+  },
+  {
+    "label": "\\llap{#{}}",
+    "snippet": "\\llap{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\llcorner",
+    "snippet": "\\llcorner",
+    "type": "constant"
+  },
+  {
+    "label": "\\lll",
+    "snippet": "\\lll",
+    "type": "constant"
+  },
+  {
+    "label": "\\lmoustache",
+    "snippet": "\\lmoustache",
+    "type": "constant"
+  },
+  {
+    "label": "\\ln",
+    "snippet": "\\ln",
+    "type": "constant"
+  },
+  {
+    "label": "\\lnapprox",
+    "snippet": "\\lnapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\lneq",
+    "snippet": "\\lneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\lneqq",
+    "snippet": "\\lneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\lnot",
+    "snippet": "\\lnot",
+    "type": "constant"
+  },
+  {
+    "label": "\\lnsim",
+    "snippet": "\\lnsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\log",
+    "snippet": "\\log",
+    "type": "constant"
+  },
+  {
+    "label": "\\longleftarrow",
+    "snippet": "\\longleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\longleftrightarrow",
+    "snippet": "\\longleftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\longmapsto",
+    "snippet": "\\longmapsto",
+    "type": "constant"
+  },
+  {
+    "label": "\\longrightarrow",
+    "snippet": "\\longrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\looparrowleft",
+    "snippet": "\\looparrowleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\looparrowright",
+    "snippet": "\\looparrowright",
+    "type": "constant"
+  },
+  {
+    "label": "\\lor",
+    "snippet": "\\lor",
+    "type": "constant"
+  },
+  {
+    "label": "\\lower",
+    "snippet": "\\lower",
+    "type": "constant"
+  },
+  {
+    "label": "\\lozenge",
+    "snippet": "\\lozenge",
+    "type": "constant"
+  },
+  {
+    "label": "\\lrcorner",
+    "snippet": "\\lrcorner",
+    "type": "constant"
+  },
+  {
+    "label": "\\ltimes",
+    "snippet": "\\ltimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\lvert",
+    "snippet": "\\lvert",
+    "type": "constant"
+  },
+  {
+    "label": "\\lvertneqq",
+    "snippet": "\\lvertneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\maltese",
+    "snippet": "\\maltese",
+    "type": "constant"
+  },
+  {
+    "label": "\\mapsto",
+    "snippet": "\\mapsto",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathbb{#{}}",
+    "snippet": "\\mathbb{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\mathbf{#{}}",
+    "snippet": "\\mathbf{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\mathbin",
+    "snippet": "\\mathbin",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathchoice",
+    "snippet": "\\mathchoice",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathclose",
+    "snippet": "\\mathclose",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathfrak{#{}}",
+    "snippet": "\\mathfrak{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\mathinner",
+    "snippet": "\\mathinner",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathop",
+    "snippet": "\\mathop",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathopen",
+    "snippet": "\\mathopen",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathord",
+    "snippet": "\\mathord",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathpunct",
+    "snippet": "\\mathpunct",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathrel",
+    "snippet": "\\mathrel",
+    "type": "constant"
+  },
+  {
+    "label": "\\mathstrut",
+    "snippet": "\\mathstrut",
+    "type": "constant"
+  },
+  {
+    "label": "\\matrix{#{}}",
+    "snippet": "\\matrix{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\max",
+    "snippet": "\\max",
+    "type": "constant"
+  },
+  {
+    "label": "\\measuredangle",
+    "snippet": "\\measuredangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\mho",
+    "snippet": "\\mho",
+    "type": "constant"
+  },
+  {
+    "label": "\\mid",
+    "snippet": "\\mid",
+    "type": "constant"
+  },
+  {
+    "label": "\\middle",
+    "snippet": "\\middle",
+    "type": "constant"
+  },
+  {
+    "label": "\\min",
+    "snippet": "\\min",
+    "type": "constant"
+  },
+  {
+    "label": "\\mit",
+    "snippet": "\\mit",
+    "type": "constant"
+  },
+  {
+    "label": "\\mkern",
+    "snippet": "\\mkern",
+    "type": "constant"
+  },
+  {
+    "label": "\\mod",
+    "snippet": "\\mod",
+    "type": "constant"
+  },
+  {
+    "label": "\\models",
+    "snippet": "\\models",
+    "type": "constant"
+  },
+  {
+    "label": "\\moveleft",
+    "snippet": "\\moveleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\moveright",
+    "snippet": "\\moveright",
+    "type": "constant"
+  },
+  {
+    "label": "\\mp",
+    "snippet": "\\mp",
+    "type": "constant"
+  },
+  {
+    "label": "\\mskip",
+    "snippet": "\\mskip",
+    "type": "constant"
+  },
+  {
+    "label": "\\mspace{#{}}",
+    "snippet": "\\mspace{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\mu",
+    "snippet": "\\mu",
+    "type": "constant"
+  },
+  {
+    "label": "\\multimap",
+    "snippet": "\\multimap",
+    "type": "constant"
+  },
+  {
+    "label": "\\nLeftarrow",
+    "snippet": "\\nLeftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nLeftrightarrow",
+    "snippet": "\\nLeftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nRightarrow",
+    "snippet": "\\nRightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nVDash",
+    "snippet": "\\nVDash",
+    "type": "constant"
+  },
+  {
+    "label": "\\nVdash",
+    "snippet": "\\nVdash",
+    "type": "constant"
+  },
+  {
+    "label": "\\nabla",
+    "snippet": "\\nabla",
+    "type": "constant"
+  },
+  {
+    "label": "\\natural",
+    "snippet": "\\natural",
+    "type": "constant"
+  },
+  {
+    "label": "\\ncong",
+    "snippet": "\\ncong",
+    "type": "constant"
+  },
+  {
+    "label": "\\ne",
+    "snippet": "\\ne",
+    "type": "constant"
+  },
+  {
+    "label": "\\nearrow",
+    "snippet": "\\nearrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\neg",
+    "snippet": "\\neg",
+    "type": "constant"
+  },
+  {
+    "label": "\\negmedspace",
+    "snippet": "\\negmedspace",
+    "type": "constant"
+  },
+  {
+    "label": "\\negthickspace",
+    "snippet": "\\negthickspace",
+    "type": "constant"
+  },
+  {
+    "label": "\\negthinspace",
+    "snippet": "\\negthinspace",
+    "type": "constant"
+  },
+  {
+    "label": "\\neq",
+    "snippet": "\\neq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nexists",
+    "snippet": "\\nexists",
+    "type": "constant"
+  },
+  {
+    "label": "\\ngeq",
+    "snippet": "\\ngeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\ngeqq",
+    "snippet": "\\ngeqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\ngeqslant",
+    "snippet": "\\ngeqslant",
+    "type": "constant"
+  },
+  {
+    "label": "\\ngtr",
+    "snippet": "\\ngtr",
+    "type": "constant"
+  },
+  {
+    "label": "\\ni",
+    "snippet": "\\ni",
+    "type": "constant"
+  },
+  {
+    "label": "\\nleftarrow",
+    "snippet": "\\nleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nleftrightarrow",
+    "snippet": "\\nleftrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nleq",
+    "snippet": "\\nleq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nleqq",
+    "snippet": "\\nleqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nleqslant",
+    "snippet": "\\nleqslant",
+    "type": "constant"
+  },
+  {
+    "label": "\\nless",
+    "snippet": "\\nless",
+    "type": "constant"
+  },
+  {
+    "label": "\\nmid",
+    "snippet": "\\nmid",
+    "type": "constant"
+  },
+  {
+    "label": "\\nolimits_{#{}}^{#{}}",
+    "snippet": "\\nolimits_{#{}}^{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\not",
+    "snippet": "\\not",
+    "type": "constant"
+  },
+  {
+    "label": "\\notag",
+    "snippet": "\\notag",
+    "type": "constant"
+  },
+  {
+    "label": "\\notin",
+    "snippet": "\\notin",
+    "type": "constant"
+  },
+  {
+    "label": "\\nparallel",
+    "snippet": "\\nparallel",
+    "type": "constant"
+  },
+  {
+    "label": "\\nprec",
+    "snippet": "\\nprec",
+    "type": "constant"
+  },
+  {
+    "label": "\\npreceq",
+    "snippet": "\\npreceq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nrightarrow",
+    "snippet": "\\nrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\nshortmid",
+    "snippet": "\\nshortmid",
+    "type": "constant"
+  },
+  {
+    "label": "\\nshortparallel",
+    "snippet": "\\nshortparallel",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsim",
+    "snippet": "\\nsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsubseteq",
+    "snippet": "\\nsubseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsubseteqq",
+    "snippet": "\\nsubseteqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsucc",
+    "snippet": "\\nsucc",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsucceq",
+    "snippet": "\\nsucceq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsupseteq",
+    "snippet": "\\nsupseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nsupseteqq",
+    "snippet": "\\nsupseteqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\ntriangleleft",
+    "snippet": "\\ntriangleleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\ntrianglelefteq",
+    "snippet": "\\ntrianglelefteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\ntriangleright",
+    "snippet": "\\ntriangleright",
+    "type": "constant"
+  },
+  {
+    "label": "\\ntrianglerighteq",
+    "snippet": "\\ntrianglerighteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\nu",
+    "snippet": "\\nu",
+    "type": "constant"
+  },
+  {
+    "label": "\\nvDash",
+    "snippet": "\\nvDash",
+    "type": "constant"
+  },
+  {
+    "label": "\\nvdash",
+    "snippet": "\\nvdash",
+    "type": "constant"
+  },
+  {
+    "label": "\\nwarrow",
+    "snippet": "\\nwarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\odot",
+    "snippet": "\\odot",
+    "type": "constant"
+  },
+  {
+    "label": "\\oint",
+    "snippet": "\\oint",
+    "type": "constant"
+  },
+  {
+    "label": "\\oldstyle",
+    "snippet": "\\oldstyle",
+    "type": "constant"
+  },
+  {
+    "label": "\\omega",
+    "snippet": "\\omega",
+    "type": "constant"
+  },
+  {
+    "label": "\\ominus",
+    "snippet": "\\ominus",
+    "type": "constant"
+  },
+  {
+    "label": "\\operatorname{#{}}",
+    "snippet": "\\operatorname{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\oplus",
+    "snippet": "\\oplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\oslash",
+    "snippet": "\\oslash",
+    "type": "constant"
+  },
+  {
+    "label": "\\otimes",
+    "snippet": "\\otimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\over",
+    "snippet": "\\over",
+    "type": "constant"
+  },
+  {
+    "label": "\\overbrace{#{}}",
+    "snippet": "\\overbrace{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overleftarrow{#{}}",
+    "snippet": "\\overleftarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overleftrightarrow{#{}}",
+    "snippet": "\\overleftrightarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overline{#{}}",
+    "snippet": "\\overline{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overrightarrow{#{}}",
+    "snippet": "\\overrightarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overset{#{}}{#{}}",
+    "snippet": "\\overset{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\overwithdelims",
+    "snippet": "\\overwithdelims",
+    "type": "constant"
+  },
+  {
+    "label": "\\owns",
+    "snippet": "\\owns",
+    "type": "constant"
+  },
+  {
+    "label": "\\parallel",
+    "snippet": "\\parallel",
+    "type": "constant"
+  },
+  {
+    "label": "\\partial",
+    "snippet": "\\partial",
+    "type": "constant"
+  },
+  {
+    "label": "\\perp",
+    "snippet": "\\perp",
+    "type": "constant"
+  },
+  {
+    "label": "\\phantom{#{}}",
+    "snippet": "\\phantom{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\phi",
+    "snippet": "\\phi",
+    "type": "constant"
+  },
+  {
+    "label": "\\pi",
+    "snippet": "\\pi",
+    "type": "constant"
+  },
+  {
+    "label": "\\pitchfork",
+    "snippet": "\\pitchfork",
+    "type": "constant"
+  },
+  {
+    "label": "\\pm",
+    "snippet": "\\pm",
+    "type": "constant"
+  },
+  {
+    "label": "\\pmatrix{#{}}",
+    "snippet": "\\pmatrix{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\pmb{#{}}",
+    "snippet": "\\pmb{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\pmod",
+    "snippet": "\\pmod",
+    "type": "constant"
+  },
+  {
+    "label": "\\pod",
+    "snippet": "\\pod",
+    "type": "constant"
+  },
+  {
+    "label": "\\prec",
+    "snippet": "\\prec",
+    "type": "constant"
+  },
+  {
+    "label": "\\precapprox",
+    "snippet": "\\precapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\preccurlyeq",
+    "snippet": "\\preccurlyeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\preceq",
+    "snippet": "\\preceq",
+    "type": "constant"
+  },
+  {
+    "label": "\\precnapprox",
+    "snippet": "\\precnapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\precneqq",
+    "snippet": "\\precneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\precnsim",
+    "snippet": "\\precnsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\precsim",
+    "snippet": "\\precsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\prime",
+    "snippet": "\\prime",
+    "type": "constant"
+  },
+  {
+    "label": "\\prod\\limits_{#{}}^{#{}}",
+    "snippet": "\\prod\\limits_{#{}}^{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\projlim",
+    "snippet": "\\projlim",
+    "type": "constant"
+  },
+  {
+    "label": "\\propto",
+    "snippet": "\\propto",
+    "type": "constant"
+  },
+  {
+    "label": "\\psi",
+    "snippet": "\\psi",
+    "type": "constant"
+  },
+  {
+    "label": "\\qquad",
+    "snippet": "\\qquad",
+    "type": "constant"
+  },
+  {
+    "label": "\\quad",
+    "snippet": "\\quad",
+    "type": "constant"
+  },
+  {
+    "label": "\\rVert",
+    "snippet": "\\rVert",
+    "type": "constant"
+  },
+  {
+    "label": "\\raise",
+    "snippet": "\\raise",
+    "type": "constant"
+  },
+  {
+    "label": "\\rangle",
+    "snippet": "\\rangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\rbrace",
+    "snippet": "\\rbrace",
+    "type": "constant"
+  },
+  {
+    "label": "\\rbrack",
+    "snippet": "\\rbrack",
+    "type": "constant"
+  },
+  {
+    "label": "\\rceil",
+    "snippet": "\\rceil",
+    "type": "constant"
+  },
+  {
+    "label": "\\rfloor",
+    "snippet": "\\rfloor",
+    "type": "constant"
+  },
+  {
+    "label": "\\rgroup",
+    "snippet": "\\rgroup",
+    "type": "constant"
+  },
+  {
+    "label": "\\rhd",
+    "snippet": "\\rhd",
+    "type": "constant"
+  },
+  {
+    "label": "\\rho",
+    "snippet": "\\rho",
+    "type": "constant"
+  },
+  {
+    "label": "\\right",
+    "snippet": "\\right",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightarrow",
+    "snippet": "\\rightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightarrowtail",
+    "snippet": "\\rightarrowtail",
+    "type": "function"
+  },
+  {
+    "label": "\\rightharpoondown",
+    "snippet": "\\rightharpoondown",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightharpoonup",
+    "snippet": "\\rightharpoonup",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightleftarrows",
+    "snippet": "\\rightleftarrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightleftharpoons",
+    "snippet": "\\rightleftharpoons",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightrightarrows",
+    "snippet": "\\rightrightarrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightsquigarrow",
+    "snippet": "\\rightsquigarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\rightthreetimes",
+    "snippet": "\\rightthreetimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\risingdotseq",
+    "snippet": "\\risingdotseq",
+    "type": "constant"
+  },
+  {
+    "label": "\\rlap{#{}}",
+    "snippet": "\\rlap{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\rm",
+    "snippet": "\\rm",
+    "type": "constant"
+  },
+  {
+    "label": "\\rmoustache",
+    "snippet": "\\rmoustache",
+    "type": "constant"
+  },
+  {
+    "label": "\\root #{} \\of #{}",
+    "snippet": "\\root #{} \\of #{}",
+    "type": "function"
+  },
+  {
+    "label": "\\rtimes",
+    "snippet": "\\rtimes",
+    "type": "constant"
+  },
+  {
+    "label": "\\rvert",
+    "snippet": "\\rvert",
+    "type": "constant"
+  },
+  {
+    "label": "\\scriptscriptstyle",
+    "snippet": "\\scriptscriptstyle",
+    "type": "constant"
+  },
+  {
+    "label": "\\scriptstyle",
+    "snippet": "\\scriptstyle",
+    "type": "constant"
+  },
+  {
+    "label": "\\searrow",
+    "snippet": "\\searrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\sec",
+    "snippet": "\\sec",
+    "type": "constant"
+  },
+  {
+    "label": "\\setminus",
+    "snippet": "\\setminus",
+    "type": "constant"
+  },
+  {
+    "label": "\\sharp",
+    "snippet": "\\sharp",
+    "type": "constant"
+  },
+  {
+    "label": "\\shortmid",
+    "snippet": "\\shortmid",
+    "type": "constant"
+  },
+  {
+    "label": "\\shortparallel",
+    "snippet": "\\shortparallel",
+    "type": "constant"
+  },
+  {
+    "label": "\\sideset{#{}}{#{}}{#{}}",
+    "snippet": "\\sideset{#{}}{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\sigma",
+    "snippet": "\\sigma",
+    "type": "constant"
+  },
+  {
+    "label": "\\sim",
+    "snippet": "\\sim",
+    "type": "constant"
+  },
+  {
+    "label": "\\simeq",
+    "snippet": "\\simeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\sin",
+    "snippet": "\\sin",
+    "type": "constant"
+  },
+  {
+    "label": "\\sinh",
+    "snippet": "\\sinh",
+    "type": "constant"
+  },
+  {
+    "label": "\\skew{#{}}{#{}}{#{}}",
+    "snippet": "\\skew{#{}}{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\smallfrown",
+    "snippet": "\\smallfrown",
+    "type": "constant"
+  },
+  {
+    "label": "\\smallint",
+    "snippet": "\\smallint",
+    "type": "constant"
+  },
+  {
+    "label": "\\smallsetminus",
+    "snippet": "\\smallsetminus",
+    "type": "constant"
+  },
+  {
+    "label": "\\smallsmile",
+    "snippet": "\\smallsmile",
+    "type": "constant"
+  },
+  {
+    "label": "\\smash{#{}}",
+    "snippet": "\\smash{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\smile",
+    "snippet": "\\smile",
+    "type": "constant"
+  },
+  {
+    "label": "\\space",
+    "snippet": "\\space",
+    "type": "constant"
+  },
+  {
+    "label": "\\spadesuit",
+    "snippet": "\\spadesuit",
+    "type": "constant"
+  },
+  {
+    "label": "\\sphericalangle",
+    "snippet": "\\sphericalangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqcap",
+    "snippet": "\\sqcap",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqcup",
+    "snippet": "\\sqcup",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqrt{#{}}",
+    "snippet": "\\sqrt{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\sqsubset",
+    "snippet": "\\sqsubset",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqsubseteq",
+    "snippet": "\\sqsubseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqsupset",
+    "snippet": "\\sqsupset",
+    "type": "constant"
+  },
+  {
+    "label": "\\sqsupseteq",
+    "snippet": "\\sqsupseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\square",
+    "snippet": "\\square",
+    "type": "constant"
+  },
+  {
+    "label": "\\star",
+    "snippet": "\\star",
+    "type": "constant"
+  },
+  {
+    "label": "\\strut",
+    "snippet": "\\strut",
+    "type": "constant"
+  },
+  {
+    "label": "\\subset",
+    "snippet": "\\subset",
+    "type": "constant"
+  },
+  {
+    "label": "\\subseteq",
+    "snippet": "\\subseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\subseteqq",
+    "snippet": "\\subseteqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\subsetneq",
+    "snippet": "\\subsetneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\subsetneqq",
+    "snippet": "\\subsetneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\substack{#{}}",
+    "snippet": "\\substack{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\succ",
+    "snippet": "\\succ",
+    "type": "constant"
+  },
+  {
+    "label": "\\succapprox",
+    "snippet": "\\succapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\succcurlyeq",
+    "snippet": "\\succcurlyeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\succeq",
+    "snippet": "\\succeq",
+    "type": "constant"
+  },
+  {
+    "label": "\\succnapprox",
+    "snippet": "\\succnapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\succneqq",
+    "snippet": "\\succneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\succnsim",
+    "snippet": "\\succnsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\succsim",
+    "snippet": "\\succsim",
+    "type": "constant"
+  },
+  {
+    "label": "\\sum\\limits_{#{}}^{#{}}",
+    "snippet": "\\sum\\limits_{#{}}^{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\sup",
+    "snippet": "\\sup",
+    "type": "constant"
+  },
+  {
+    "label": "\\supset",
+    "snippet": "\\supset",
+    "type": "constant"
+  },
+  {
+    "label": "\\supseteq",
+    "snippet": "\\supseteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\supseteqq",
+    "snippet": "\\supseteqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\supsetneq",
+    "snippet": "\\supsetneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\supsetneqq",
+    "snippet": "\\supsetneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\surd",
+    "snippet": "\\surd",
+    "type": "constant"
+  },
+  {
+    "label": "\\swarrow",
+    "snippet": "\\swarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\tag{#{}}",
+    "snippet": "\\tag{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\tan",
+    "snippet": "\\tan",
+    "type": "constant"
+  },
+  {
+    "label": "\\tanh",
+    "snippet": "\\tanh",
+    "type": "constant"
+  },
+  {
+    "label": "\\tau",
+    "snippet": "\\tau",
+    "type": "constant"
+  },
+  {
+    "label": "\\tbinom{#{}}{#{}}",
+    "snippet": "\\tbinom{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\text{#{}}",
+    "snippet": "\\text{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\textstyle",
+    "snippet": "\\textstyle",
+    "type": "constant"
+  },
+  {
+    "label": "\\tfrac{#{}}{#{}}",
+    "snippet": "\\tfrac{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\therefore",
+    "snippet": "\\therefore",
+    "type": "constant"
+  },
+  {
+    "label": "\\theta",
+    "snippet": "\\theta",
+    "type": "constant"
+  },
+  {
+    "label": "\\thickapprox",
+    "snippet": "\\thickapprox",
+    "type": "constant"
+  },
+  {
+    "label": "\\thicksim",
+    "snippet": "\\thicksim",
+    "type": "constant"
+  },
+  {
+    "label": "\\thinspace",
+    "snippet": "\\thinspace",
+    "type": "constant"
+  },
+  {
+    "label": "\\tilde{#{}}",
+    "snippet": "\\tilde{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\times",
+    "snippet": "\\times",
+    "type": "constant"
+  },
+  {
+    "label": "\\to",
+    "snippet": "\\to",
+    "type": "constant"
+  },
+  {
+    "label": "\\top",
+    "snippet": "\\top",
+    "type": "constant"
+  },
+  {
+    "label": "\\triangle",
+    "snippet": "\\triangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\triangledown",
+    "snippet": "\\triangledown",
+    "type": "constant"
+  },
+  {
+    "label": "\\triangleleft",
+    "snippet": "\\triangleleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\trianglelefteq",
+    "snippet": "\\trianglelefteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\triangleq",
+    "snippet": "\\triangleq",
+    "type": "constant"
+  },
+  {
+    "label": "\\triangleright",
+    "snippet": "\\triangleright",
+    "type": "constant"
+  },
+  {
+    "label": "\\trianglerighteq",
+    "snippet": "\\trianglerighteq",
+    "type": "constant"
+  },
+  {
+    "label": "\\tt",
+    "snippet": "\\tt",
+    "type": "constant"
+  },
+  {
+    "label": "\\twoheadleftarrow",
+    "snippet": "\\twoheadleftarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\twoheadrightarrow",
+    "snippet": "\\twoheadrightarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\ulcorner",
+    "snippet": "\\ulcorner",
+    "type": "constant"
+  },
+  {
+    "label": "\\underbrace{#{}}",
+    "snippet": "\\underbrace{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\underleftarrow{#{}}",
+    "snippet": "\\underleftarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\underleftrightarrow{#{}}",
+    "snippet": "\\underleftrightarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\underline{#{}}",
+    "snippet": "\\underline{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\underrightarrow{#{}}",
+    "snippet": "\\underrightarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\underset{#{}}{#{}}",
+    "snippet": "\\underset{#{}}{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\unlhd",
+    "snippet": "\\unlhd",
+    "type": "constant"
+  },
+  {
+    "label": "\\unrhd",
+    "snippet": "\\unrhd",
+    "type": "constant"
+  },
+  {
+    "label": "\\uparrow",
+    "snippet": "\\uparrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\updownarrow",
+    "snippet": "\\updownarrow",
+    "type": "constant"
+  },
+  {
+    "label": "\\upharpoonleft",
+    "snippet": "\\upharpoonleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\upharpoonright",
+    "snippet": "\\upharpoonright",
+    "type": "constant"
+  },
+  {
+    "label": "\\uplus",
+    "snippet": "\\uplus",
+    "type": "constant"
+  },
+  {
+    "label": "\\uproot{#{}}",
+    "snippet": "\\uproot{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\upsilon",
+    "snippet": "\\upsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\upuparrows",
+    "snippet": "\\upuparrows",
+    "type": "constant"
+  },
+  {
+    "label": "\\urcorner",
+    "snippet": "\\urcorner",
+    "type": "constant"
+  },
+  {
+    "label": "\\vDash",
+    "snippet": "\\vDash",
+    "type": "constant"
+  },
+  {
+    "label": "\\varDelta",
+    "snippet": "\\varDelta",
+    "type": "constant"
+  },
+  {
+    "label": "\\varGamma",
+    "snippet": "\\varGamma",
+    "type": "constant"
+  },
+  {
+    "label": "\\varLambda",
+    "snippet": "\\varLambda",
+    "type": "constant"
+  },
+  {
+    "label": "\\varOmega",
+    "snippet": "\\varOmega",
+    "type": "constant"
+  },
+  {
+    "label": "\\varPhi",
+    "snippet": "\\varPhi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varPi",
+    "snippet": "\\varPi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varPsi",
+    "snippet": "\\varPsi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varSigma",
+    "snippet": "\\varSigma",
+    "type": "constant"
+  },
+  {
+    "label": "\\varTheta",
+    "snippet": "\\varTheta",
+    "type": "constant"
+  },
+  {
+    "label": "\\varUpsilon",
+    "snippet": "\\varUpsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\varXi",
+    "snippet": "\\varXi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varepsilon",
+    "snippet": "\\varepsilon",
+    "type": "constant"
+  },
+  {
+    "label": "\\varinjlim",
+    "snippet": "\\varinjlim",
+    "type": "constant"
+  },
+  {
+    "label": "\\varkappa",
+    "snippet": "\\varkappa",
+    "type": "constant"
+  },
+  {
+    "label": "\\varliminf",
+    "snippet": "\\varliminf",
+    "type": "constant"
+  },
+  {
+    "label": "\\varlimsup",
+    "snippet": "\\varlimsup",
+    "type": "constant"
+  },
+  {
+    "label": "\\varnothing",
+    "snippet": "\\varnothing",
+    "type": "constant"
+  },
+  {
+    "label": "\\varphi",
+    "snippet": "\\varphi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varpi",
+    "snippet": "\\varpi",
+    "type": "constant"
+  },
+  {
+    "label": "\\varprojlim",
+    "snippet": "\\varprojlim",
+    "type": "constant"
+  },
+  {
+    "label": "\\varpropto",
+    "snippet": "\\varpropto",
+    "type": "constant"
+  },
+  {
+    "label": "\\varrho",
+    "snippet": "\\varrho",
+    "type": "constant"
+  },
+  {
+    "label": "\\varsigma",
+    "snippet": "\\varsigma",
+    "type": "constant"
+  },
+  {
+    "label": "\\varsubsetneq",
+    "snippet": "\\varsubsetneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\varsubsetneqq",
+    "snippet": "\\varsubsetneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\varsupsetneq",
+    "snippet": "\\varsupsetneq",
+    "type": "constant"
+  },
+  {
+    "label": "\\varsupsetneqq",
+    "snippet": "\\varsupsetneqq",
+    "type": "constant"
+  },
+  {
+    "label": "\\vartheta",
+    "snippet": "\\vartheta",
+    "type": "constant"
+  },
+  {
+    "label": "\\vartriangle",
+    "snippet": "\\vartriangle",
+    "type": "constant"
+  },
+  {
+    "label": "\\vartriangleleft",
+    "snippet": "\\vartriangleleft",
+    "type": "constant"
+  },
+  {
+    "label": "\\vartriangleright",
+    "snippet": "\\vartriangleright",
+    "type": "constant"
+  },
+  {
+    "label": "\\vcenter",
+    "snippet": "\\vcenter",
+    "type": "constant"
+  },
+  {
+    "label": "\\vdash",
+    "snippet": "\\vdash",
+    "type": "constant"
+  },
+  {
+    "label": "\\vec{#{}}",
+    "snippet": "\\vec{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\vee",
+    "snippet": "\\vee",
+    "type": "constant"
+  },
+  {
+    "label": "\\veebar",
+    "snippet": "\\veebar",
+    "type": "constant"
+  },
+  {
+    "label": "\\vert",
+    "snippet": "\\vert",
+    "type": "constant"
+  },
+  {
+    "label": "\\vphantom{#{}}",
+    "snippet": "\\vphantom{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\wedge",
+    "snippet": "\\wedge",
+    "type": "constant"
+  },
+  {
+    "label": "\\widehat{#{}}",
+    "snippet": "\\widehat{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\widetilde{#{}}",
+    "snippet": "\\widetilde{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\wp",
+    "snippet": "\\wp",
+    "type": "constant"
+  },
+  {
+    "label": "\\wr",
+    "snippet": "\\wr",
+    "type": "constant"
+  },
+  {
+    "label": "\\xi",
+    "snippet": "\\xi",
+    "type": "constant"
+  },
+  {
+    "label": "\\xleftarrow{#{}}",
+    "snippet": "\\xleftarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\xrightarrow{#{}}",
+    "snippet": "\\xrightarrow{#{}}",
+    "type": "function"
+  },
+  {
+    "label": "\\zeta",
+    "snippet": "\\zeta",
+    "type": "constant"
+  },
+  {
+    "label": "\\begin{definition}",
+    "snippet": "\\begin{definition}\n#{}\n\\end{definition}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{tikzcd}",
+    "snippet": "\\begin{tikzcd}[#{}]\n#{}\n\\end{tikzcd}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{tikzpicture}",
+    "snippet": "\\begin{tikzpicture}[#{}]\n#{}\n\\end{tikzpicture}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{align}",
+    "snippet": "\\begin{align}\n#{}\n\\end{align}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{align*}",
+    "snippet": "\\begin{align*}\n#{}\n\\end{align*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{alignat}",
+    "snippet": "\\begin{alignat}\n#{}\n\\end{alignat}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{alignat*}",
+    "snippet": "\\begin{alignat*}\n#{}\n\\end{alignat*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{aligned}",
+    "snippet": "\\begin{aligned}\n#{}\n\\end{aligned}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{alignedat}",
+    "snippet": "\\begin{alignedat}\n#{}\n\\end{alignedat}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{array}",
+    "snippet": "\\begin{array}\n#{}\n\\end{array}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{Bmatrix}",
+    "snippet": "\\begin{Bmatrix}\n#{}\n\\end{Bmatrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{bmatrix}",
+    "snippet": "\\begin{bmatrix}\n#{}\n\\end{bmatrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{cases}",
+    "snippet": "\\begin{cases}\n#{}\n\\end{cases}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{CD}",
+    "snippet": "\\begin{CD}\n#{}\n\\end{CD}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{eqnarray}",
+    "snippet": "\\begin{eqnarray}\n#{}\n\\end{eqnarray}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{eqnarray*}",
+    "snippet": "\\begin{eqnarray*}\n#{}\n\\end{eqnarray*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{equation}",
+    "snippet": "\\begin{equation}\n#{}\n\\end{equation}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{equation*}",
+    "snippet": "\\begin{equation*}\n#{}\n\\end{equation*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{gather}",
+    "snippet": "\\begin{gather}\n#{}\n\\end{gather}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{gather*}",
+    "snippet": "\\begin{gather*}\n#{}\n\\end{gather*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{gathered}",
+    "snippet": "\\begin{gathered}\n#{}\n\\end{gathered}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{matrix}",
+    "snippet": "\\begin{matrix}\n#{}\n\\end{matrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{multline}",
+    "snippet": "\\begin{multline}\n#{}\n\\end{multline}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{multline*}",
+    "snippet": "\\begin{multline*}\n#{}\n\\end{multline*}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{pmatrix}",
+    "snippet": "\\begin{pmatrix}\n#{}\n\\end{pmatrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{smallmatrix}",
+    "snippet": "\\begin{smallmatrix}\n#{}\n\\end{smallmatrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{split}",
+    "snippet": "\\begin{split}\n#{}\n\\end{split}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{subarray}",
+    "snippet": "\\begin{subarray}\n#{}\n\\end{subarray}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{Vmatrix}",
+    "snippet": "\\begin{Vmatrix}\n#{}\n\\end{Vmatrix}",
+    "type": "namespace"
+  },
+  {
+    "label": "\\begin{vmatrix}",
+    "snippet": "\\begin{vmatrix}\n#{}\n\\end{vmatrix}",
+    "type": "namespace"
+  }
+]

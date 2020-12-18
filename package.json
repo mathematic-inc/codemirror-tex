@@ -1,0 +1,57 @@
+{
+	"name": "root",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "lint-staged"
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"scripts": {
+		"build": "lerna run build",
+		"clean": "lerna run clean",
+		"lint:spelling": "lerna run lint:spelling",
+		"lint:es": "lerna run lint:es",
+		"lint:ts": "lerna run lint:ts",
+		"test": "lerna run test",
+		"prerelease": "lerna run build",
+		"release": "changeset publish"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.14.1",
+		"@commitlint/cli": "^12.0.1",
+		"@commitlint/config-conventional": "^12.0.1",
+		"@mu-io/eslint-config": "^0.0.0-1",
+		"@typescript-eslint/eslint-plugin": "^4.18.0",
+		"@typescript-eslint/parser": "^4.18.0",
+		"@typescript-eslint/types": "^4.18.0",
+		"cspell": "^5.3.7",
+		"eslint": "^7.22.0",
+		"eslint-config-airbnb": "^18.2.1",
+		"eslint-config-airbnb-typescript": "^12.3.1",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-compat": "^3.9.0",
+		"eslint-plugin-cypress": "^2.11.2",
+		"eslint-plugin-eslint-comments": "^3.2.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jest": "^24.3.1",
+		"eslint-plugin-padding": "^0.0.4",
+		"eslint-plugin-prettier": "^3.3.1",
+		"eslint-plugin-tsdoc": "^0.2.11",
+		"husky": "=5",
+		"lerna": "^4.0.0",
+		"lint-staged": ">=10",
+		"prettier": "2.2.1"
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix"
+	}
+}
