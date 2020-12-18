@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../lezer-tex/tsconfig.build.json" }
+  ]
+}

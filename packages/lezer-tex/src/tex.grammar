@@ -1,0 +1,210 @@
+@precedence {
+  ControlSpace,
+  ControlLine,
+  Command,
+  CSName,
+  ControlWord,
+  ControlSymbol,
+  MathBlock,
+  MathLine
+}
+
+@top Document { statement+ }
+
+statement {
+  controlSequence |
+  group |
+  Environment |
+  command |
+  text |
+  ReservedCharacter |
+  Parameter |
+  Comment |
+  math
+}
+
+/**
+ * Control Sequences
+ */
+
+// General structure of a control sequence
+cs<name> { "\\" name }
+
+// Main types of control sequences
+ControlWord { cs<letters> }
+ControlSymbol { cs<nonletter> }
+
+// Special control sequences
+ControlLine { cs<"\\"> }
+ControlSpace { cs<space> }
+
+// All control sequences
+controlSequence {
+  ControlWord |
+  ControlSpace |
+  ControlLine |
+  ControlSymbol
+}
+
+/**
+ * Environments
+ */
+
+// General structure of an environment
+@external tokens envEnd from "./env" { EnvEndCommand, MismatchedEnvEndCommand }
+env<name, content> {
+  BeginEnvironment[closedBy=EndEnvironment] {
+    cs<@specialize<letters, "begin">>
+    ("{" EnvironmentName { name } "}")
+    ("[" EnvironmentOption { statement* } "]")?
+  }
+  content
+  EndEnvironment[openedBy=BeginEnvironment] {
+    (EnvEndCommand | MismatchedEnvEndCommand)
+    ("{" EnvironmentName { name } "}")
+  }
+}
+
+// All environments
+@external tokens verbatimContent from "./verb" { VerbatimContent }
+Environment {
+  GenericEnvironment { env<statement*, statement*> } |
+  VerbatimEnvironment { env<@specialize<text, "verbatim" | "verbatim*">, VerbatimContent>  }
+}
+
+/**
+ * Groups
+ */
+
+// Control sequence name
+ControlSequenceName { 
+  CommandName { cs<@specialize<letters, "csname">> }
+  statement*
+  CommandName { "\\endcsname" }
+}
+
+// All groups
+group {
+  ControlSequenceName |
+  ("{" statement* "}")
+}
+
+/**
+ * (Known) Commands/Macros
+ */
+
+// General form of a command
+Command[name={name}]<name> { 
+  CommandName { cs<@specialize<letters, name>> }
+  ("{" Argument { statement* } "}")
+}
+
+// Math format commands
+mathFormatCommand {
+  Command<"mathbb"> |
+  Command<"mathbf"> |
+  Command<"mathcal"> |
+  Command<"mathfrak"> |
+  Command<"mathit"> |
+  Command<"mathrm"> |
+  Command<"mathscr"> |
+  Command<"mathsf"> |
+  Command<"mathtt">
+}
+
+// text format commands
+textFormatCommand {
+  Command<"textnormal"> |
+  Command<"texttt"> |
+  Command<"textmd"> |
+  Command<"textbf"> |
+  Command<"textup"> |
+  Command<"textit"> |
+  Command<"textsl"> |
+  Command<"textsc"> |
+  Command<"underline">
+}
+
+// All commands
+@external tokens verbContent from "./verb" { VerbContent }
+command {
+  textFormatCommand |
+  mathFormatCommand |
+  VerbCommand[name=verb] {
+    CommandName { cs<@specialize<letters, "verb">> }
+    VerbLeftDelim[closedBy=VerbRightDelim] { nonletter }
+      VerbContent
+    VerbRightDelim[openedBy=VerbLeftDelim] { nonletter }
+  }
+}
+
+/**
+ * Math
+ */
+
+// General structure of math mode
+nomathStatement {
+  controlSequence |
+  group |
+  Environment |
+  command |
+  text | ReservedCharacter |
+  Parameter |
+  Comment
+}
+
+// Main math structures
+MathBlock {
+  ("\\[" MathContent { nomathStatement* } "\\]") |
+  ("$$" MathContent { nomathStatement* } "$$")
+}
+MathLine {
+  ("\\(" MathContent { nomathStatement* } "\\)") |
+  ("$" MathContent { nomathStatement* } "$")
+}
+
+// All math modes
+math {
+  MathBlock |
+  MathLine
+}
+
+/**
+ * Skipping
+ */
+@skip { spaces }
+
+/**
+ * Tokens
+ */
+@tokens {
+  letters { $[a-zA-Z]+ }
+  nonletter { ![a-zA-Z] }
+  number { $[0-9] }
+  space { $[ \n\t\r] }
+  spaces { std.whitespace+ }
+
+  ReservedCharacter { $[\\{}$&#%^_~] }
+
+  Parameter { "#" number+ }
+  Comment[skipped=true] { "%" ![\n]* }
+
+  text { ![\\{}$&#%^_~]+ }
+
+  "{" "}" "[" "]"
+  
+  @precedence { nonletter, Comment }
+  @precedence { nonletter, spaces }
+  @precedence { space, nonletter }
+  @precedence { "\\", nonletter }
+  @precedence { space, spaces }
+  @precedence { text, spaces }
+  @precedence { text, "[", "]" }
+  
+  @precedence { Comment, ReservedCharacter }
+  @precedence { Parameter, ReservedCharacter }
+  @precedence { "\\", ReservedCharacter }
+  @precedence { "{", ReservedCharacter }
+  @precedence { "{", "}", ReservedCharacter }
+  @precedence { "$", ReservedCharacter }
+}

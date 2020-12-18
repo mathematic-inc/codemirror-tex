@@ -1,0 +1,52 @@
+{
+  "name": "lezer-tex",
+  "version": "0.0.0-6",
+  "description": "lezer-based TeX grammar",
+  "keywords": [
+    "lezer",
+    "tex",
+    "cm",
+    "codemirror",
+    "codemirror6",
+    "cm6",
+    "latex",
+    "grammar",
+    "language"
+  ],
+  "author": "mu.io <dev@mathematic.io>",
+  "homepage": "https://github.com/mu-io/codemirror-tex",
+  "license": "GPL-3.0-or-later",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mu-io/codemirror-tex.git"
+  },
+  "scripts": {
+    "generate": "lezer-generator src/tex.grammar -o src/index && scripts/generate.js && eslint ./src --fix",
+    "clean": "yarn clean:ts && yarn clean:artifacts",
+    "clean:artifacts": "rm -rf lib",
+    "clean:ts": "tsc -b tsconfig.build.json --clean",
+    "build": "tsc -b tsconfig.build.json",
+    "lint:spelling": "cspell --config=../../.cspellrc.json \"**/*.{md,ts,js}\"",
+    "lint:es": "eslint ./src --ext .js,.ts",
+    "lint:ts": "tsc -p tsconfig.json --noEmit",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "lezer-generator": "^0.10.5",
+    "mocha": "^8.1.3"
+  },
+  "bugs": {
+    "url": "https://github.com/mu-io/codemirror-tex/issues"
+  },
+  "peerDependencies": {
+    "lezer": "^0.13.1"
+  }
+}

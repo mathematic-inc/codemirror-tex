@@ -1,0 +1,54 @@
+# Verb
+
+\verb||
+\verb|test|
+
+==>
+
+Document(verb(CommandName,VerbLeftDelim,VerbContent,VerbRightDelim),verb(CommandName,VerbLeftDelim,VerbContent,VerbRightDelim))
+
+# Fake Verb
+
+\\verb||
+
+==>
+
+Document(ControlLine)
+
+# Control Sequence Name
+
+\csname test\endcsname
+
+==>
+
+Document(ControlSequenceName(CommandName,CommandName))
+
+# Parameter
+
+\#1
+#1
+
+==>
+
+Document(ControlSymbol,Parameter)
+
+# Superscript and Subscript
+
+^{tesst}
+_{test}
+
+==>
+
+Document(Superscript("{","}"),Subscript("{","}"))
+
+# Comment
+
+% Test
+\begin{%test}
+test}
+\end{test}
+
+==>
+
+Document(Comment)
+

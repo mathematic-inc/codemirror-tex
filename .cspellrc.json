@@ -1,0 +1,22 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": [
+    "texjs",
+    "catcode",
+    "hrule",
+    "csname",
+    "outdent",
+    "ppos"
+  ],
+  "dictionaries": [
+    "en_US",
+    "softwareTerms",
+    "node",
+    "typescript",
+    "latex",
+    "npm",
+    "misc",
+    "filetypes"
+  ]
+}
