@@ -16,12 +16,14 @@
   "license": "GPL-3.0-or-later",
   "main": "lib/index.js",
   "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "lib": "lib"
   },
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mu-io/codemirror-tex.git"

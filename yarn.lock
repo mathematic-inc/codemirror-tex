@@ -7071,12 +7071,12 @@ lezer-css@^0.11.0:
   dependencies:
     lezer "^0.11.1"
 
-lezer-generator@^0.10.5:
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/lezer-generator/-/lezer-generator-0.10.5.tgz#ef10d1657d5a2ba37929cab0d60b70c3df34201a"
-  integrity sha512-JKCWGMeO31nwoFOZ2Mp26TFyajlj8vc4EOgjaLjwH1njTjPvGWFOI1aosb/xX2NUQGrlIcGas4bfabvxZGZRAA==
+lezer-generator@latest:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/lezer-generator/-/lezer-generator-0.13.1.tgz#99bd9f84658340c3241b5274c263bc17ba630578"
+  integrity sha512-nc6llt59M/2N1cwieqN5UUBwmQ34oi5VxvsYxi0GzP7p+g9ZEhBbXFNjkDSyzz57dks+IgAC2yc5YRCmDMu7nQ==
   dependencies:
-    lezer "^0.10.1"
+    lezer "^0.13.0"
 
 lezer-html@^0.11.0:
   version "0.11.1"
@@ -7120,15 +7120,15 @@ lezer-rust@^0.11.1:
   dependencies:
     lezer "^0.11.0"
 
-lezer-tree@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.10.0.tgz#e7bb3fbd604a718fa43d373e6240a2600d7c5ea2"
-  integrity sha512-77hwilCuD4azYqwazv4A6EL7mKiSPcqgJV4V173hLV3UkAKa6/smNHeROhIzzWHLU6Y5qtR1mRf22RFzE3fVrg==
-
 lezer-tree@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.11.1.tgz#78fcd8308912d45330f062f8f59c13448585db81"
   integrity sha512-AC1FmSzxL/cxV8LrbPMW6+8P/CaG8AxRql1XjzIfLkTQHY3LUan6tG8aieB/OvZmz0NuQpgfw6yDegXFNzVK4A==
+
+lezer-tree@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.13.0.tgz#199757338a30e4c5ee8d9a767546d7ce8935bfbe"
+  integrity sha512-YqGD22WxQmT6np2JEX5Z+zhdBSfPEcQ8B6ct+39oLzSAHecUPUd/maN5PKNtnUZbSzd81mEx1ZqzMDA1eRSRcg==
 
 lezer-xml@^0.11.0:
   version "0.11.1"
@@ -7137,19 +7137,19 @@ lezer-xml@^0.11.0:
   dependencies:
     lezer "^0.11.1"
 
-lezer@^0.10.1:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.10.4.tgz#08a1bee01511aa3ecfbea2f1c35391f1af7e319b"
-  integrity sha512-ltjjt6A0TRUMFxjgAn/Vnxnj7Mv0D9UFHH2hHiNAjT72incbeKheuuJ77GUaAD+D9jC8NasGuFwUx+zwvi+wxg==
-  dependencies:
-    lezer-tree "^0.10.0"
-
 lezer@^0.11.0, lezer@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.11.2.tgz#290b3029135257f76a60efc5e710af16f716a180"
   integrity sha512-ktbo5G+sMY6qOXaeCbC4Z5Cs0vUTx5H4KkjnjTCi/LHay8taBp88dcUXjLS5XV7E/I3+y1zZGgIXhua82Z0Ljw==
   dependencies:
     lezer-tree "^0.11.0"
+
+lezer@^0.13.0:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.13.1.tgz#95c8a4e9ad96bae567dff477bdf93b5f1d66f87d"
+  integrity sha512-aDX9OHYWQFt3s7C0IEil//Lckxbr02dCRyxB/uTxVuZjBsNHnUJ8Y83OgDi+uNFwRsexhdoMF0/PSvmky/Fg/g==
+  dependencies:
+    lezer-tree "^0.13.0"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"

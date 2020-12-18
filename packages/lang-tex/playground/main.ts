@@ -75,7 +75,7 @@ out our service and don't hesitate to get in touch at
 
 const syntax = texSyntax();
 
-let startState = EditorState.create({
+const startState = EditorState.create({
   doc: test,
   extensions: [
     // Keymaps
@@ -96,7 +96,8 @@ let startState = EditorState.create({
   ],
 });
 
-new EditorView({
-  state: startState,
-  parent: document.body,
-});
+(() =>
+  new EditorView({
+    state: startState,
+    parent: document.body,
+  }))();
