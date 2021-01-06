@@ -14,8 +14,11 @@
 			"@commitlint/config-conventional"
 		]
 	},
+	"resolutions": {
+		"lezer": "^0.13.1",
+		"lezer-tree": "^0.13.0"
+	},
 	"scripts": {
-		"preinstall": "lerna bootstrap",
 		"build": "lerna run build",
 		"clean": "lerna run clean",
 		"lint:spelling": "lerna run lint:spelling",

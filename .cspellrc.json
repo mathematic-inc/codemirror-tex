@@ -1,14 +1,7 @@
 {
   "version": "0.1",
   "language": "en",
-  "words": [
-    "texjs",
-    "catcode",
-    "hrule",
-    "csname",
-    "outdent",
-    "ppos"
-  ],
+  "words": [],
   "dictionaries": [
     "en_US",
     "softwareTerms",

@@ -51,9 +51,6 @@
     "@codemirror/next": "^0.13.1",
     "lezer-tex": "0.0.0-6"
   },
-  "peerDependencies": {
-    "lezer": "^0.13.1"
-  },
   "bugs": {
     "url": "https://github.com/mu-io/codemirror-tex/issues"
   }

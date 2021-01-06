@@ -102,7 +102,12 @@ export function texSyntax(option?: Options): LezerSyntax {
     commentTokens: { line: "%" },
   };
 
-  return LezerSyntax.define(parser.withProps(indentPropSource, foldPropSource, tagPropSource), {
-    languageData,
-  });
+  return LezerSyntax.define(
+    parser.configure({
+      props: [indentPropSource, foldPropSource, tagPropSource],
+    }),
+    {
+      languageData,
+    }
+  );
 }
