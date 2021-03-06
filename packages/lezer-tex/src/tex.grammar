@@ -51,7 +51,7 @@ controlSequence {
  */
 
 // General structure of an environment
-@external tokens envEnd from "./env" { EnvEndCommand, MismatchedEnvEndCommand }
+@external tokens envEnd from "../tokenizers/env" { EnvEndCommand, MismatchedEnvEndCommand }
 env<name, content> {
   BeginEnvironment[closedBy=EndEnvironment] {
     cs<@specialize<letters, "begin">>
@@ -66,7 +66,7 @@ env<name, content> {
 }
 
 // All environments
-@external tokens verbatimContent from "./verb" { VerbatimContent }
+@external tokens verbatimContent from "../tokenizers/verb" { VerbatimContent }
 Environment {
   GenericEnvironment { env<statement*, statement*> } |
   VerbatimEnvironment { env<@specialize<text, "verbatim" | "verbatim*">, VerbatimContent>  }
@@ -126,7 +126,7 @@ textFormatCommand {
 }
 
 // All commands
-@external tokens verbContent from "./verb" { VerbContent }
+@external tokens verbContent from "../tokenizers/verb" { VerbContent }
 command {
   textFormatCommand |
   mathFormatCommand |

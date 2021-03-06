@@ -1,6 +1,6 @@
 /* Hand-written tokenizers for TeX. */
-import { ExternalTokenizer } from "lezer";
-import { VerbContent, VerbatimContent } from "./terms";
+import { ExternalTokenizer } from 'lezer';
+import { VerbContent, VerbatimContent } from '../gen/terms';
 
 export const verbContent = new ExternalTokenizer(
   (input, token) => {
@@ -19,7 +19,7 @@ export const verbContent = new ExternalTokenizer(
   { contextual: true }
 );
 
-const endVerbatim = Uint8Array.from("\\end{verbatim", (c) => c.charCodeAt(0));
+const endVerbatim = Uint8Array.from('\\end{verbatim', (c) => c.charCodeAt(0));
 
 export const verbatimContent = new ExternalTokenizer(
   (input, token) => {
@@ -40,12 +40,12 @@ export const verbatimContent = new ExternalTokenizer(
         }
 
         switch (input.get(pos)) {
-          case "}".charCodeAt(0):
+          case '}'.charCodeAt(0):
             return token.accept(VerbatimContent, token.end);
-          case "*".charCodeAt(0):
+          case '*'.charCodeAt(0):
             pos += 1;
 
-            if (input.get(pos) === "}".charCodeAt(0)) {
+            if (input.get(pos) === '}'.charCodeAt(0)) {
               return token.accept(VerbatimContent, token.end);
             }
 

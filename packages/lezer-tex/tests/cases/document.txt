@@ -32,15 +32,6 @@ Document(ControlSequenceName(CommandName,CommandName))
 
 Document(ControlSymbol,Parameter)
 
-# Superscript and Subscript
-
-^{tesst}
-_{test}
-
-==>
-
-Document(Superscript("{","}"),Subscript("{","}"))
-
 # Comment
 
 % Test

@@ -1,12 +1,13 @@
 /* Hand-written tokenizers for TeX. */
-import { ExternalTokenizer } from "lezer";
-import escapeRegex from "./utils/escape-regex";
-import { EnvEndCommand, Environment, MismatchedEnvEndCommand } from "./terms";
+import { ExternalTokenizer } from 'lezer';
+import escapeRegex from '../utils/escape-regex';
+import { EnvEndCommand, Environment, MismatchedEnvEndCommand } from '../gen/terms';
 
-const leftBrace = "{".charCodeAt(0);
-const rightBrace = "}".charCodeAt(0);
-const end = Uint8Array.from("\\end", (c) => c.charCodeAt(0));
+const leftBrace = '{'.charCodeAt(0);
+const rightBrace = '}'.charCodeAt(0);
+const end = Uint8Array.from('\\end', (c) => c.charCodeAt(0));
 
+// eslint-disable-next-line import/prefer-default-export
 export const envEnd = new ExternalTokenizer(
   (input, token, stack) => {
     let pos = token.start;
