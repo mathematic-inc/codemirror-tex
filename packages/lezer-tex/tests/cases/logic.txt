@@ -1,0 +1,69 @@
+# `if` statement
+
+\ifx\mycmd\undefined
+undefed
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,fi))
+
+# `if` `else` statement
+
+\ifx\mycmd\undefined
+undefed
+\else
+test
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,else,fi))
+
+# Nested `if` `else` statement 1
+
+\ifx\mycmd\undefined
+undefed
+\else
+\ifx\mycmd\undefined
+undefed
+\fi
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,fi),fi))
+
+# Nested `if` `else` statement 2
+
+\ifx\mycmd\undefined
+  undefed
+\else
+  \ifx\mycmd\undefined
+    undefed
+  \else
+    \ifx\mycmd\undefined
+      undefed
+    \fi
+  \fi
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,fi),fi),fi))
+
+# Nested `if` `else` statement 3
+
+\ifx\mycmd\undefined
+undefed
+\else
+  \if\mycmd1
+  defed, 1
+  \else
+  defed
+  \fi
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,else,fi),fi))

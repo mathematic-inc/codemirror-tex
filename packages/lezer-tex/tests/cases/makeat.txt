@@ -1,0 +1,15 @@
+# `makeatletter` statement
+
+\ifx\mycmd\undefined
+undefed
+\else
+  \if\mycmd1
+  defed, 1
+  \else
+  defed
+  \fi
+\fi
+
+==>
+
+Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,else,fi),fi))

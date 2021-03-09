@@ -1,0 +1,107 @@
+# Comment
+
+% Test
+.
+
+==>
+
+Document(line_comment)
+
+# Directive
+
+\makenullletter %! Change category code for code point 0x0 to 11.
+
+The next control sequence should read as multi-letter control sequence rather than a single letter
+cs with a null: \t^^00st.
+
+==>
+
+Document(directive,control_sequence,line_comment,car_ret,control_sequence)
+
+# `ex_space` primitive
+
+\ .
+
+==>
+
+Document(ex_space)
+
+# Control sequence 1
+
+\test
+
+==>
+
+Document(control_sequence)
+
+# Control sequence 2
+
+\test2
+
+==>
+
+Document(control_sequence)
+
+# Expanded character
+
+^^@
+
+==>
+
+Document(ignore)
+
+# Expanded character and control sequences 1
+
+\^^@
+
+==>
+
+Document(control_sequence)
+
+# Expanded character and control sequences 2
+
+\^^
+
+==>
+
+Document(control_sequence,sup_mark)
+
+# Expanded character and control sequences 3
+
+\f^^
+
+==>
+
+Document(control_sequence,sup_mark,sup_mark)
+
+# Expanded character and control sequences 4
+
+\f^^64
+
+==>
+
+Document(control_sequence)
+
+# Expanded character and control sequences 5
+
+\f^^@
+
+==>
+
+Document(control_sequence,ignore)
+
+# `catcode` command 1
+
+\catcode`\@ 11
+
+==>
+
+Document(CatCodeCommand(def_cat_code,integer(control_sequence),integer))
+
+# `catcode` command 2
+
+\catcode`\@=11
+
+==>
+
+Document(CatCodeCommand(def_cat_code,integer(control_sequence),optional_equal,integer))
