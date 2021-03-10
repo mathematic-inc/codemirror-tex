@@ -1,210 +1,209 @@
-@precedence {
-  ControlSpace,
-  ControlLine,
-  Command,
-  CSName,
-  ControlWord,
-  ControlSymbol,
-  MathBlock,
-  MathLine
+@dialects {
+  directives
 }
 
 @top Document { statement+ }
 
 statement {
-  controlSequence |
-  group |
-  Environment |
-  command |
-  text |
-  ReservedCharacter |
-  Parameter |
-  Comment |
-  math
-}
-
-/**
- * Control Sequences
- */
-
-// General structure of a control sequence
-cs<name> { "\\" name }
-
-// Main types of control sequences
-ControlWord { cs<letters> }
-ControlSymbol { cs<nonletter> }
-
-// Special control sequences
-ControlLine { cs<"\\"> }
-ControlSpace { cs<space> }
-
-// All control sequences
-controlSequence {
-  ControlWord |
-  ControlSpace |
-  ControlLine |
-  ControlSymbol
-}
-
-/**
- * Environments
- */
-
-// General structure of an environment
-@external tokens envEnd from "../tokenizers/env" { EnvEndCommand, MismatchedEnvEndCommand }
-env<name, content> {
-  BeginEnvironment[closedBy=EndEnvironment] {
-    cs<@specialize<letters, "begin">>
-    ("{" EnvironmentName { name } "}")
-    ("[" EnvironmentOption { statement* } "]")?
-  }
-  content
-  EndEnvironment[openedBy=BeginEnvironment] {
-    (EnvEndCommand | MismatchedEnvEndCommand)
-    ("{" EnvironmentName { name } "}")
-  }
-}
-
-// All environments
-@external tokens verbatimContent from "../tokenizers/verb" { VerbatimContent }
-Environment {
-  GenericEnvironment { env<statement*, statement*> } |
-  VerbatimEnvironment { env<@specialize<text, "verbatim" | "verbatim*">, VerbatimContent>  }
-}
-
-/**
- * Groups
- */
-
-// Control sequence name
-ControlSequenceName { 
-  CommandName { cs<@specialize<letters, "csname">> }
-  statement*
-  CommandName { "\\endcsname" }
-}
-
-// All groups
-group {
+  IfStatement |
   ControlSequenceName |
-  ("{" statement* "}")
+  // CatCodeCommand |
+
+  // Special control_sequences
+  ex_space |
+
+  // Tokens
+  control_sequence |
+  escape |
+  left_brace |
+  right_brace |
+  math_shift |
+  tab_mark |
+  car_ret |
+  mac_param |
+  sup_mark |
+  sub_mark |
+  ignore |
+  spacer |
+  letter |
+  other_char |
+  active_char |
+  comment |
+  invalid_char |
+  directive
 }
 
-/**
- * (Known) Commands/Macros
- */
+ex_space[@name="ex_space"] { @specialize<control_sequence, "\\ "> }
 
-// General form of a command
-Command[name={name}]<name> { 
-  CommandName { cs<@specialize<letters, name>> }
-  ("{" Argument { statement* } "}")
+IfStatement {
+  @specialize[@name="if"]<
+    control_sequence,
+    "\\if" | "\\ifabsdim" | "\\ifabsnum" | "\\ifcase" |
+    "\\ifcat" | "\\ifcondition" | "\\ifcsname" | "\\ifdefined" |
+    "\\ifdim" | "\\ifeof" | "\\iffalse" | "\\iffontchar" |
+    "\\ifhbox" | "\\ifhmode" | "\\ifincsname" | "\\ifinner" |
+    "\\ifmmode" | "\\ifnum" | "\\ifodd" | "\\ifpdfabsdim" |
+    "\\ifpdfabsnum" | "\\ifpdfprimitive" | "\\ifprimitive" | "\\iftrue" |
+    "\\ifvbox" | "\\ifvmode" | "\\ifvoid" | "\\ifx"
+  >
+    statement*
+  (@specialize[@name="else"]<control_sequence, "\\else">
+    statement*)?
+  @specialize[@name="fi"]<control_sequence, "\\fi">
 }
-
-// Math format commands
-mathFormatCommand {
-  Command<"mathbb"> |
-  Command<"mathbf"> |
-  Command<"mathcal"> |
-  Command<"mathfrak"> |
-  Command<"mathit"> |
-  Command<"mathrm"> |
-  Command<"mathscr"> |
-  Command<"mathsf"> |
-  Command<"mathtt">
+ControlSequenceName {
+  @specialize[@name="cs_name"]<control_sequence, "\\csname">
+    statement*
+  @specialize[@name="end_cs_name"]<control_sequence, "\\endcsname">
 }
+// CatCodeCommand {
+//   @specialize[@name="def_cat_code"]<control_sequence, "\\catcode"> (
+//     (spacer* integer spacer* (optional_equal spacer*)? integer)
+//   )
+// }
 
-// text format commands
-textFormatCommand {
-  Command<"textnormal"> |
-  Command<"texttt"> |
-  Command<"textmd"> |
-  Command<"textbf"> |
-  Command<"textup"> |
-  Command<"textit"> |
-  Command<"textsl"> |
-  Command<"textsc"> |
-  Command<"underline">
-}
+/* ====================================== Special Commands ====================================== */
+// @external tokens verbContent from "../tokenizers/verb" { VerbContent }
+// VerbCmd {
+//   @specialize<control_sequence, "\\verb">
+//   VerbLeftDelim[closedBy=VerbRightDelim] { 
+//     escape |
+//     left_brace |
+//     right_brace |
+//     math_shift |
+//     tab_mark |
+//     car_ret |
+//     mac_param |
+//     sup_mark |
+//     sub_mark |
+//     ignore |
+//     spacer |
+//     other_char |
+//     active_char |
+//     comment |
+//     invalid_char
+//   }
+//   VerbContent
+//   VerbRightDelim[openedBy=VerbLeftDelim] { 
+//     escape |
+//     left_brace |
+//     right_brace |
+//     math_shift |
+//     tab_mark |
+//     car_ret |
+//     mac_param |
+//     sup_mark |
+//     sub_mark |
+//     ignore |
+//     spacer |
+//     other_char |
+//     active_char |
+//     comment |
+//     invalid_char
+//   }
+// }
+// BeginCmd { @specialize<control_sequence, "\\begin"> }
+// EndCmd { @specialize<control_sequence, "\\end"> }
 
-// All commands
-@external tokens verbContent from "../tokenizers/verb" { VerbContent }
-command {
-  textFormatCommand |
-  mathFormatCommand |
-  VerbCommand[name=verb] {
-    CommandName { cs<@specialize<letters, "verb">> }
-    VerbLeftDelim[closedBy=VerbRightDelim] { nonletter }
-      VerbContent
-    VerbRightDelim[openedBy=VerbLeftDelim] { nonletter }
-  }
-}
+// // General environment
+// @external tokens envEnd from "../tokenizers/env" { EnvEndCommand, MismatchedEnvEndCommand }
+// Environment<name, content> {
+//   BeginCommand[closedBy=EndCommand] {
+//     (left_brace EnvironmentName { name } right_brace)
+//   }
+//   content
+//   EndCommand[openedBy=BeginCommand] {
+//     (EnvEndCommand | MismatchedEnvEndCommand)
+//     (left_brace EnvironmentName { name } right_brace)
+//   }
+// }
 
-/**
- * Math
- */
+// // verbatim enviroment
+// @external tokens verbatimContent from "../tokenizers/verb" { VerbatimContent }
+// VerbatimEnvironment {
+//   Environment<
+//     @specialize<text, "verbatim" | "verbatim*">,
+//     VerbatimContent
+//   >
+// }
 
-// General structure of math mode
-nomathStatement {
-  controlSequence |
-  group |
-  Environment |
-  command |
-  text | ReservedCharacter |
-  Parameter |
-  Comment
-}
-
-// Main math structures
-MathBlock {
-  ("\\[" MathContent { nomathStatement* } "\\]") |
-  ("$$" MathContent { nomathStatement* } "$$")
-}
-MathLine {
-  ("\\(" MathContent { nomathStatement* } "\\)") |
-  ("$" MathContent { nomathStatement* } "$")
-}
-
-// All math modes
-math {
-  MathBlock |
-  MathLine
-}
-
-/**
- * Skipping
- */
-@skip { spaces }
+@skip { line_comment }
 
 /**
  * Tokens
+ *
+ * In TeX, a token is defined as as a triple (cur_cmd, cur_chr, cur_cs):
+ *
+ * - cur_cmd: the current control_sequence
+ * - cur_chr: the operand of the current control_sequence
+ * - cur_cs: the control sequence
+ *
+ * With these three, two combinations are defined:
+ *
+ * 1. cur_cs == 0
+ * 2. cur_cs != 0
+ *
+ * For the first type, TeX encodes this as a character with a category. For the second type, TeX
+ * encodes this as a sequence of category 11 characters after a category 0 character or a single
+ * character from any category after a category 0 character.
  */
-@tokens {
-  letters { $[a-zA-Z]+ }
-  nonletter { ![a-zA-Z] }
-  number { $[0-9] }
-  space { $[ \n\t\r] }
-  spaces { std.whitespace+ }
+ @context trackContext from "../tokenizer"
+ @external tokens tokenizer from "../tokenizer" {
+  escape[@name="escape"],
+  left_brace[@name="left_brace"],
+  right_brace[@name="right_brace"],
+  math_shift[@name="math_shift"],
+  tab_mark[@name="tab_mark"],
+  car_ret[@name="car_ret"],
+  mac_param[@name="mac_param"],
+  sup_mark[@name="sup_mark"],
+  sub_mark[@name="sub_mark"],
+  ignore[@name="ignore"],
+  spacer, // These should be named `spacer`, but for simplicity of the tree, we leave it hidden.
+  letter, // These should be named `letter`, but for simplicity of the tree, we leave it hidden.
+  other_char, // These should be named `other_char`, but for simplicity of the tree, we leave it hidden.
+  active_char[@name="active_char"],
+  comment[@name="comment"],
+  invalid_char[@name="invalid_char"],
+  control_sequence[@name="control_sequence"],
+  line_comment[@name="line_comment"],
 
-  ReservedCharacter { $[\\{}$&#%^_~] }
-
-  Parameter { "#" number+ }
-  Comment[skipped=true] { "%" ![\n]* }
-
-  text { ![\\{}$&#%^_~]+ }
-
-  "{" "}" "[" "]"
-  
-  @precedence { nonletter, Comment }
-  @precedence { nonletter, spaces }
-  @precedence { space, nonletter }
-  @precedence { "\\", nonletter }
-  @precedence { space, spaces }
-  @precedence { text, spaces }
-  @precedence { text, "[", "]" }
-  
-  @precedence { Comment, ReservedCharacter }
-  @precedence { Parameter, ReservedCharacter }
-  @precedence { "\\", ReservedCharacter }
-  @precedence { "{", ReservedCharacter }
-  @precedence { "{", "}", ReservedCharacter }
-  @precedence { "$", ReservedCharacter }
+  // `directive` is a custom token that provides parser runtime functionalities in the form of
+  // comments. They come in the form of `%! <abstract command>` where `<abstract command>` is
+  // predefined in the tokenizer. E.g. `%! Change category code for code point 64 to 11.`. The semantic
+  // behind `<abstract command>` is reminiscent of Knuth's WEB language; the directive is still a
+  // comment, so it should remain semantic although functional.
+  directive[
+    @name="directive",
+    @dialect="directives"
+  ]
 }
+// optional_equal[@name="optional_equal"] { @specialize<other_char, "="> }
+// any_char {
+//   left_brace | right_brace |
+//   math_shift | tab_mark | car_ret |
+//   mac_param | sup_mark | sub_mark |
+//   ignore | letter | other_char |
+//   active_char | invalid_char
+// }
+
+// // TeX numbers
+// integer[@name="integer"] { sign* (dec_number | oct_number | hex_number | alpha_number) !end_integer }
+
+// // The sign of an integer
+// sign { @specialize<other_char, "+" | "-"> }
+
+// // Various types of digits
+// oct_digit { @specialize<other_char, "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> }
+// dec_digit { oct_digit | @specialize<other_char, "9"> }
+// hex_digit { dec_digit | @specialize<other_char, "A" | "B" | "C" | "D" | "E" | "F"> | @specialize<letter, "A" | "B" | "C" | "D" | "E" | "F"> }
+
+// // Numbers in various bases
+// oct_number { @specialize<other_char, "'"> (control_sequence | oct_digit)+ }
+// dec_number { (control_sequence | dec_digit)+ }
+// hex_number { @specialize<other_char, "\""> (control_sequence | hex_digit)+ }
+// alpha_number { @specialize<other_char, "`"> (control_sequence | any_char)+ }
+
+// @precedence {
+//   end_integer @left
+// }

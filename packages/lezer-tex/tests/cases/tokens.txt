@@ -9,14 +9,15 @@ Document(line_comment)
 
 # Directive
 
-\makenullletter %! Change category code for code point 0x0 to 11.
+\makenullletter
+%! Change category code for code point 0x0 to 11.
 
 The next control sequence should read as multi-letter control sequence rather than a single letter
 cs with a null: \t^^00st.
 
 ==>
 
-Document(directive,control_sequence,line_comment,car_ret,control_sequence)
+Document(control_sequence,car_ret,directive,car_ret,car_ret,control_sequence)
 
 # `ex_space` primitive
 
