@@ -11,7 +11,7 @@ import {
   line_comment,
 } from './gen/terms';
 import getNonEOF from './get-non-eof';
-import c from './utils/c';
+import cp from './utils/c';
 import isHex from './utils/is-hex';
 
 interface StateSpec {
@@ -88,7 +88,7 @@ export default class Tokenizer extends ExternalTokenizer {
   }
 
   private getNext(): void {
-    this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+    this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
     switch (this.#state.cmd) {
       case CatCode.LeftBrace:
       case CatCode.RightBrace:
@@ -149,7 +149,7 @@ export default class Tokenizer extends ExternalTokenizer {
     // Get the first cs character and increment location.
     this.#state.chr = this.#state.buf.get(this.#state.loc++);
     // Get the first character's category code
-    let cat = this.#state.ctx.getCatCode(this.#state.chr);
+    let cat = this.#state.ctx.catcode(this.#state.chr);
 
     // Store an offset for expanded characters.
     let offset = 0;
@@ -158,7 +158,7 @@ export default class Tokenizer extends ExternalTokenizer {
     if (cat === CatCode.SupMark && this.nextIsExpandedCharacter()) {
       [offset, this.#state.chr] = this.getExpandedCharacter();
       this.#state.loc += offset;
-      cat = this.#state.ctx.getCatCode(this.#state.chr);
+      cat = this.#state.ctx.catcode(this.#state.chr);
     }
 
     // Return if the control sequence is a nonletter.
@@ -168,13 +168,13 @@ export default class Tokenizer extends ExternalTokenizer {
       // Get the nth character and increment location.
       this.#state.chr = this.#state.buf.get(this.#state.loc++);
       // Get the nth character's category code
-      cat = this.#state.ctx.getCatCode(this.#state.chr);
+      cat = this.#state.ctx.catcode(this.#state.chr);
 
       // If the nth character is a sup_mark, check for an expanded character and reduce (or break) before
       // continuing.
       if (cat === CatCode.SupMark && this.nextIsExpandedCharacter()) {
         [offset, this.#state.chr] = this.getExpandedCharacter();
-        cat = this.#state.ctx.getCatCode(this.#state.chr);
+        cat = this.#state.ctx.catcode(this.#state.chr);
         if (cat === CatCode.Letter) {
           this.#state.loc += offset;
         }
@@ -191,10 +191,7 @@ export default class Tokenizer extends ExternalTokenizer {
   private scanComment() {
     do {
       this.#state.chr = this.#state.buf.get(this.#state.loc++);
-    } while (
-      this.#state.chr > -1 &&
-      this.#state.ctx.getCatCode(this.#state.chr) !== CatCode.CarRet
-    );
+    } while (this.#state.chr > -1 && this.#state.ctx.catcode(this.#state.chr) !== CatCode.CarRet);
   }
 
   /**
@@ -202,7 +199,7 @@ export default class Tokenizer extends ExternalTokenizer {
    * @returns a flag
    */
   private nextIsDirective = (): boolean => {
-    return this.#state.buf.get(this.#state.loc) === c`!`;
+    return this.#state.buf.get(this.#state.loc) === cp`!`;
   };
 
   /**
@@ -214,7 +211,7 @@ export default class Tokenizer extends ExternalTokenizer {
    * @returns a flag
    */
   private nextIsExpandedCharacter(): boolean {
-    if (this.#state.ctx.getCatCode(this.#state.buf.get(this.#state.loc)) !== CatCode.SupMark) {
+    if (this.#state.ctx.catcode(this.#state.buf.get(this.#state.loc)) !== CatCode.SupMark) {
       return false;
     }
     const c = this.#state.buf.get(this.#state.loc + 1);

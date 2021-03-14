@@ -20,7 +20,7 @@ export default new Directive<[number, number]>({
     return undefined;
   },
   run(context, codepoint, catcode) {
-    context.setCatCode(codepoint, catcode);
+    context.define(codepoint, catcode);
     return context;
   },
 });
