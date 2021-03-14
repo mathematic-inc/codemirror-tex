@@ -18,7 +18,7 @@ import {
 } from './gen/terms';
 
 export const enum CatCode {
-  Escape,
+  Escape = 0,
   LeftBrace,
   RightBrace,
   MathShift,

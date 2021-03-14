@@ -1,3 +1,7 @@
+@precedence {
+  number @left
+}
+
 @dialects {
   directives
 }
@@ -5,18 +9,16 @@
 @top Document { statement+ }
 
 statement {
-  IfStatement |
-  ControlSequenceName |
-  // CatCodeCommand |
+  // Groups
+  bracket_group |
 
-  // Special control_sequences
-  ex_space |
+  // Commands
+  // let_cmd |
+  // futurelet_cmd |
+  // def_code_cmd |
 
   // Tokens
-  control_sequence |
   escape |
-  left_brace |
-  right_brace |
   math_shift |
   tab_mark |
   car_ret |
@@ -28,106 +30,28 @@ statement {
   letter |
   other_char |
   active_char |
-  comment |
   invalid_char |
+
+  control_sequence |
   directive
 }
 
-ex_space[@name="ex_space"] { @specialize<control_sequence, "\\ "> }
-
-IfStatement {
-  @specialize[@name="if"]<
-    control_sequence,
-    "\\if" | "\\ifabsdim" | "\\ifabsnum" | "\\ifcase" |
-    "\\ifcat" | "\\ifcondition" | "\\ifcsname" | "\\ifdefined" |
-    "\\ifdim" | "\\ifeof" | "\\iffalse" | "\\iffontchar" |
-    "\\ifhbox" | "\\ifhmode" | "\\ifincsname" | "\\ifinner" |
-    "\\ifmmode" | "\\ifnum" | "\\ifodd" | "\\ifpdfabsdim" |
-    "\\ifpdfabsnum" | "\\ifpdfprimitive" | "\\ifprimitive" | "\\iftrue" |
-    "\\ifvbox" | "\\ifvmode" | "\\ifvoid" | "\\ifx"
-  >
-    statement*
-  (@specialize[@name="else"]<control_sequence, "\\else">
-    statement*)?
-  @specialize[@name="fi"]<control_sequence, "\\fi">
+// Groups
+bracket_group {
+  left_brace statement* right_brace
 }
-ControlSequenceName {
-  @specialize[@name="cs_name"]<control_sequence, "\\csname">
-    statement*
-  @specialize[@name="end_cs_name"]<control_sequence, "\\endcsname">
+
+// Commands
+let_cmd[@name="let_cmd"] {
+  @specialize<control_sequence_token, "let"> spacer* control_sequence (spacer* optional_equal)? spacer* control_sequence
 }
-// CatCodeCommand {
-//   @specialize[@name="def_cat_code"]<control_sequence, "\\catcode"> (
-//     (spacer* integer spacer* (optional_equal spacer*)? integer)
-//   )
-// }
+futurelet_cmd[@name="futurelet_cmd"] {
+  @specialize<control_sequence_token, "futurelet"> spacer* control_sequence spacer* control_sequence spacer* control_sequence
+}
+def_code_cmd[@name="def_code_cmd"] {
+  @specialize<control_sequence_token, "catcode">  spacer* integer (spacer* optional_equal)? spacer* integer
+}
 
-/* ====================================== Special Commands ====================================== */
-// @external tokens verbContent from "../tokenizers/verb" { VerbContent }
-// VerbCmd {
-//   @specialize<control_sequence, "\\verb">
-//   VerbLeftDelim[closedBy=VerbRightDelim] { 
-//     escape |
-//     left_brace |
-//     right_brace |
-//     math_shift |
-//     tab_mark |
-//     car_ret |
-//     mac_param |
-//     sup_mark |
-//     sub_mark |
-//     ignore |
-//     spacer |
-//     other_char |
-//     active_char |
-//     comment |
-//     invalid_char
-//   }
-//   VerbContent
-//   VerbRightDelim[openedBy=VerbLeftDelim] { 
-//     escape |
-//     left_brace |
-//     right_brace |
-//     math_shift |
-//     tab_mark |
-//     car_ret |
-//     mac_param |
-//     sup_mark |
-//     sub_mark |
-//     ignore |
-//     spacer |
-//     other_char |
-//     active_char |
-//     comment |
-//     invalid_char
-//   }
-// }
-// BeginCmd { @specialize<control_sequence, "\\begin"> }
-// EndCmd { @specialize<control_sequence, "\\end"> }
-
-// // General environment
-// @external tokens envEnd from "../tokenizers/env" { EnvEndCommand, MismatchedEnvEndCommand }
-// Environment<name, content> {
-//   BeginCommand[closedBy=EndCommand] {
-//     (left_brace EnvironmentName { name } right_brace)
-//   }
-//   content
-//   EndCommand[openedBy=BeginCommand] {
-//     (EnvEndCommand | MismatchedEnvEndCommand)
-//     (left_brace EnvironmentName { name } right_brace)
-//   }
-// }
-
-// // verbatim enviroment
-// @external tokens verbatimContent from "../tokenizers/verb" { VerbatimContent }
-// VerbatimEnvironment {
-//   Environment<
-//     @specialize<text, "verbatim" | "verbatim*">,
-//     VerbatimContent
-//   >
-// }
-
-@skip { line_comment }
 
 /**
  * Tokens
@@ -147,8 +71,9 @@ ControlSequenceName {
  * encodes this as a sequence of category 11 characters after a category 0 character or a single
  * character from any category after a category 0 character.
  */
- @context trackContext from "../tokenizer"
- @external tokens tokenizer from "../tokenizer" {
+@skip { line_comment }
+@context trackContext from "../tokenizer"
+@external tokens tokenizer from "../tokenizer" {
   escape[@name="escape"],
   left_brace[@name="left_brace"],
   right_brace[@name="right_brace"],
@@ -165,45 +90,45 @@ ControlSequenceName {
   active_char[@name="active_char"],
   comment[@name="comment"],
   invalid_char[@name="invalid_char"],
-  control_sequence[@name="control_sequence"],
-  line_comment[@name="line_comment"],
 
-  // `directive` is a custom token that provides parser runtime functionalities in the form of
+  control_sequence_token,
+
+  // A `directive` is a parser rule that provides custom parser runtime functionalities in the form of
   // comments. They come in the form of `%! <abstract command>` where `<abstract command>` is
-  // predefined in the tokenizer. E.g. `%! Change category code for code point 64 to 11.`. The semantic
-  // behind `<abstract command>` is reminiscent of Knuth's WEB language; the directive is still a
-  // comment, so it should remain semantic although functional.
-  directive[
-    @name="directive",
-    @dialect="directives"
-  ]
+  // predefined in the tokenizer. E.g. `%! Change category code for code point 64 to 11.`. The
+  // semantic behind `<abstract command>` is reminiscent of Knuth's WEB language; the directive is
+  // still a comment, so it should remain semantic although functional.
+  directive_comment,
+  line_comment
 }
-// optional_equal[@name="optional_equal"] { @specialize<other_char, "="> }
-// any_char {
-//   left_brace | right_brace |
-//   math_shift | tab_mark | car_ret |
-//   mac_param | sup_mark | sub_mark |
-//   ignore | letter | other_char |
-//   active_char | invalid_char
-// }
 
-// // TeX numbers
-// integer[@name="integer"] { sign* (dec_number | oct_number | hex_number | alpha_number) !end_integer }
+control_sequence[@name="control_sequence"] {
+  control_sequence_token
+}
 
-// // The sign of an integer
-// sign { @specialize<other_char, "+" | "-"> }
+directive[@name="directive"] {
+  directive_comment
+}
 
-// // Various types of digits
-// oct_digit { @specialize<other_char, "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> }
-// dec_digit { oct_digit | @specialize<other_char, "9"> }
-// hex_digit { dec_digit | @specialize<other_char, "A" | "B" | "C" | "D" | "E" | "F"> | @specialize<letter, "A" | "B" | "C" | "D" | "E" | "F"> }
+optional_equal[@name="optional_equal"] { @extend<other_char, "="> }
+any_char {
+  left_brace | right_brace | math_shift | tab_mark | car_ret | mac_param | sup_mark | sub_mark |
+  ignore | letter | other_char | active_char | invalid_char
+}
 
-// // Numbers in various bases
-// oct_number { @specialize<other_char, "'"> (control_sequence | oct_digit)+ }
-// dec_number { (control_sequence | dec_digit)+ }
-// hex_number { @specialize<other_char, "\""> (control_sequence | hex_digit)+ }
-// alpha_number { @specialize<other_char, "`"> (control_sequence | any_char)+ }
+// TeX numbers
+integer[@name="integer"] { sign* (dec_number | oct_number | hex_number | alpha_number) }
 
-// @precedence {
-//   end_integer @left
-// }
+// The sign of an integer
+sign { @extend<other_char, "+" | "-"> }
+
+// Various types of digits
+oct_digit { @extend<other_char, "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> }
+dec_digit { oct_digit | @extend<other_char, "9"> }
+hex_digit { dec_digit | @extend<other_char, "A" | "B" | "C" | "D" | "E" | "F"> | @extend<letter, "A" | "B" | "C" | "D" | "E" | "F"> }
+
+// Numbers in various bases
+dec_number { dec_digit+ !number }
+oct_number { @extend<other_char, "'"> oct_digit+ !number }
+hex_number { @extend<other_char, "\""> hex_digit+ !number }
+alpha_number { @extend<other_char, "`"> (control_sequence | active_char | any_char) !number }

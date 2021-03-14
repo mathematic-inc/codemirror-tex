@@ -1,0 +1,7 @@
+# `catcode` command 2
+
+this is a test \catcode`\@=11
+
+==>
+
+Document(cs_catcode,alpha_number(control_sequence),optional_equal,dec_number)

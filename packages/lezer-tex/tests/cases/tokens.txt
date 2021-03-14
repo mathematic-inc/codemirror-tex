@@ -37,7 +37,7 @@ Document(control_sequence)
 
 # Control sequence 2
 
-\test2
+\1234
 
 ==>
 
@@ -97,7 +97,7 @@ Document(control_sequence,ignore)
 
 ==>
 
-Document(CatCodeCommand(def_cat_code,integer(control_sequence),integer))
+Document(CatCodeCommand(cs_catcode,alpha_number(control_sequence),dec_number))
 
 # `catcode` command 2
 
@@ -105,4 +105,4 @@ Document(CatCodeCommand(def_cat_code,integer(control_sequence),integer))
 
 ==>
 
-Document(CatCodeCommand(def_cat_code,integer(control_sequence),optional_equal,integer))
+Document(cs_catcode,alpha_number(control_sequence),optional_equal,dec_number)

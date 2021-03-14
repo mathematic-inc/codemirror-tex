@@ -1,6 +1,13 @@
 import Directive from './directive';
 
-const directiveTemplate = /^Change category code for code point ((?:0(?:o[0-8]+|b[01]+|x[a-z0-9]+))|[0-9]+) to ((?:0(?:o[0-8]+|b[01]+|x[a-z0-9]+))|[0-9]+)/i;
+const binNumTemplate = /0b[01]+/.source;
+const hexNumTemplate = /0x[a-z0-9]+/.source;
+const octNumTemplate = /0o[0-8]+/.source;
+const intTemplate = `${binNumTemplate}|${hexNumTemplate}|${octNumTemplate}`;
+const directiveTemplate = new RegExp(
+  `change category code for code point (${intTemplate}) to (${intTemplate})`,
+  'i'
+);
 
 export default new Directive<[number, number]>({
   test(directive) {

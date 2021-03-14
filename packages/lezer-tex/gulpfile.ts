@@ -6,7 +6,9 @@ import { run as runJest } from 'jest';
 import { buildParserFile } from './third_party/lezer-generator/src/build';
 
 async function generateLezer() {
-  const files = buildParserFile(readFileSync('src/tex.grammar', { encoding: 'utf-8' }));
+  const files = buildParserFile(readFileSync('src/tex.grammar', { encoding: 'utf-8' }), {
+    includeNames: true,
+  });
   mkdirSync('src/gen', { recursive: true });
   writeFileSync('src/gen/terms.js', files.terms);
   writeFileSync('src/gen/parser.js', files.parser);

@@ -1,4 +1,4 @@
-import { control_sequence } from './gen/terms';
+import { CatCode } from './catcode';
 
 // We use mersenne primes to compactly hash.
 const EQTB_HASH_SIZE = 19;
@@ -17,7 +17,6 @@ export default class Context {
    */
   public eqtb: {
     catcode: Uint8Array;
-    commands: { [csId: string]: [number, number] };
   };
 
   public parent: Context | null;
@@ -32,12 +31,6 @@ export default class Context {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #changed = true;
 
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #curcs = '';
-
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #directive = '';
-
   constructor(parent: Context | null, depth: number) {
     this.parent = parent;
     this.depth = depth;
@@ -45,12 +38,10 @@ export default class Context {
     if (this.parent) {
       this.eqtb = {
         catcode: new Uint8Array(this.parent.eqtb.catcode),
-        commands: this.parent.eqtb.commands,
       };
     } else {
       this.eqtb = {
         catcode: new Uint8Array(2 ** 16 * 6).fill(12 + (12 << 4)),
-        commands: {},
       };
     }
   }
@@ -68,7 +59,7 @@ export default class Context {
   }
 
   // ! TODO Cleanup surrogates
-  public setCatCode(ch: number, cat: number): void {
+  public setCatCode(ch: number, cat: CatCode): void {
     if (ch >= 0x40000 && ch < 0xe0000) {
       throw new RangeError('Unicode point is valid, but unassigned');
     }
@@ -90,7 +81,7 @@ export default class Context {
     this.#changed = true;
   }
 
-  public getCatCode(ch: number): number {
+  public getCatCode(ch: CatCode): CatCode {
     if (ch >= 0x40000 && ch < 0xe0000) {
       throw new RangeError('Unicode point is valid, but unassigned');
     }
@@ -105,32 +96,6 @@ export default class Context {
       return this.eqtb.catcode[ch / 2] & 0b00001111;
     }
     return this.eqtb.catcode[(ch - 1) / 2] >> 4;
-  }
-
-  public setCommand(cs: string, cmd: number, chr: number): void {
-    this.eqtb.commands[cs] = [cmd, chr];
-  }
-
-  public getCommand(cs: string): [cmd: number, chr: number] {
-    const cmdchr = this.eqtb.commands[cs];
-    if (cmdchr) return cmdchr;
-    return [control_sequence, 0];
-  }
-
-  public storeControlSequence(curcs: string): void {
-    this.#curcs = curcs;
-  }
-
-  public retrieveControlSequence(): string {
-    return this.#curcs;
-  }
-
-  public storeDirective(directive: string): void {
-    this.#directive = directive;
-  }
-
-  public retrieveDirective(): string {
-    return this.#directive;
   }
 
   private generateEqTbHash(): number {
