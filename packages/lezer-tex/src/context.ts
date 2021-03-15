@@ -2,7 +2,8 @@
 /* eslint-disable no-plusplus */
 import { CatCode } from './catcode';
 import { GroupType } from './group-type';
-import { List } from './utils/list';
+// eslint-disable-next-line import/no-cycle
+import Command from './modules/commands/command';
 import { Trie } from './utils/trie';
 
 // We use mersenne primes to compactly hash.
@@ -17,16 +18,18 @@ const HASH_SIZE = 2 ** 31 - 1;
 const MAX_DEPTH = 6;
 
 export default class Context {
+  public static primitives = new Trie<[cmd: number, chr: string] | null>(null);
+
   /**
    * Each entry represents a Unicode code plane.
    */
   public eqtb: {
     catcode: Uint8Array | number[];
-    commands: Trie<[command: number, modifier: number, macro: boolean]>;
-    lists: List<[term: number, value: string]>[];
   };
 
   public reset = false;
+
+  public command: Command | null = null;
 
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #hash = 0;
@@ -38,17 +41,11 @@ export default class Context {
   constructor(groupType: GroupType, depth: number, parent: Context);
   constructor(public groupType: GroupType, public depth: number = 0, public parent?: Context) {
     if (depth !== undefined && parent !== undefined) {
-      this.eqtb = {
-        catcode: [],
-        commands: new Trie([-1, -1, false]),
-        lists: [],
-      };
+      this.eqtb = { catcode: [] };
       return;
     }
     this.eqtb = {
       catcode: new Uint8Array(2 ** 16 * 6).fill(12 + (12 << 4)),
-      commands: new Trie([-1, -1, false]),
-      lists: [],
     };
   }
 
@@ -64,13 +61,7 @@ export default class Context {
     return this.#hash;
   }
 
-  public define(chr: number, cmd: number): void;
-  public define(chr: number, cmd: number, m: boolean, cs: string): void;
-  public define(chr: number, cmd: number, m = false, cs?: string): void {
-    if (cs !== undefined) {
-      this.eqtb.commands.insert(cs, [chr, cmd, m]);
-      return;
-    }
+  public defineCatCode(chr: number, cmd: number): void {
     if (chr >= 0x40000 && chr < 0xe0000) {
       throw new RangeError('Unicode point is valid, but unassigned');
     }
@@ -98,12 +89,16 @@ export default class Context {
    * @param ch - The code point
    * @returns - The category code for the code point.
    */
-  public catcode(ch: number): CatCode {
+  public getCatCode(ch: number): CatCode {
     if (ch >= 0x40000 && ch < 0xe0000) {
       throw new RangeError('Unicode point is valid, but unassigned');
     }
-    if (ch > 0x10ffff || ch < 0) {
+    if (ch > 0x10ffff) {
       throw new RangeError('Unicode point is invalid');
+    }
+    if (ch < 0) {
+      // A special catcode for negative numbers. Used for checking.
+      return -1;
     }
     if (ch > 0xdffff) {
       // eslint-disable-next-line no-param-reassign
@@ -116,44 +111,14 @@ export default class Context {
     while (n && n.eqtb.catcode[i] === undefined) {
       n = n.parent;
     }
-    if (!n) {
-      throw new Error("this shouldn't occur");
+    if (n === undefined) {
+      throw new Error("this shouldn't happen");
     }
 
     if (ch % 2 === 0) {
       return n.eqtb.catcode[i] & 0b00001111;
     }
     return n.eqtb.catcode[i] >> 4;
-  }
-
-  public command(
-    cs: string
-  ): [level: number, value: [command: number, modifier: number, macro: boolean] | null] {
-    let l = 0;
-    let n = this as Context | undefined;
-    let v = this.eqtb.commands.lookup(cs);
-    while (n?.parent && v === null) {
-      n = n.parent;
-      v = n.eqtb.commands.lookup(cs);
-      l += 1;
-    }
-    return [l, v];
-  }
-
-  /**
-   * Gets the token list with the given level and index.
-   *
-   * @param l - The level of nesting from inner to outer.
-   * @param i - The index to find the list.
-   * @returns - A token list
-   */
-  public list(l: number, i: number): List<[term: number, value: string]> {
-    let n = this as Context | undefined;
-    // eslint-disable-next-line no-param-reassign
-    for (; l !== 0; l--) {
-      n = n?.parent;
-    }
-    return (n as Context).eqtb.lists[i];
   }
 
   private generateEqTbHash(): number {

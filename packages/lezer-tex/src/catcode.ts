@@ -1,8 +1,6 @@
 import {
   active_char,
   car_ret,
-  comment,
-  escape,
   ignore,
   invalid_char,
   left_brace,
@@ -37,7 +35,7 @@ export const enum CatCode {
 }
 
 export const catcode = [
-  escape,
+  0,
   left_brace,
   right_brace,
   math_shift,
@@ -51,6 +49,6 @@ export const catcode = [
   letter,
   other_char,
   active_char,
-  comment,
+  0,
   invalid_char,
 ];

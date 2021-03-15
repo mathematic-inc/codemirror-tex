@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join, resolve, basename } from 'path';
-import parser from '../lib';
+import parser from '../src';
 import { fileTests } from '../third_party/lezer-generator/src/test';
 
 const solo = resolve(__dirname, 'solo.txt');

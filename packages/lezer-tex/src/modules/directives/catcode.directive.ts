@@ -3,7 +3,8 @@ import Directive from './directive';
 const binNumTemplate = /0b[01]+/.source;
 const hexNumTemplate = /0x[a-z0-9]+/.source;
 const octNumTemplate = /0o[0-8]+/.source;
-const intTemplate = `${binNumTemplate}|${hexNumTemplate}|${octNumTemplate}`;
+const decNumTemplate = /[0-9]+/.source;
+const intTemplate = `${decNumTemplate}|${binNumTemplate}|${hexNumTemplate}|${octNumTemplate}`;
 const directiveTemplate = new RegExp(
   `change category code for code point (${intTemplate}) to (${intTemplate})`,
   'i'
@@ -20,7 +21,7 @@ export default new Directive<[number, number]>({
     return undefined;
   },
   run(context, codepoint, catcode) {
-    context.define(codepoint, catcode);
+    context.defineCatCode(codepoint, catcode);
     return context;
   },
 });

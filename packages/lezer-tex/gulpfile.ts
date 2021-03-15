@@ -31,4 +31,4 @@ task('build', series('generate', build));
 function test() {
   return runJest();
 }
-task('test', test);
+task('test', series('generate', test));

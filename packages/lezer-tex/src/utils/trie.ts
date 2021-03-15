@@ -1,5 +1,5 @@
 export class Trie<T> {
-  public c: { [c: number]: Trie<T> } = {};
+  public children: Trie<T>[] = [];
 
   /**
    * @param v - This should be the zero value of the type T if the node is root.
@@ -17,8 +17,8 @@ export class Trie<T> {
   public insert(k: string, v: T): void {
     let n = this as Trie<T>;
     for (const p of Uint32Array.from(k, (s) => s.codePointAt(0) as number).reverse()) {
-      if (p in this.c) this.c[p] = new Trie(this.v);
-      n = this.c[p];
+      if (n.children[p] === undefined) n.children[p] = new Trie(n.v);
+      n = n.children[p];
     }
     n.v = v;
   }
@@ -32,7 +32,7 @@ export class Trie<T> {
   public lookup(k: string): T | null {
     let n = this as Trie<T>;
     for (const p of Uint32Array.from(k, (s) => s.codePointAt(0) as number).reverse()) {
-      n = this.c[p];
+      n = n.children[p];
       if (n === undefined) return null;
     }
     return n.v;
