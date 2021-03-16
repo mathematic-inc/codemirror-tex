@@ -64,7 +64,7 @@
     "@codemirror/highlight": "^0.18.3",
     "@codemirror/language": "^0.18.0",
     "lezer": "^0.13.4",
-    "lezer-tex": "^0.0.0-7"
+    "lezer-tex": "^0.0.0-8"
   },
   "bugs": {
     "url": "https://github.com/mu-io/codemirror-tex/issues"

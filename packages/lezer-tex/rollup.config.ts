@@ -10,6 +10,8 @@ export default {
   plugins: [
     nodeResolve(),
     typescript({
+      lib: ['es5', 'es6'],
+      target: 'es6',
       tsconfig: 'tsconfig.build.json',
     }),
     terser(),

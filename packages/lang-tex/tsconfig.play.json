@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
+    "target": "es5",
     "rootDir": "."
   },
   "include": ["src", "src/**/*.json", "playground"]
