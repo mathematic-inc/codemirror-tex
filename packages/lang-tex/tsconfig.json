@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
+    "module": "commonjs",
     "rootDir": "."
   },
   "include": ["src", "tests", "tools", "playground", "scripts"]

@@ -1,13 +1,13 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./lib",
     "rootDir": "./src",
+    "allowJs": true,
+    "composite": true,
+    "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
-  "references": [
-    { "path": "../lezer-tex/tsconfig.build.json" }
-  ]
+  "include": ["src", "src/**/*.json"]
 }

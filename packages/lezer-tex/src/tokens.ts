@@ -3,6 +3,7 @@
 /* Hand-written tokenizers for TeX. */
 import { ContextTracker, Input, Stack } from 'lezer';
 import Context from './context';
+import { GroupType } from './enums/group-type';
 import {
   begingroup_cs,
   begingroup_cs_token,
@@ -10,20 +11,15 @@ import {
   def_cs_token,
   directive_comment,
   double_math_shift,
-  else_cs_token,
   endgroup_cs,
   endgroup_cs_token,
-  fi_cs_token,
   futurelet_cs_token,
-  if_cs_token,
   left_brace,
   let_cs_token,
-  or_cs_token,
   prefix_cs_token,
   right_brace,
   single_math_shift,
 } from './gen/terms';
-import { GroupType } from './group-type';
 import * as directives from './modules/directives';
 import Tokenizer from './tokenizer';
 import cp from './utils/c';
@@ -50,25 +46,25 @@ Context.primitives.insert('edef', [def_cs_token, 'e']);
 Context.primitives.insert('gdef', [def_cs_token, 'g']);
 Context.primitives.insert('xdef', [def_cs_token, 'x']);
 
-Context.primitives.insert('if', [if_cs_token, '']);
-Context.primitives.insert('ifcat', [if_cs_token, 'cat']);
-Context.primitives.insert('ifnum', [if_cs_token, 'num']);
-Context.primitives.insert('ifdim', [if_cs_token, 'dim']);
-Context.primitives.insert('ifvmode', [if_cs_token, 'vmode']);
-Context.primitives.insert('ifhmode', [if_cs_token, 'hmode']);
-Context.primitives.insert('ifmmode', [if_cs_token, 'mmode']);
-Context.primitives.insert('ifinner', [if_cs_token, 'inner']);
-Context.primitives.insert('ifvoid', [if_cs_token, 'void']);
-Context.primitives.insert('ifhbox', [if_cs_token, 'hbox']);
-Context.primitives.insert('ifvbox', [if_cs_token, 'vbox']);
-Context.primitives.insert('ifx', [if_cs_token, 'x']);
-Context.primitives.insert('ifeof', [if_cs_token, 'eof']);
-Context.primitives.insert('iftrue', [if_cs_token, 'true']);
-Context.primitives.insert('iffalse', [if_cs_token, 'false']);
-Context.primitives.insert('ifcase', [if_cs_token, 'case']);
-Context.primitives.insert('or', [or_cs_token, '']);
-Context.primitives.insert('else', [else_cs_token, '']);
-Context.primitives.insert('fi', [fi_cs_token, '']);
+// Context.primitives.insert('if', [if_cs_token, '']);
+// Context.primitives.insert('ifcat', [if_cs_token, 'cat']);
+// Context.primitives.insert('ifnum', [if_cs_token, 'num']);
+// Context.primitives.insert('ifdim', [if_cs_token, 'dim']);
+// Context.primitives.insert('ifvmode', [if_cs_token, 'vmode']);
+// Context.primitives.insert('ifhmode', [if_cs_token, 'hmode']);
+// Context.primitives.insert('ifmmode', [if_cs_token, 'mmode']);
+// Context.primitives.insert('ifinner', [if_cs_token, 'inner']);
+// Context.primitives.insert('ifvoid', [if_cs_token, 'void']);
+// Context.primitives.insert('ifhbox', [if_cs_token, 'hbox']);
+// Context.primitives.insert('ifvbox', [if_cs_token, 'vbox']);
+// Context.primitives.insert('ifx', [if_cs_token, 'x']);
+// Context.primitives.insert('ifeof', [if_cs_token, 'eof']);
+// Context.primitives.insert('iftrue', [if_cs_token, 'true']);
+// Context.primitives.insert('iffalse', [if_cs_token, 'false']);
+// Context.primitives.insert('ifcase', [if_cs_token, 'case']);
+// Context.primitives.insert('or', [or_cs_token, '']);
+// Context.primitives.insert('else', [else_cs_token, '']);
+// Context.primitives.insert('fi', [fi_cs_token, '']);
 
 function createTopLevelContext(): Context {
   const baseCtx = new Context(GroupType.Bottom);
@@ -91,7 +87,6 @@ function createTopLevelContext(): Context {
   baseCtx.defineCatCode(cp`~`, 13);
   baseCtx.defineCatCode(cp`%`, 14);
   baseCtx.defineCatCode(cp`\x7F`, 14);
-
   return baseCtx;
 }
 
@@ -110,18 +105,6 @@ class TeXContextTracker extends ContextTracker<Context | null> {
       },
     });
   }
-
-  // // eslint-disable-next-line class-methods-use-this
-  // private handleTokenList(context: Context, list: List<[term: number, value: string]>): Context {
-  //   let ctx = context;
-  //   let term: number;
-  //   let value: string;
-  //   for (let n: List<[term: number, value: string]> | null = list; n !== null; n = n.next) {
-  //     [term, value] = n.value;
-  //     ctx = this.handleTerm(ctx, term, value);
-  //   }
-  //   return context;
-  // }
 
   // eslint-disable-next-line class-methods-use-this
   private handleTerm(ctx: Context, term: number, input: Input, stack: Stack): Context {
@@ -160,18 +143,7 @@ class TeXContextTracker extends ContextTracker<Context | null> {
         }
         return ctx;
       }
-      // case defcode_cs: {
-      //   const chr = input.read(stack.ruleStart + 1, stack.pos);
-      //   switch (chr) {
-      //     case 'catcode':
-      //       ctx.command = new CatCodeCommand();
-      //   }
-      //   break;
-      // }
     }
-    // if (ctx.command && ctx.command.ready) {
-    //   return ctx.command.execute(ctx);
-    // }
     return ctx;
   }
 }

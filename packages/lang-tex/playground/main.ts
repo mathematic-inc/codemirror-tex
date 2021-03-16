@@ -1,14 +1,15 @@
-import { autocompletion } from "@codemirror/next/autocomplete";
-import { closeBrackets } from "@codemirror/next/closebrackets";
-import { standardKeymap } from "@codemirror/next/commands";
-import { commentKeymap } from "@codemirror/next/comment";
-import { foldGutter } from "@codemirror/next/fold";
-import { highlightActiveLine } from "@codemirror/next/highlight-selection";
-import { history, historyKeymap } from "@codemirror/next/history";
-import { bracketMatching } from "@codemirror/next/matchbrackets";
-import { EditorState } from "@codemirror/next/state";
-import { EditorView, keymap } from "@codemirror/next/view";
-import { mathjaxSnippets, texLightTheme, texSyntax } from "../src";
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable import/no-extraneous-dependencies */
+import { autocompletion } from '@codemirror/autocomplete';
+import { closeBrackets } from '@codemirror/closebrackets';
+import { standardKeymap } from '@codemirror/commands';
+import { commentKeymap } from '@codemirror/comment';
+import { foldGutter } from '@codemirror/fold';
+import { history, historyKeymap } from '@codemirror/history';
+import { bracketMatching } from '@codemirror/matchbrackets';
+import { EditorState } from '@codemirror/state';
+import { EditorView, keymap, highlightActiveLine } from '@codemirror/view';
+import { tex } from '../src';
 
 const test = `
 \\documentclass[12pt]{article}
@@ -73,23 +74,19 @@ out our service and don't hesitate to get in touch at
 \\end{document}
 `;
 
-const syntax = texSyntax();
-
 const startState = EditorState.create({
   doc: test,
   extensions: [
     // Keymaps
-    keymap(standardKeymap, "mac"),
-    keymap(historyKeymap, "mac"),
-    keymap(commentKeymap, "mac"),
+    keymap.of(standardKeymap),
+    keymap.of(historyKeymap),
+    keymap.of(commentKeymap),
 
     // Extensions
     history(),
     highlightActiveLine(),
-    syntax,
+    tex(),
     autocompletion(),
-    syntax.languageData.of({ autocomplete: mathjaxSnippets }),
-    texLightTheme,
     closeBrackets(),
     bracketMatching(),
     foldGutter(),

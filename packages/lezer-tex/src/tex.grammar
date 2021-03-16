@@ -10,9 +10,6 @@
 @top Document { statement+ }
 
 statement {
-  // Logical
-  if_statement |
-  
   // Groups
   simple_group |
   semi_simple_group |
@@ -81,11 +78,6 @@ def_cmd {
   prefix_cs* def_cs simple_group
 }
 
-// Logical
-if_statement {
-  if_cs statement* (else_cs statement*)* fi_cs
-}
-
 /**
  * Tokens
  *
@@ -132,10 +124,6 @@ if_statement {
   let_cs_token,
   futurelet_cs_token, // Futurelet is significantly then let, so we handle let and future let separately.
   prefix_cs_token,
-  if_cs_token,
-  or_cs_token,
-  else_cs_token,
-  fi_cs_token,
 
   // A `directive` is a parser rule that provides custom parser runtime functionalities in the form of
   // comments. They come in the form of `%! <abstract command>` where `<abstract command>` is
@@ -169,18 +157,6 @@ futurelet_cs[@name="futurelet_cs"] {
 }
 prefix_cs[@name="prefix_cs"] {
   prefix_cs_token
-}
-if_cs[@name="if_cs"] {
-  if_cs_token
-}
-or_cs[@name="or_cs"] {
-  or_cs_token
-}
-else_cs[@name="else_cs"] {
-  else_cs_token
-}
-fi_cs[@name="fi_cs"] {
-  fi_cs_token
 }
 
 directive[@name="directive"] {

@@ -1,7 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-plusplus */
-import { CatCode } from './catcode';
-import { GroupType } from './group-type';
+import { CatCode } from './enums/catcode';
+import { GroupType } from './enums/group-type';
 // eslint-disable-next-line import/no-cycle
 import Command from './modules/commands/command';
 import { Trie } from './utils/trie';

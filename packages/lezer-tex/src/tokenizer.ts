@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus, no-param-reassign, @typescript-eslint/no-shadow  */
 // eslint-disable-next-line max-classes-per-file
 import { ExternalTokenizer, Input, Stack, Token } from 'lezer';
-import { CatCode, catcode } from './catcode';
+import { CatCode, catcode } from './enums/catcode';
 import Context from './context';
 import {
   control_sequence_token,
@@ -10,7 +10,6 @@ import {
   directive_comment,
   line_comment,
 } from './gen/terms';
-import getNonEOF from './get-non-eof';
 import cp from './utils/c';
 import isHex from './utils/is-hex';
 
@@ -65,29 +64,32 @@ export default class Tokenizer extends ExternalTokenizer {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #state!: State;
 
+  // Used for offsetting.
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  #offset = 2;
+
   constructor() {
     super(
       (buf: Input, tok: Token, stk: Stack): void => {
         if (tok.start === 0) {
           stk.context.reset = true;
         }
-        try {
-          let dct = 0;
-          if (stk.dialectEnabled(Dialect_directives)) {
-            dct |= 1;
-          }
-          this.#state = new State({
-            chr: getNonEOF(buf, tok.start),
-            loc: tok.start + 1,
-            buf,
-            tok,
-            ctx: stk.context,
-            dct,
-          });
-          return this.getNext();
-        } catch {
+        if (tok.start >= buf.length) {
           return undefined;
         }
+        let dct = 0;
+        if (stk.dialectEnabled(Dialect_directives)) {
+          dct |= 1;
+        }
+        this.#state = new State({
+          chr: buf.get(tok.start),
+          loc: tok.start + 1,
+          buf,
+          tok,
+          ctx: stk.context,
+          dct,
+        });
+        return this.getNext();
       },
       { contextual: true }
     );
@@ -134,9 +136,8 @@ export default class Tokenizer extends ExternalTokenizer {
       }
       case CatCode.SupMark: {
         if (this.nextIsExpandedCharacter()) {
-          let offset: number;
-          [offset, this.#state.chr] = this.getExpandedCharacter();
-          this.#state.loc += offset;
+          this.scanExpandedCharacter();
+          this.#state.loc += this.#offset;
           this.getNext();
           break;
         }
@@ -160,23 +161,21 @@ export default class Tokenizer extends ExternalTokenizer {
     // Get the first cs character and increment location.
     this.#state.chr = this.#state.buf.get(this.#state.loc++);
     // Get the first character's category code
-    let cat = this.#state.ctx.getCatCode(this.#state.chr);
+    this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
     // Add the current character to a number array.
     const cs = [this.#state.chr];
 
-    // Store an offset for expanded characters.
-    let offset = 0;
     // If the first cs character is a sup_mark, check for an expanded character and reduce before
     // continuing.
-    if (cat === CatCode.SupMark && this.nextIsExpandedCharacter()) {
-      [offset, this.#state.chr] = this.getExpandedCharacter();
-      this.#state.loc += offset;
-      cat = this.#state.ctx.getCatCode(this.#state.chr);
+    if (this.#state.cmd === CatCode.SupMark && this.nextIsExpandedCharacter()) {
+      this.scanExpandedCharacter();
+      this.#state.loc += this.#offset;
+      this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
       cs[0] = this.#state.chr;
     }
 
     // Return if the control sequence is a nonletter.
-    if (cat !== CatCode.Letter) {
+    if (this.#state.cmd !== CatCode.Letter) {
       this.#state.cs = String.fromCodePoint(...cs);
       return;
     }
@@ -185,21 +184,21 @@ export default class Tokenizer extends ExternalTokenizer {
       // Get the nth character and increment location.
       this.#state.chr = this.#state.buf.get(this.#state.loc++);
       // Get the nth character's category code.
-      cat = this.#state.ctx.getCatCode(this.#state.chr);
+      this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
       // Add the nth character to the cs string.
       cs.push(this.#state.chr);
 
       // If the nth character is a sup_mark, check for an expanded character and reduce (or break) before
       // continuing.
-      if (cat === CatCode.SupMark && this.nextIsExpandedCharacter()) {
-        [offset, this.#state.chr] = this.getExpandedCharacter();
-        cat = this.#state.ctx.getCatCode(this.#state.chr);
-        if (cat === CatCode.Letter) {
+      if (this.#state.cmd === CatCode.SupMark && this.nextIsExpandedCharacter()) {
+        this.scanExpandedCharacter();
+        this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+        if (this.#state.cmd === CatCode.Letter) {
           cs.push(this.#state.chr);
-          this.#state.loc += offset;
+          this.#state.loc += this.#offset;
         }
       }
-    } while (cat === CatCode.Letter);
+    } while (this.#state.cmd === CatCode.Letter);
 
     // Decrement location because the current location will always be the nonletter.
     this.#state.loc -= 1;
@@ -248,20 +247,19 @@ export default class Tokenizer extends ExternalTokenizer {
   /**
    * Reduces an expanded character, e.g. ^^? to \<delete\>.
    *
-   * @returns the offset and the code point encoded by the expanded character.
+   * @returns - The code point encoded by the expanded character.
    */
-  private getExpandedCharacter(): [offset: number, chr: number] {
-    let o = 2;
-    let c = this.#state.buf.get(this.#state.loc + 1);
-    if (isHex(c)) {
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  private scanExpandedCharacter() {
+    this.#offset = 2;
+    this.#state.chr = this.#state.buf.get(this.#state.loc + 1);
+    if (isHex(this.#state.chr)) {
       const cc = this.#state.buf.get(this.#state.loc + 2);
       if (isHex(cc)) {
-        o += 1;
-        c = parseInt(`0x${String.fromCharCode(c, cc)}`, 16);
-        return [o, c];
+        this.#offset += 1;
+        this.#state.chr = parseInt(`0x${String.fromCharCode(this.#state.chr, cc)}`, 16);
       }
     }
-    c = c < 0o100 ? c + 0o100 : c - 0o100;
-    return [o, c];
+    this.#state.chr = this.#state.chr < 0o100 ? this.#state.chr + 0o100 : this.#state.chr - 0o100;
   }
 }

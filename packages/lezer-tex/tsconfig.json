@@ -2,7 +2,8 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": "."
+    "rootDir": ".",
+    "allowJs": true
   },
-  "include": ["src", "tests", "third_party/**/*"]
+  "include": ["src", "tests", "third_party"]
 }

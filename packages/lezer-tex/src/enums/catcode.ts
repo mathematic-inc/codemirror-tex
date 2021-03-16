@@ -13,7 +13,7 @@ import {
   sub_mark,
   sup_mark,
   tab_mark,
-} from './gen/terms';
+} from '../gen/terms';
 
 export const enum CatCode {
   Escape = 0,

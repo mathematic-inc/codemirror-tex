@@ -4,8 +4,7 @@
     "baseUrl": ".",
     "outDir": "./lib",
     "rootDir": "./src",
-    "allowJs": true,
-    "composite": true
+    "removeComments": true
   },
   "include": ["src"]
 }
