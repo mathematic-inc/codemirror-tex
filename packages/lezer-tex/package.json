@@ -60,6 +60,7 @@
     "url": "https://github.com/mu-io/codemirror-tex/issues"
   },
   "dependencies": {
+    "immer": "^8.0.2",
     "lezer": "^0.13.4"
   }
 }

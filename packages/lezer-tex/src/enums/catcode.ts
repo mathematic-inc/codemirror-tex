@@ -5,14 +5,13 @@ import {
   invalid_char,
   left_brace,
   letter,
-  mac_param,
-  math_shift,
   other_char,
   right_brace,
   spacer,
   sub_mark,
   sup_mark,
   tab_mark,
+  mac_param
 } from '../gen/terms';
 
 export const enum CatCode {
@@ -34,11 +33,11 @@ export const enum CatCode {
   InvalidChar,
 }
 
-export const catcode = [
+export const catcode = Uint8Array.of(
   0,
   left_brace,
   right_brace,
-  math_shift,
+  0,
   tab_mark,
   car_ret,
   mac_param,
@@ -50,5 +49,5 @@ export const catcode = [
   other_char,
   active_char,
   0,
-  invalid_char,
-];
+  invalid_char
+);

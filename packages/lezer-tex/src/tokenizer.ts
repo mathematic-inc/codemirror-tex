@@ -2,67 +2,54 @@
 /* eslint-disable no-plusplus, no-param-reassign, @typescript-eslint/no-shadow  */
 // eslint-disable-next-line max-classes-per-file
 import { ExternalTokenizer, Input, Stack, Token } from 'lezer';
-import { CatCode, catcode } from './enums/catcode';
 import Context from './context';
+import { CatCode, catcode } from './enums/catcode';
+import { GroupType } from './enums/group-type';
 import {
   control_sequence_token,
   Dialect_directives,
   directive_comment,
+  left_double_math_shift,
+  left_math_shift,
   line_comment,
+  right_double_math_shift,
+  right_math_shift,
 } from './gen/terms';
 import cp from './utils/c';
 import isHex from './utils/is-hex';
 
-interface StateSpec {
-  // The current character
-  chr: number;
-
-  // The current location
-  loc: number;
-
-  // The current input buffer
-  buf: Input;
-
-  // The current token
-  tok: Token;
-
-  // The current context
-  ctx: Context;
-
-  // The current dialects
-  dct: number;
-}
-
 class State {
+  // The current control sequence
   public cs!: string;
 
-  public chr: number;
+  // The current character
+  public chr!: number;
 
+  // The current command
   public cmd!: number;
 
-  public loc: number;
+  // The current location
+  public loc!: number;
 
-  public buf: Input;
+  // The current input buffer
+  public buf!: Input;
 
-  public tok: Token;
+  // The current token
+  public tok!: Token;
 
-  public ctx: Context;
+  // The current context
+  public ctx!: Context;
 
-  public dct: number;
+  // The current dialects
+  public dct!: number;
 
-  constructor(spec: StateSpec) {
-    this.chr = spec.chr;
-    this.loc = spec.loc;
-    this.buf = spec.buf;
-    this.tok = spec.tok;
-    this.ctx = spec.ctx;
-    this.dct = spec.dct;
-  }
+  // The current stack
+  public stk!: Stack;
 }
 
 export default class Tokenizer extends ExternalTokenizer {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #state!: State;
+  #state = new State();
 
   // Used for offsetting.
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
@@ -81,14 +68,13 @@ export default class Tokenizer extends ExternalTokenizer {
         if (stk.dialectEnabled(Dialect_directives)) {
           dct |= 1;
         }
-        this.#state = new State({
-          chr: buf.get(tok.start),
-          loc: tok.start + 1,
-          buf,
-          tok,
-          ctx: stk.context,
-          dct,
-        });
+        this.#state.chr = buf.get(tok.start);
+        this.#state.loc = tok.start + 1;
+        this.#state.buf = buf;
+        this.#state.tok = tok;
+        this.#state.stk = stk;
+        this.#state.ctx = stk.context;
+        this.#state.dct = dct;
         return this.getNext();
       },
       { contextual: true }
@@ -100,18 +86,36 @@ export default class Tokenizer extends ExternalTokenizer {
     switch (this.#state.cmd) {
       case CatCode.LeftBrace:
       case CatCode.RightBrace:
-      case CatCode.MathShift:
       case CatCode.TabMark:
       case CatCode.CarRet:
-      case CatCode.MacParam:
       case CatCode.SubMark:
       case CatCode.Ignore:
       case CatCode.Spacer:
       case CatCode.Letter:
-      case CatCode.OtherChar:
       case CatCode.ActiveChar:
+      case CatCode.OtherChar:
+      case CatCode.MacParam:
       case CatCode.InvalidChar: {
         this.#state.tok.accept(catcode[this.#state.cmd], this.#state.loc);
+        break;
+      }
+      case CatCode.MathShift: {
+        if (
+          this.#state.ctx.getCatCode(this.#state.buf.get(this.#state.loc)) === CatCode.MathShift
+        ) {
+          this.#state.loc += 1;
+          this.#state.tok.accept(
+            this.#state.ctx.groupType === GroupType.MathShift
+              ? right_double_math_shift
+              : left_double_math_shift,
+            this.#state.loc
+          );
+          break;
+        }
+        this.#state.tok.accept(
+          this.#state.ctx.groupType === GroupType.MathShift ? right_math_shift : left_math_shift,
+          this.#state.loc
+        );
         break;
       }
       case CatCode.Escape: {
@@ -209,6 +213,24 @@ export default class Tokenizer extends ExternalTokenizer {
   }
 
   /**
+   * Reduces an expanded character, e.g. ^^? to \<delete\>.
+   *
+   * @returns - The code point encoded by the expanded character.
+   */
+  private scanExpandedCharacter() {
+    this.#offset = 2;
+    this.#state.chr = this.#state.buf.get(this.#state.loc + 1);
+    if (isHex(this.#state.chr)) {
+      const cc = this.#state.buf.get(this.#state.loc + 2);
+      if (isHex(cc)) {
+        this.#offset += 1;
+        this.#state.chr = parseInt(`0x${String.fromCharCode(this.#state.chr, cc)}`, 16);
+      }
+    }
+    this.#state.chr = this.#state.chr < 0o100 ? this.#state.chr + 0o100 : this.#state.chr - 0o100;
+  }
+
+  /**
    * Scans a comment.
    */
   private scanComment() {
@@ -242,24 +264,5 @@ export default class Tokenizer extends ExternalTokenizer {
     }
     const c = this.#state.buf.get(this.#state.loc + 1);
     return c > 0 && c < 0o200;
-  }
-
-  /**
-   * Reduces an expanded character, e.g. ^^? to \<delete\>.
-   *
-   * @returns - The code point encoded by the expanded character.
-   */
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  private scanExpandedCharacter() {
-    this.#offset = 2;
-    this.#state.chr = this.#state.buf.get(this.#state.loc + 1);
-    if (isHex(this.#state.chr)) {
-      const cc = this.#state.buf.get(this.#state.loc + 2);
-      if (isHex(cc)) {
-        this.#offset += 1;
-        this.#state.chr = parseInt(`0x${String.fromCharCode(this.#state.chr, cc)}`, 16);
-      }
-    }
-    this.#state.chr = this.#state.chr < 0o100 ? this.#state.chr + 0o100 : this.#state.chr - 0o100;
   }
 }

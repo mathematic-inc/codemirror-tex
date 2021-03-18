@@ -4,5 +4,5 @@
     "module": "commonjs",
     "rootDir": "."
   },
-  "include": ["src", "tests", "tools", "playground", "scripts"]
+  "include": ["src", "tests", "tools", "playground", "scripts", "**/*.json"]
 }

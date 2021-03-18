@@ -1,14 +1,8 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable import/no-extraneous-dependencies */
-import { autocompletion } from '@codemirror/autocomplete';
-import { closeBrackets } from '@codemirror/closebrackets';
-import { standardKeymap } from '@codemirror/commands';
-import { commentKeymap } from '@codemirror/comment';
-import { foldGutter } from '@codemirror/fold';
-import { history, historyKeymap } from '@codemirror/history';
-import { bracketMatching } from '@codemirror/matchbrackets';
+import { basicSetup } from '@codemirror/basic-setup';
 import { EditorState } from '@codemirror/state';
-import { EditorView, keymap, highlightActiveLine } from '@codemirror/view';
+import { EditorView } from '@codemirror/view';
 import { tex } from '../src';
 
 const test = `
@@ -40,6 +34,25 @@ const test = `
 }
 \\verb|test|
 % This is a comment
+%! This is a directive
+
+\\makeatletter %! Change the category code for character 64 to 11.
+feaf
+\\t@st
+{
+  \\makeatother %! Change the category code for character 64 to 12 within this simple group.
+  \\t@st
+}
+\\t@st
+\\makeatother %! Change the category code for character 64 to 12.
+
+\\begingroup
+  test
+  \\begingroup
+    test
+  \\endgroup
+\\endgroup
+
 \\begin{test}
 This is a test
 \\end{testt}
@@ -77,19 +90,12 @@ out our service and don't hesitate to get in touch at
 const startState = EditorState.create({
   doc: test,
   extensions: [
-    // Keymaps
-    keymap.of(standardKeymap),
-    keymap.of(historyKeymap),
-    keymap.of(commentKeymap),
-
-    // Extensions
-    history(),
-    highlightActiveLine(),
-    tex(),
-    autocompletion(),
-    closeBrackets(),
-    bracketMatching(),
-    foldGutter(),
+    basicSetup,
+    tex({ directives: true }),
+    EditorView.baseTheme({
+      '.cm-matchingBracket>*': { color: '#0b0 !important' },
+      '.cm-nonmatchingBracket>*': { color: '#a22 !important' },
+    }),
   ],
 });
 

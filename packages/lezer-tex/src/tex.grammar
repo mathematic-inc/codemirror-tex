@@ -1,5 +1,4 @@
 @precedence {
-  number @left,
   amalg_math_shift @left
 }
 
@@ -10,21 +9,17 @@
 @top Document { statement+ }
 
 statement {
-  // Groups
-  simple_group |
-  semi_simple_group |
-  math_shift_group |
+  SimpleGroup |
+  SemiSimpleGroup |
+  MathShiftGroup |
 
-  // Commands
   let_cmd |
   futurelet_cmd |
   def_cmd |
   defcode_cmd |
-
-  // Tokens
+  
   tab_mark |
   car_ret |
-  mac_param |
   sup_mark |
   sub_mark |
   ignore |
@@ -35,47 +30,52 @@ statement {
   invalid_char |
 
   control_sequence |
-  directive
+
+  macro_parameter
 }
 
 // Groups
-simple_group {
+SimpleGroup {
   left_brace statement* right_brace
 }
-semi_simple_group {
-  begingroup_cs statement* endgroup_cs
+SemiSimpleGroup {
+  begin_group statement* end_group
 }
-math_shift_group[@name="math_shift_group"] {
-  ordinary_math_mode | display_math_mode
-}
-ordinary_math_mode {
-  single_math_shift !amalg_math_shift statement* single_math_shift
-}
-display_math_mode {
-  double_math_shift !amalg_math_shift statement* double_math_shift
+MathShiftGroup {
+  ordinary_math_mode {
+    left_math_shift statement* right_math_shift
+  } |
+  display_math_mode {
+    left_double_math_shift statement* right_double_math_shift
+  }
 }
 
 // Commands
 let_cmd {
-  prefix_cs* let_cs
+  prefix* let
     spacer* control_sequence
     (spacer* optional_equal)?
     spacer* control_sequence
 }
 futurelet_cmd {
-  prefix_cs* futurelet_cs
+  prefix* futurelet
     spacer* control_sequence
     spacer* control_sequence
     spacer* control_sequence
 }
 defcode_cmd {
-  prefix_cs* defcode_cs
+  prefix* def_code
     spacer* integer
-    (spacer* optional_equal)?
-    spacer* integer
+    spacer* optional_equal
+    spacer* integer 
 }
 def_cmd {
-  prefix_cs* def_cs simple_group
+  prefix* def SimpleGroup
+}
+
+// Macro Parameter
+macro_parameter[@name="macro_parameter"] {
+  mac_param dec_digit+
 }
 
 /**
@@ -96,78 +96,81 @@ def_cmd {
  * encodes this as a sequence of category 11 characters after a category 0 character or a single
  * character from any category after a category 0 character.
  */
-@skip { line_comment }
+@skip { line_comment | directive }
 @context trackContext from "../tokens"
 @external tokens tokenizer from "../tokens" {
-  // escape[@name="escape"], Every escape prefixes a control sequence, so we don't handle this singularly.
+  /* ============================================================================================== */
+  /*                                      CATEGORY CODE TOKENS                                      */
+  /* ============================================================================================== */
+  /** 
+   * These tokens correspond to a TeX category code (written sequentially). Some of these are
+   * commented (for documentation purposes) since they will always be part of some larger token.
+   */
+
+  // escape[@name="escape"], See Comment Tokens
   left_brace[@name="left_brace",closedBy="right_brace"],
   right_brace[@name="right_brace",openedBy="left_brace"],
-  math_shift[@name="math_shift"],
+  // math_shift, See Math Shift Tokens
   tab_mark[@name="tab_mark"],
   car_ret[@name="car_ret"],
-  mac_param[@name="mac_param"],
+  mac_param,
   sup_mark[@name="sup_mark"],
   sub_mark[@name="sub_mark"],
   ignore[@name="ignore"],
-  spacer, // These should be named `spacer`, but for simplicity of the tree, we leave it hidden.
-  letter, // These should be named `letter`, but for simplicity of the tree, we leave it hidden.
-  other_char, // These should be named `other_char`, but for simplicity of the tree, we leave it hidden.
+  spacer, // These should be named, but for simplicity of the tree, we leave it hidden.
+  letter, // These should be named, but for simplicity of the tree, we leave it hidden.
+  other_char, // These should be named, but for simplicity of the tree, we leave it hidden.
   active_char[@name="active_char"],
-  // comment[@name="comment"],Every comment prefixes a comment, so we don't handle this singularly.
+  // comment[@name="comment"], Every comment prefixes a comment, so we don't handle this singularly.
   invalid_char[@name="invalid_char"],
 
-  control_sequence_token,
-  begingroup_cs_token,
-  endgroup_cs_token,
-  defcode_cs_token,
-  def_cs_token,
-  let_cs_token,
-  futurelet_cs_token, // Futurelet is significantly then let, so we handle let and future let separately.
-  prefix_cs_token,
-
-  // A `directive` is a parser rule that provides custom parser runtime functionalities in the form of
-  // comments. They come in the form of `%! <abstract command>` where `<abstract command>` is
-  // predefined in the tokenizer. E.g. `%! Change category code for code point 64 to 11.`. The
-  // semantic behind `<abstract command>` is reminiscent of Knuth's WEB language; the directive is
-  // still a comment, so it should remain semantic although functional.
+  /* ============================================================================================== */
+  /*                                         COMMENT TOKENS                                         */
+  /* ============================================================================================== */
+  line_comment[@name="comment"],
   directive_comment[@dialect="directives"],
-  line_comment
+
+  /* ============================================================================================== */
+  /*                                        MATH SHIFT TOKENS                                       */
+  /* ============================================================================================== */
+  left_math_shift[@name="left_math_shift",closedBy="right_math_shift"],
+  right_math_shift[@name="right_math_shift",openedBy="left_math_shift"],
+  left_double_math_shift[@name="left_double_math_shift",closedBy="right_double_math_shift"],
+  right_double_math_shift[@name="right_double_math_shift",openedBy="left_double_math_shift"],
+
+  /* ============================================================================================== */
+  /*                                     CONTROL SEQUENCE TOKENS                                    */
+  /* ============================================================================================== */
+  // Generic command
+  control_sequence_token,
+
+  /** The name will always correspond to the cs name with the lowest modifier value. */
+  
+  // Group commands
+  begin_group[@name="\\begingroup",closedBy="\\endgroup"],
+  end_group[@name="\\endgroup",openedBy="\\begingroup"],
+
+  // Assignments
+  def_code[@name="\\catcode"],
+  def[@name="\\def"],
+  let[@name="\\let"],
+  futurelet[@name="\\futurelet"], // Futurelet is significantly then let, so we handle let and future let separately.
+
+  // Assignment modifiers
+  prefix[@name="\\long"]
 }
 
+// Auxillary groups for capturing the text content of the tokens.
 control_sequence[@name="control_sequence"] {
   control_sequence_token
 }
-begingroup_cs[@name="begingroup_cs"] {
-  begingroup_cs_token
-}
-endgroup_cs[@name="endgroup_cs"] {
-  endgroup_cs_token
-}
-defcode_cs[@name="defcode_cs"] {
-  defcode_cs_token
-}
-def_cs[@name="def_cs"] {
-  def_cs_token
-}
-let_cs[@name="let_cs"] {
-  let_cs_token
-}
-futurelet_cs[@name="futurelet_cs"] {
-  futurelet_cs_token
-}
-prefix_cs[@name="prefix_cs"] {
-  prefix_cs_token
-}
-
 directive[@name="directive"] {
   directive_comment
 }
-
-single_math_shift[@name="single_math_shift",closedBy="single_math_shift",openedBy="single_math_shift"] { math_shift !amalg_math_shift }
-double_math_shift[@name="double_math_shift",closedBy="double_math_shift",openedBy="double_math_shift"] { math_shift math_shift }
 optional_equal[@name="optional_equal"] { @extend<other_char, "="> }
+
 any_char {
-  left_brace | right_brace | math_shift | tab_mark | car_ret | mac_param | sup_mark | sub_mark |
+  left_brace | right_brace | tab_mark | car_ret | mac_param | sup_mark | sub_mark |
   ignore | letter | other_char | active_char | invalid_char
 }
 
@@ -175,7 +178,7 @@ any_char {
 integer[@name="integer"] { sign* (dec_number | oct_number | hex_number | alpha_number) }
 
 // The sign of an integer
-sign { @extend<other_char, "+" | "-"> }
+sign[@name="sign"] { @extend<other_char, "+" | "-"> }
 
 // Various types of digits
 oct_digit { @extend<other_char, "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> }
@@ -183,7 +186,7 @@ dec_digit { oct_digit | @extend<other_char, "9"> }
 hex_digit { dec_digit | @extend<other_char, "A" | "B" | "C" | "D" | "E" | "F"> | @extend<letter, "A" | "B" | "C" | "D" | "E" | "F"> }
 
 // Numbers in various bases
-dec_number { dec_digit+ !number }
-oct_number { @extend<other_char, "'"> oct_digit+ !number }
-hex_number { @extend<other_char, "\""> hex_digit+ !number }
-alpha_number { @extend<other_char, "`"> (control_sequence | active_char | any_char) !number }
+dec_number { dec_digit+ }
+oct_number { @extend<other_char, "'"> oct_digit+ }
+hex_number { @extend<other_char, "\""> hex_digit+ }
+alpha_number { @extend<other_char, "`"> (control_sequence | any_char) }

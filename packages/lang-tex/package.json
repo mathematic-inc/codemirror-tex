@@ -34,12 +34,7 @@
     "build": "gulp build"
   },
   "devDependencies": {
-    "@codemirror/commands": "^0.18.0",
-    "@codemirror/comment": "^0.18.0",
-    "@codemirror/fold": "^0.18.0",
-    "@codemirror/history": "^0.18.0",
-    "@codemirror/state": "^0.18.2",
-    "@codemirror/view": "^0.18.1",
+    "@codemirror/basic-setup": "^0.18.0",
     "@types/gulp": "^4.0.8",
     "@types/gulp-sourcemaps": "^0.0.34",
     "@types/jest": "^26.0.20",
@@ -64,7 +59,7 @@
     "@codemirror/highlight": "^0.18.3",
     "@codemirror/language": "^0.18.0",
     "lezer": "^0.13.4",
-    "lezer-tex": "^0.0.0-8"
+    "lezer-tex": "^0.0.0-9"
   },
   "bugs": {
     "url": "https://github.com/mu-io/codemirror-tex/issues"

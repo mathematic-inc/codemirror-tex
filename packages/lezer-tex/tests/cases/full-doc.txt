@@ -1,4 +1,4 @@
-# Fake Verb
+# Full Document
 
 \documentclass[12pt]{article}
 \usepackage{amsmath}
@@ -45,4 +45,4 @@ out our service and don't hesitate to get in touch at
 
 ==>
 
-Document(ControlSequence(ControlLine),Text)
+Document(control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,car_ret,car_ret,control_sequence,left_brace,right_brace,car_ret,car_ret,car_ret,car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,car_ret,control_sequence,car_ret,control_sequence,car_ret,control_sequence,left_brace,right_brace,car_ret,math_shift_group(single_math_shift(math_shift),single_math_shift(math_shift)),car_ret,control_sequence,car_ret,math_shift_group(single_math_shift(math_shift),single_math_shift(math_shift)),car_ret,control_sequence,left_brace,right_brace,car_ret,control_sequence,car_ret,control_sequence,car_ret,math_shift_group(single_math_shift(math_shift),control_sequence,left_brace,right_brace,left_brace,control_sequence,right_brace,control_sequence,sub_mark,left_brace,control_sequence,right_brace,sup_mark,left_brace,control_sequence,right_brace,sup_mark,left_brace,control_sequence,left_brace,sup_mark,right_brace,left_brace,right_brace,right_brace,single_math_shift(math_shift)),car_ret,control_sequence,math_shift_group(single_math_shift(math_shift),single_math_shift(math_shift)),car_ret,car_ret,control_sequence,car_ret,control_sequence,car_ret,control_sequence,car_ret,control_sequence,left_brace,right_brace,car_ret,car_ret,car_ret,control_sequence,left_brace,right_brace,car_ret,car_ret,car_ret,control_sequence,left_brace,right_brace,left_brace,right_brace,car_ret,control_sequence,control_sequence,car_ret,control_sequence,left_brace,right_brace)

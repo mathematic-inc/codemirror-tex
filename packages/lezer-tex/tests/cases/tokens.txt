@@ -5,7 +5,7 @@
 
 ==>
 
-Document
+Document(comment)
 
 # Directive
 
@@ -22,10 +22,11 @@ Document(control_sequence,directive,car_ret,car_ret,control_sequence)
 
 \begingroup test \endgroup
 \begingroup\endgroup
+\begingroup\begingroup test \endgroup\endgroup
 
 ==>
 
-Document(begingroup_cs,endgroup_cs,car_ret,begingroup_cs,endgroup_cs)
+Document("\\begingroup","\\endgroup",car_ret,"\\begingroup","\\endgroup",car_ret,"\\begingroup","\\begingroup","\\endgroup","\\endgroup")
 
 # Control sequence 1
 
@@ -90,19 +91,3 @@ Document(control_sequence)
 ==>
 
 Document(control_sequence,ignore)
-
-# `catcode` command 1
-
-\catcode`\@ 11
-
-==>
-
-Document(defcode_cs,integer(control_sequence),integer)
-
-# `catcode` command 2
-
-\catcode`\@=11
-
-==>
-
-Document(defcode_cs,integer(control_sequence),optional_equal,integer)

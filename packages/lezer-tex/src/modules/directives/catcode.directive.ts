@@ -6,7 +6,7 @@ const octNumTemplate = /0o[0-8]+/.source;
 const decNumTemplate = /[0-9]+/.source;
 const intTemplate = `${decNumTemplate}|${binNumTemplate}|${hexNumTemplate}|${octNumTemplate}`;
 const directiveTemplate = new RegExp(
-  `change category code for code point (${intTemplate}) to (${intTemplate})`,
+  `change the category code for character (${intTemplate}) to (${intTemplate})`,
   'i'
 );
 

@@ -13,7 +13,7 @@ export default {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          configFile: resolve(__dirname, 'tsconfig.play.json'),
+          configFile: resolve(__dirname, 'tsconfig.json'),
         },
       },
     ],

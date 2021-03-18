@@ -5,46 +5,46 @@ import { ContextTracker, Input, Stack } from 'lezer';
 import Context from './context';
 import { GroupType } from './enums/group-type';
 import {
-  begingroup_cs,
-  begingroup_cs_token,
-  defcode_cs_token,
-  def_cs_token,
+  begin_group,
+  def,
+  def_code,
   directive_comment,
-  double_math_shift,
-  endgroup_cs,
-  endgroup_cs_token,
-  futurelet_cs_token,
+  end_group,
+  futurelet,
   left_brace,
-  let_cs_token,
-  prefix_cs_token,
+  left_double_math_shift,
+  left_math_shift,
+  prefix,
   right_brace,
-  single_math_shift,
+  right_double_math_shift,
+  right_math_shift,
+  _let,
 } from './gen/terms';
 import * as directives from './modules/directives';
 import Tokenizer from './tokenizer';
 import cp from './utils/c';
 
-Context.primitives.insert('begingroup', [begingroup_cs_token, '']);
-Context.primitives.insert('endgroup', [endgroup_cs_token, '']);
+Context.primitives.insert('begingroup', [begin_group, '']);
+Context.primitives.insert('endgroup', [end_group, '']);
 
-Context.primitives.insert('let', [let_cs_token, '']);
-Context.primitives.insert('futurelet', [futurelet_cs_token, 'future']);
+Context.primitives.insert('let', [_let, '']);
+Context.primitives.insert('futurelet', [futurelet, 'future']);
 
-Context.primitives.insert('catcode', [defcode_cs_token, 'cat']);
-Context.primitives.insert('mathcode', [defcode_cs_token, 'math']);
-Context.primitives.insert('lccode', [defcode_cs_token, 'lc']);
-Context.primitives.insert('uccode', [defcode_cs_token, 'uc']);
-Context.primitives.insert('sfcode', [defcode_cs_token, 'sf']);
-Context.primitives.insert('delcode', [defcode_cs_token, 'del']);
+Context.primitives.insert('catcode', [def_code, 'cat']);
+Context.primitives.insert('mathcode', [def_code, 'math']);
+Context.primitives.insert('lccode', [def_code, 'lc']);
+Context.primitives.insert('uccode', [def_code, 'uc']);
+Context.primitives.insert('sfcode', [def_code, 'sf']);
+Context.primitives.insert('delcode', [def_code, 'del']);
 
-Context.primitives.insert('long', [prefix_cs_token, 'long']);
-Context.primitives.insert('outer', [prefix_cs_token, 'outer']);
-Context.primitives.insert('global', [prefix_cs_token, 'global']);
+Context.primitives.insert('long', [prefix, 'long']);
+Context.primitives.insert('outer', [prefix, 'outer']);
+Context.primitives.insert('global', [prefix, 'global']);
 
-Context.primitives.insert('def', [def_cs_token, '']);
-Context.primitives.insert('edef', [def_cs_token, 'e']);
-Context.primitives.insert('gdef', [def_cs_token, 'g']);
-Context.primitives.insert('xdef', [def_cs_token, 'x']);
+Context.primitives.insert('def', [def, '']);
+Context.primitives.insert('edef', [def, 'e']);
+Context.primitives.insert('gdef', [def, 'g']);
+Context.primitives.insert('xdef', [def, 'x']);
 
 // Context.primitives.insert('if', [if_cs_token, '']);
 // Context.primitives.insert('ifcat', [if_cs_token, 'cat']);
@@ -119,18 +119,20 @@ class TeXContextTracker extends ContextTracker<Context | null> {
       case left_brace: {
         return new Context(GroupType.Simple, ctx.depth + 1, ctx);
       }
-      case begingroup_cs: {
+      case begin_group: {
         return new Context(GroupType.SemiSimple, ctx.depth + 1, ctx);
       }
-      case right_brace:
-      case endgroup_cs: {
-        return ctx.parent || ctx;
-      }
-      case double_math_shift:
-      case single_math_shift: {
+      case left_math_shift:
+      case left_double_math_shift: {
         return ctx.groupType !== GroupType.MathShift
           ? new Context(GroupType.MathShift, ctx.depth + 1, ctx)
-          : (ctx.parent as Context);
+          : ctx;
+      }
+      case right_math_shift:
+      case right_double_math_shift:
+      case right_brace:
+      case end_group: {
+        return ctx.parent || ctx;
       }
       case directive_comment: {
         const instructions = input.read(stack.ruleStart + 2, stack.pos).trim();
