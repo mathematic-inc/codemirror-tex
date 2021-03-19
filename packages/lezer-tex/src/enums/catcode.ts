@@ -11,7 +11,8 @@ import {
   sub_mark,
   sup_mark,
   tab_mark,
-  mac_param
+  mac_param,
+  Term
 } from '../gen/terms';
 
 export const enum CatCode {
@@ -35,7 +36,7 @@ export const enum CatCode {
 
 export const catcode = Uint8Array.of(
   0,
-  left_brace,
+  Term.left_brace,
   right_brace,
   0,
   tab_mark,
