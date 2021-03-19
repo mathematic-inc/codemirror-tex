@@ -10,8 +10,8 @@ async function generateLezer() {
     includeNames: true,
   });
   mkdirSync('src/gen', { recursive: true });
-  writeFileSync('src/gen/terms.ts', `// @ts-nocheck\n${files.terms}`);
-  writeFileSync('src/gen/parser.ts', `// @ts-nocheck\n${files.parser}`);
+  writeFileSync('src/gen/terms.ts', files.terms);
+  writeFileSync('src/gen/parser.ts', files.parser);
 }
 task('generate-lezer', generateLezer);
 
@@ -26,13 +26,12 @@ async function build() {
     exports: 'named',
     sourcemap: true,
   });
-  const build = await bundle.write({
+  await bundle.write({
     file: 'lib/index.cjs',
     format: 'cjs',
     exports: 'named',
     name: 'lezer-tex',
   });
-  console.log(`Bundle Size: ${build.output[0].code.length / 1000}KB`);
 }
 task('build', series('generate', build));
 
