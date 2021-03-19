@@ -63,12 +63,25 @@ export const texLanguage = LezerLanguage.define({
   },
 });
 
+interface LanguageOptions {
+  directives?: boolean;
+  dialect?: 'tex' | 'latex' | 'xetex';
+}
+
 // TeX language support.
-export function tex(opts: { directives?: boolean } = {}): LanguageSupport {
+export function tex({ directives, dialect }: LanguageOptions = {}): LanguageSupport {
   let lang = texLanguage;
   const dialects: string[] = [];
-  if (opts.directives) {
+  if (directives) {
     dialects.push('directives');
+  }
+  switch (dialect) {
+    case 'latex':
+      dialects.push('latex');
+      break;
+    case 'xetex':
+      dialects.push('xetex');
+      break;
   }
   lang = texLanguage.configure({ dialect: dialects.join(' ') });
   return new LanguageSupport(lang);

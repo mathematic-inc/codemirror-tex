@@ -139,7 +139,7 @@ export default class Tokenizer extends ExternalTokenizer {
       }
       case CatCode.Escape: {
         this.scanControlSequence();
-        this.#state.tok.accept(Term.control_sequence_token, this.#state.loc);
+        this.#state.tok.accept(this.#state.ctx.command(this.#state.cs), this.#state.loc);
         break;
       }
       case CatCode.Comment: {

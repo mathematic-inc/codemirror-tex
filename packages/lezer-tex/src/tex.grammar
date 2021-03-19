@@ -3,7 +3,8 @@
 }
 
 @dialects {
-  directives
+  directives,
+  latex
 }
 
 @top Document { statement+ }
@@ -15,8 +16,10 @@ statement {
 
   let_cmd |
   futurelet_cmd |
-  def_cmd |
   defcode_cmd |
+  def_cmd |
+  makeatletter_cmd |
+  makeatother_cmd |
   
   tab_mark |
   car_ret |
@@ -51,7 +54,11 @@ MathShiftGroup {
   }
 }
 
-// Commands
+/* ============================================================================================== */
+/*                                            COMMANDS                                            */
+/* ============================================================================================== */
+
+/* ============================================= TeX ============================================ */
 let_cmd {
   prefix* let
     spacer* control_sequence
@@ -73,6 +80,16 @@ defcode_cmd {
 def_cmd {
   prefix* def SimpleGroup
 }
+
+/* ============================================ LaTeX =========================================== */
+makeatletter_cmd {
+  makeatletter
+}
+makeatother_cmd {
+  makeatother
+}
+
+/* ============================================================================================== */
 
 // Macro Parameter
 macro_parameter[@name="macro_parameter"] {
@@ -147,6 +164,7 @@ macro_parameter[@name="macro_parameter"] {
 
   /** The name will always correspond to the cs name with the lowest modifier value. */
   
+  /* ============================================= TeX ============================================ */
   // Group commands
   begin_group[@name="\\begingroup",closedBy="\\endgroup"],
   end_group[@name="\\endgroup",openedBy="\\begingroup"],
@@ -159,6 +177,10 @@ macro_parameter[@name="macro_parameter"] {
 
   // Assignment modifiers
   prefix[@name="\\long"]
+
+  /* ============================================ LaTeX =========================================== */
+  makeatletter[@name="\\makeatletter",@dialect="latex"]
+  makeatother[@name="\\makeatother",@dialect="latex"]
 }
 
 // Auxillary groups for capturing the text content of the tokens.

@@ -29,12 +29,25 @@ export class Trie<T> {
    * @param k - The key to lookup.
    * @returns - The value of the found node or null.
    */
-  public lookup(k: string): T | null {
+  public lookup(k: string): T | undefined {
     let n = this as Trie<T>;
     for (const p of Uint32Array.from(k, (s) => s.codePointAt(0) as number).reverse()) {
       n = n.children[p];
-      if (n === undefined) return null;
+      if (n === undefined) return undefined;
     }
     return n.v;
+  }
+
+  /**
+   * Shallowly clones the binded trie.
+   *
+   * @returns A clone of this trie.
+   */
+  public clone(): Trie<T> {
+    const t = new Trie(this.v);
+    this.children.forEach((c, i) => {
+      t.children[i] = c.clone();
+    });
+    return t;
   }
 }
