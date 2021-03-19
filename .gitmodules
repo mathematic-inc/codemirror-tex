@@ -1,3 +1,6 @@
 [submodule "packages/lezer-tex/third_party/lezer-generator"]
 	path = packages/lezer-tex/third_party/lezer-generator
 	url = https://github.com/mu-io/lezer-generator
+[submodule "third_party/lezer-generator"]
+	path = third_party/lezer-generator
+	url = https://github.com/mu-io/lezer-generator
