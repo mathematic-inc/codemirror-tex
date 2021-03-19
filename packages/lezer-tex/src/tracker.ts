@@ -1,17 +1,7 @@
 import { ContextTracker, Input, Stack } from 'lezer';
 import Context, { BottomContext } from './context';
 import { GroupType } from './enums/group-type';
-import {
-  begin_group,
-  directive,
-  end_group,
-  left_brace,
-  left_double_math_shift,
-  left_math_shift,
-  right_brace,
-  right_double_math_shift,
-  right_math_shift,
-} from './gen/terms';
+import { Term } from './gen/terms';
 import * as directives from './modules/directives';
 
 // Context.primitives.insert('begingroup', [begin_group, '']);
@@ -75,25 +65,25 @@ export class Tracker extends ContextTracker<Context | null> {
   // eslint-disable-next-line class-methods-use-this
   private handleTerm(ctx: Context, term: number, input: Input, stack: Stack): Context {
     switch (term) {
-      case left_brace: {
+      case Term.left_brace: {
         return new Context(GroupType.Simple, ctx.depth + 1, ctx);
       }
-      case begin_group: {
+      case Term.begin_group: {
         return new Context(GroupType.SemiSimple, ctx.depth + 1, ctx);
       }
-      case left_math_shift: {
+      case Term.left_math_shift: {
         return new Context(GroupType.MathShift, ctx.depth + 1, ctx);
       }
-      case left_double_math_shift: {
+      case Term.left_double_math_shift: {
         return new Context(GroupType.DoubleMathShift, ctx.depth + 1, ctx);
       }
-      case right_brace:
-      case end_group:
-      case right_math_shift:
-      case right_double_math_shift: {
+      case Term.right_brace:
+      case Term.end_group:
+      case Term.right_math_shift:
+      case Term.right_double_math_shift: {
         return ctx.parent ?? ctx;
       }
-      case directive: {
+      case Term.directive: {
         const instructions = input.read(stack.ruleStart + 2, stack.pos).trim();
         for (const dir of Object.values(directives)) {
           const updatedContext = dir.exec(instructions, ctx);

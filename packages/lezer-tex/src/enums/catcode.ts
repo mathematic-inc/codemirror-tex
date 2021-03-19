@@ -1,19 +1,4 @@
-import {
-  active_char,
-  car_ret,
-  ignore,
-  invalid_char,
-  left_brace,
-  letter,
-  other_char,
-  right_brace,
-  spacer,
-  sub_mark,
-  sup_mark,
-  tab_mark,
-  mac_param,
-  Term
-} from '../gen/terms';
+import { Term } from '../gen/terms';
 
 export const enum CatCode {
   Escape = 0,
@@ -37,18 +22,18 @@ export const enum CatCode {
 export const catcode = Uint8Array.of(
   0,
   Term.left_brace,
-  right_brace,
+  Term.right_brace,
   0,
-  tab_mark,
-  car_ret,
-  mac_param,
-  sup_mark,
-  sub_mark,
-  ignore,
-  spacer,
-  letter,
-  other_char,
-  active_char,
+  Term.tab_mark,
+  Term.car_ret,
+  Term.mac_param,
+  Term.sup_mark,
+  Term.sub_mark,
+  Term.ignore,
+  Term.spacer,
+  Term.letter,
+  Term.other_char,
+  Term.active_char,
   0,
-  invalid_char
+  Term.invalid_char
 );

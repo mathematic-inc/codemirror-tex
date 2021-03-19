@@ -5,16 +5,7 @@ import { ExternalTokenizer, Input, Stack, Token } from 'lezer';
 import Context from './context';
 import { CatCode, catcode } from './enums/catcode';
 import { GroupType } from './enums/group-type';
-import {
-  control_sequence_token,
-  Dialect_directives,
-  directive_comment,
-  left_double_math_shift,
-  left_math_shift,
-  line_comment,
-  right_double_math_shift,
-  right_math_shift,
-} from './gen/terms';
+import { Term } from './gen/terms';
 import isHex from './utils/is-hex';
 
 class State {
@@ -61,7 +52,7 @@ export default class Tokenizer extends ExternalTokenizer {
           return undefined;
         }
         let dct = 0;
-        if (stk.dialectEnabled(Dialect_directives)) {
+        if (stk.dialectEnabled(Term.Dialect_directives)) {
           dct |= 1;
         }
         this.#state.buf = buf;
@@ -100,31 +91,33 @@ export default class Tokenizer extends ExternalTokenizer {
           this.#state.loc += 1;
           this.#state.tok.accept(
             this.#state.ctx.groupType === GroupType.DoubleMathShift
-              ? right_double_math_shift
-              : left_double_math_shift,
+              ? Term.right_double_math_shift
+              : Term.left_double_math_shift,
             this.#state.loc
           );
           break;
         }
         this.#state.tok.accept(
-          this.#state.ctx.groupType === GroupType.MathShift ? right_math_shift : left_math_shift,
+          this.#state.ctx.groupType === GroupType.MathShift
+            ? Term.right_math_shift
+            : Term.left_math_shift,
           this.#state.loc
         );
         break;
       }
       case CatCode.Escape: {
         this.scanControlSequence();
-        this.#state.tok.accept(control_sequence_token, this.#state.loc);
+        this.#state.tok.accept(Term.control_sequence_token, this.#state.loc);
         break;
       }
       case CatCode.Comment: {
         if ((this.#state.dct & 1) > 0 && this.nextIsDirective()) {
           this.scanComment();
-          this.#state.tok.accept(directive_comment, this.#state.loc);
+          this.#state.tok.accept(Term.directive_comment, this.#state.loc);
           break;
         }
         this.scanComment();
-        this.#state.tok.accept(line_comment, this.#state.loc);
+        this.#state.tok.accept(Term.line_comment, this.#state.loc);
         break;
       }
       case CatCode.SupMark: {
