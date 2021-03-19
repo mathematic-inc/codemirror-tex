@@ -7666,11 +7666,6 @@ lezer-tree@^0.11.0:
   resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.11.1.tgz#78fcd8308912d45330f062f8f59c13448585db81"
   integrity sha512-AC1FmSzxL/cxV8LrbPMW6+8P/CaG8AxRql1XjzIfLkTQHY3LUan6tG8aieB/OvZmz0NuQpgfw6yDegXFNzVK4A==
 
-lezer-tree@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.13.2.tgz#00f4671309b15c27b131f637e430ce2d4d5f7065"
-  integrity sha512-15ZxW8TxVNAOkHIo43Iouv4zbSkQQ5chQHBpwXcD2bBFz46RB4jYLEEww5l1V0xyIx9U2clSyyrLes+hAUFrGQ==
-
 lezer-xml@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/lezer-xml/-/lezer-xml-0.11.1.tgz#2aca3b8056752a75b48df7abd18b7ead28e8b3aa"
@@ -7684,13 +7679,6 @@ lezer@^0.11.0, lezer@^0.11.1:
   integrity sha512-ktbo5G+sMY6qOXaeCbC4Z5Cs0vUTx5H4KkjnjTCi/LHay8taBp88dcUXjLS5XV7E/I3+y1zZGgIXhua82Z0Ljw==
   dependencies:
     lezer-tree "^0.11.0"
-
-lezer@^0.13.4:
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.13.4.tgz#f0396a3447c7a8f40391623f3f47a4d95559c42f"
-  integrity sha512-cLQxUVY28VBBqKBt/R8CYeH57KQnIvscAnoahzvhlZTK8qxMkIyGExR6ecEpYYDX06ZhROZrEm1IiPvjLAsTig==
-  dependencies:
-    lezer-tree "^0.13.2"
 
 libnpmaccess@^4.0.1:
   version "4.0.1"
