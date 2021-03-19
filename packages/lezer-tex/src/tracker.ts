@@ -1,8 +1,8 @@
 import { ContextTracker, Input, Stack } from 'lezer';
 import Context, { BottomContext } from './context';
-import { GroupType } from './enums/group-type';
+import { GroupType } from './enums';
 import { Term } from './gen/terms';
-import * as directives from './modules/directives';
+import * as directives from './plugins/directives';
 
 // Context.primitives.insert('begingroup', [begin_group, '']);
 // Context.primitives.insert('endgroup', [end_group, '']);

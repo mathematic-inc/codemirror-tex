@@ -3,8 +3,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { ExternalTokenizer, Input, Stack, Token } from 'lezer';
 import Context from './context';
-import { CatCode, catcode } from './enums/catcode';
-import { GroupType } from './enums/group-type';
+import { CatCode, GroupType } from './enums';
 import { Term } from './gen/terms';
 import isHex from './utils/is-hex';
 
@@ -71,19 +70,52 @@ export default class Tokenizer extends ExternalTokenizer {
   private getNext(): void {
     this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
     switch (this.#state.cmd) {
-      case CatCode.LeftBrace:
-      case CatCode.RightBrace:
-      case CatCode.TabMark:
-      case CatCode.CarRet:
-      case CatCode.SubMark:
-      case CatCode.Ignore:
-      case CatCode.Spacer:
-      case CatCode.Letter:
-      case CatCode.ActiveChar:
-      case CatCode.OtherChar:
-      case CatCode.MacParam:
+      case CatCode.LeftBrace: {
+        this.#state.tok.accept(Term.left_brace, this.#state.loc);
+        break;
+      }
+      case CatCode.RightBrace: {
+        this.#state.tok.accept(Term.right_brace, this.#state.loc);
+        break;
+      }
+      case CatCode.TabMark: {
+        this.#state.tok.accept(Term.tab_mark, this.#state.loc);
+        break;
+      }
+      case CatCode.CarRet: {
+        this.#state.tok.accept(Term.car_ret, this.#state.loc);
+        break;
+      }
+      case CatCode.SubMark: {
+        this.#state.tok.accept(Term.sub_mark, this.#state.loc);
+        break;
+      }
+      case CatCode.Ignore: {
+        this.#state.tok.accept(Term.ignore, this.#state.loc);
+        break;
+      }
+      case CatCode.Spacer: {
+        this.#state.tok.accept(Term.spacer, this.#state.loc);
+        break;
+      }
+      case CatCode.Letter: {
+        this.#state.tok.accept(Term.letter, this.#state.loc);
+        break;
+      }
+      case CatCode.ActiveChar: {
+        this.#state.tok.accept(Term.active_char, this.#state.loc);
+        break;
+      }
+      case CatCode.OtherChar: {
+        this.#state.tok.accept(Term.other_char, this.#state.loc);
+        break;
+      }
+      case CatCode.MacParam: {
+        this.#state.tok.accept(Term.mac_param, this.#state.loc);
+        break;
+      }
       case CatCode.InvalidChar: {
-        this.#state.tok.accept(catcode[this.#state.cmd], this.#state.loc);
+        this.#state.tok.accept(Term.invalid_char, this.#state.loc);
         break;
       }
       case CatCode.MathShift: {
@@ -127,7 +159,7 @@ export default class Tokenizer extends ExternalTokenizer {
           this.getNext();
           break;
         }
-        this.#state.tok.accept(catcode[this.#state.cmd], this.#state.loc);
+        this.#state.tok.accept(Term.sup_mark, this.#state.loc);
         break;
       }
       default: {

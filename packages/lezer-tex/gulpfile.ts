@@ -10,8 +10,8 @@ async function generateLezer() {
     includeNames: true,
   });
   mkdirSync('src/gen', { recursive: true });
-  writeFileSync('src/gen/terms.ts', files.terms);
-  writeFileSync('src/gen/parser.ts', files.parser);
+  writeFileSync('src/gen/terms.ts', `${files.terms}`);
+  writeFileSync('src/gen/parser.ts', `// @ts-nocheck\n${files.parser}`);
 }
 task('generate-lezer', generateLezer);
 

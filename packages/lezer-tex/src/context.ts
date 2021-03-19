@@ -1,9 +1,11 @@
-import { CatCode } from './enums/catcode';
-import { GroupType } from './enums/group-type';
+import { CatCode, GroupType } from './enums';
 
-const LARGE_PRIME = 2 ** 13 - 1;
-const SMALL_PRIME = 2 ** 4 + 1;
-const ALL_OTHER_CHAR = 0b11001100110011001100110011001100;
+const enum SpecialValue {
+  Large = 2 ** 13 - 1,
+  Small = 2 ** 4 + 1,
+  OtherChar = 0b11001100110011001100110011001100,
+}
+
 const cachePrimes: number[][] = [];
 
 export default class Context {
@@ -28,7 +30,7 @@ export default class Context {
     let pp: number;
     if (!(this.depth in cachePrimes)) {
       [p, pp] = cachePrimes[this.depth - 1] ?? [1, 1];
-      cachePrimes[this.depth] = [p * 5, pp * LARGE_PRIME];
+      cachePrimes[this.depth] = [p * 5, pp * SpecialValue.Large];
     }
     [p, pp] = cachePrimes[this.depth];
     return (
@@ -38,16 +40,16 @@ export default class Context {
   }
 
   public hashEQTB(): number {
-    let pp = SMALL_PRIME;
+    let pp = SpecialValue.Small;
     let r = 0;
     let a: number;
     for (let i = 0; i < this.eqtb.catcode.length; i++) {
-      a = this.eqtb.catcode[i] ?? ALL_OTHER_CHAR;
+      a = this.eqtb.catcode[i] ?? SpecialValue.OtherChar;
       for (let j = 0; j < 8; j++) {
-        pp *= SMALL_PRIME;
-        pp %= LARGE_PRIME;
+        pp *= SpecialValue.Small;
+        pp %= SpecialValue.Large;
         r += ((a & (0b1111 << (4 * j))) >>> (4 * j)) * pp;
-        r %= LARGE_PRIME;
+        r %= SpecialValue.Large;
       }
     }
     return r;
@@ -83,7 +85,7 @@ export default class Context {
       }
       default: {
         const ctx = Context.clone(this);
-        let t = n !== null ? n.eqtb.catcode[i] : ALL_OTHER_CHAR;
+        let t = n !== null ? n.eqtb.catcode[i] : SpecialValue.OtherChar;
         t &= ~(0b1111 << l) >>> 0;
         t += code << l;
         ctx.eqtb.catcode[i] = t;
