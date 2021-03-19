@@ -1,7 +1,6 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable max-classes-per-file */
 import Context from '../../context';
-import cp from '../../utils/c';
 import Command from './command';
 
 function parseInteger(value: string): number {
@@ -27,7 +26,7 @@ function parseInteger(value: string): number {
 export class CatCodeCommand extends Command {
   // eslint-disable-next-line class-methods-use-this
   protected exec(ctx: Context, charInt: string, catCodeInt: string): Context | null {
-    ctx.defineCatCode(parseInteger(charInt), parseInteger(catCodeInt));
+    ctx.catcode(parseInteger(charInt), parseInteger(catCodeInt));
     return ctx;
   }
 }

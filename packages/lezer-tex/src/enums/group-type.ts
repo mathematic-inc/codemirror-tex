@@ -3,4 +3,5 @@ export const enum GroupType {
   Simple,
   SemiSimple,
   MathShift,
+  DoubleMathShift,
 }

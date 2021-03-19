@@ -22,6 +22,7 @@ export interface DirectiveSpec<Args extends unknown[]> {
 }
 
 export default class Directive<Args extends unknown[]> {
+  /** @internal */
   public fallthrough: boolean;
 
   /** @internal */

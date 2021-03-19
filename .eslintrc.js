@@ -5,6 +5,14 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    // Common for private fields that should not be touched by anything except a proxy.
+    'no-underscore-dangle': 0,
+    // Auxillary classes are common.
+    'max-classes-per-file': 0,
+    // In loops and generator functions.
+    'no-plusplus': 0,
+    // Immer
+    'no-param-reassign': 0,
     // Bitwise is faster
     'no-bitwise': 0,
     // People will know when to use it.

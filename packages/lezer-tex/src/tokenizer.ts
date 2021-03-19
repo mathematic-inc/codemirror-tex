@@ -15,7 +15,6 @@ import {
   right_double_math_shift,
   right_math_shift,
 } from './gen/terms';
-import cp from './utils/c';
 import isHex from './utils/is-hex';
 
 class State {
@@ -58,9 +57,6 @@ export default class Tokenizer extends ExternalTokenizer {
   constructor() {
     super(
       (buf: Input, tok: Token, stk: Stack): void => {
-        if (tok.start === 0) {
-          stk.context.reset = true;
-        }
         if (tok.start >= buf.length) {
           return undefined;
         }
@@ -68,9 +64,9 @@ export default class Tokenizer extends ExternalTokenizer {
         if (stk.dialectEnabled(Dialect_directives)) {
           dct |= 1;
         }
-        this.#state.chr = buf.get(tok.start);
-        this.#state.loc = tok.start + 1;
         this.#state.buf = buf;
+        this.#state.loc = tok.start;
+        this.#state.chr = buf.get(this.#state.loc++);
         this.#state.tok = tok;
         this.#state.stk = stk;
         this.#state.ctx = stk.context;
@@ -82,7 +78,7 @@ export default class Tokenizer extends ExternalTokenizer {
   }
 
   private getNext(): void {
-    this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+    this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
     switch (this.#state.cmd) {
       case CatCode.LeftBrace:
       case CatCode.RightBrace:
@@ -100,12 +96,10 @@ export default class Tokenizer extends ExternalTokenizer {
         break;
       }
       case CatCode.MathShift: {
-        if (
-          this.#state.ctx.getCatCode(this.#state.buf.get(this.#state.loc)) === CatCode.MathShift
-        ) {
+        if (this.#state.ctx.catcode(this.#state.buf.get(this.#state.loc)) === CatCode.MathShift) {
           this.#state.loc += 1;
           this.#state.tok.accept(
-            this.#state.ctx.groupType === GroupType.MathShift
+            this.#state.ctx.groupType === GroupType.DoubleMathShift
               ? right_double_math_shift
               : left_double_math_shift,
             this.#state.loc
@@ -120,11 +114,6 @@ export default class Tokenizer extends ExternalTokenizer {
       }
       case CatCode.Escape: {
         this.scanControlSequence();
-        const cs = Context.primitives.lookup(this.#state.cs);
-        if (cs !== null) {
-          this.#state.tok.accept(cs[0], this.#state.loc);
-          break;
-        }
         this.#state.tok.accept(control_sequence_token, this.#state.loc);
         break;
       }
@@ -165,7 +154,7 @@ export default class Tokenizer extends ExternalTokenizer {
     // Get the first cs character and increment location.
     this.#state.chr = this.#state.buf.get(this.#state.loc++);
     // Get the first character's category code
-    this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+    this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
     // Add the current character to a number array.
     const cs = [this.#state.chr];
 
@@ -174,7 +163,7 @@ export default class Tokenizer extends ExternalTokenizer {
     if (this.#state.cmd === CatCode.SupMark && this.nextIsExpandedCharacter()) {
       this.scanExpandedCharacter();
       this.#state.loc += this.#offset;
-      this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+      this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
       cs[0] = this.#state.chr;
     }
 
@@ -188,7 +177,7 @@ export default class Tokenizer extends ExternalTokenizer {
       // Get the nth character and increment location.
       this.#state.chr = this.#state.buf.get(this.#state.loc++);
       // Get the nth character's category code.
-      this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+      this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
       // Add the nth character to the cs string.
       cs.push(this.#state.chr);
 
@@ -196,7 +185,7 @@ export default class Tokenizer extends ExternalTokenizer {
       // continuing.
       if (this.#state.cmd === CatCode.SupMark && this.nextIsExpandedCharacter()) {
         this.scanExpandedCharacter();
-        this.#state.cmd = this.#state.ctx.getCatCode(this.#state.chr);
+        this.#state.cmd = this.#state.ctx.catcode(this.#state.chr);
         if (this.#state.cmd === CatCode.Letter) {
           cs.push(this.#state.chr);
           this.#state.loc += this.#offset;
@@ -225,6 +214,7 @@ export default class Tokenizer extends ExternalTokenizer {
       if (isHex(cc)) {
         this.#offset += 1;
         this.#state.chr = parseInt(`0x${String.fromCharCode(this.#state.chr, cc)}`, 16);
+        return;
       }
     }
     this.#state.chr = this.#state.chr < 0o100 ? this.#state.chr + 0o100 : this.#state.chr - 0o100;
@@ -236,10 +226,7 @@ export default class Tokenizer extends ExternalTokenizer {
   private scanComment() {
     do {
       this.#state.chr = this.#state.buf.get(this.#state.loc++);
-    } while (
-      this.#state.chr > -1 &&
-      this.#state.ctx.getCatCode(this.#state.chr) !== CatCode.CarRet
-    );
+    } while (this.#state.chr > -1 && this.#state.ctx.catcode(this.#state.chr) !== CatCode.CarRet);
   }
 
   /**
@@ -259,7 +246,7 @@ export default class Tokenizer extends ExternalTokenizer {
    * @returns a flag
    */
   private nextIsExpandedCharacter(): boolean {
-    if (this.#state.ctx.getCatCode(this.#state.buf.get(this.#state.loc)) !== CatCode.SupMark) {
+    if (this.#state.ctx.catcode(this.#state.buf.get(this.#state.loc)) !== CatCode.SupMark) {
       return false;
     }
     const c = this.#state.buf.get(this.#state.loc + 1);

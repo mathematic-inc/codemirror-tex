@@ -98,9 +98,26 @@ const startState = EditorState.create({
     }),
   ],
 });
+const startState2 = EditorState.create({
+  doc: test,
+  extensions: [
+    basicSetup,
+    tex({ directives: true }),
+    EditorView.baseTheme({
+      '.cm-matchingBracket>*': { color: '#0b0 !important' },
+      '.cm-nonmatchingBracket>*': { color: '#a22 !important' },
+    }),
+  ],
+});
 
 (() =>
   new EditorView({
     state: startState,
+    parent: document.body,
+  }))();
+
+(() =>
+  new EditorView({
+    state: startState2,
     parent: document.body,
   }))();

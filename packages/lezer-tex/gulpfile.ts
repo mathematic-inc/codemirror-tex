@@ -26,12 +26,13 @@ async function build() {
     exports: 'named',
     sourcemap: true,
   });
-  await bundle.write({
+  const build = await bundle.write({
     file: 'lib/index.cjs',
     format: 'cjs',
     exports: 'named',
     name: 'lezer-tex',
   });
+  console.log(`Bundle Size: ${build.output[0].code.length / 1000}KB`);
 }
 task('build', series('generate', build));
 

@@ -21,7 +21,6 @@ export default new Directive<[number, number]>({
     return undefined;
   },
   run(context, codepoint, catcode) {
-    context.defineCatCode(codepoint, catcode);
-    return context;
+    return context.catcode(codepoint, catcode);
   },
 });

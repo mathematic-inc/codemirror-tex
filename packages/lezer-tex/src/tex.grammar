@@ -31,7 +31,8 @@ statement {
 
   control_sequence |
 
-  macro_parameter
+  macro_parameter |
+  directive
 }
 
 // Groups
@@ -96,7 +97,7 @@ macro_parameter[@name="macro_parameter"] {
  * encodes this as a sequence of category 11 characters after a category 0 character or a single
  * character from any category after a category 0 character.
  */
-@skip { line_comment | directive }
+@skip { line_comment }
 @context trackContext from "../tokens"
 @external tokens tokenizer from "../tokens" {
   /* ============================================================================================== */
