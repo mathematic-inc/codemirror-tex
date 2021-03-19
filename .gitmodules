@@ -1,0 +1,3 @@
+[submodule "packages/lezer-tex/third_party/lezer-generator"]
+	path = packages/lezer-tex/third_party/lezer-generator
+	url = https://github.com/lezer-parser/lezer-generator
