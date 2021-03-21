@@ -85,7 +85,7 @@ async function readCommands() {
 
   const syntaxes: Array<{
     name: string;
-    props: string[];
+    props: Record<string, string>;
   }> = parse(
     await readFile(join(__dirname, 'src/data/command-syntaxes.yaml'), { encoding: 'utf-8' })
   );
@@ -136,7 +136,7 @@ async function readCommands() {
         : ` ${cmd.name}_token`
     );
     signatures.push(
-      `${cmd.name}[@name="${cmd.name}"${syntax.props ? `,${syntax.props.join(',')}` : ''}] {${
+      `${cmd.name}[@name="${cmd.name}"${syntax.props ? `,${Object.entries(syntax.props).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(',')}` : ''}] {${
         cmd.name
       }_token}`
     );
