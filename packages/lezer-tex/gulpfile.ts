@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs';
+import { createReadStream, existsSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { series, task } from 'gulp';
 import { run as runJest } from 'jest';
@@ -6,7 +6,8 @@ import { render } from 'mustache';
 import { join } from 'path';
 import { createInterface } from 'readline';
 import { rollup } from 'rollup';
-import { parse } from 'yaml';
+import { parse, stringify } from 'yaml';
+import { isOlderThan, toKeyValuePairString } from './scripts/build/utils';
 import rollupConfig from './rollup.config';
 import { lzwEncode } from './src/utils/lzw';
 import { Trie } from './src/utils/trie';
@@ -20,136 +21,89 @@ const enum Term {
 interface CommandDescription {
   name: string;
   dialects: number;
-  executable: boolean;
+  syntax?: CommandSyntax;
 }
 
-const commandToTerm: Record<string, number> = {};
-const commands: Array<CommandDescription> = [];
-const tokens: string[] = [];
-const signatures: string[] = [];
+interface CommandSyntax {
+  props?: Record<string, string>;
+}
 
-async function readCommands() {
+let commands: CommandDescription[] = [];
+async function getSupportedPrimitives(): Promise<CommandDescription[]> {
+  // Check local cache.
   if (commands.length > 0) {
-    return;
+    return commands;
   }
-  const fileStream = createReadStream(join(__dirname, 'src/data/engine-primitives.txt'));
-  const file = createInterface(fileStream);
-  let lineNo = 0;
+
+  // Check disk cache.
+  if (!existsSync(join(__dirname, '.cache'))) {
+    await mkdir(join(__dirname, '.cache'));
+    await mkdir(join(__dirname, 'src/gen'), { recursive: true });
+  }
+  if (
+    existsSync('.cache/supported-primitives.yaml') &&
+    isOlderThan('src/data/primitive-syntax.yaml', '.cache/supported-primitives.yaml')
+  ) {
+    commands = parse(
+      await readFile(join(__dirname, '.cache/supported-primitives.yaml'), { encoding: 'utf-8' })
+    );
+    return commands;
+  }
+
+  const primitiveSyntax: { [name: string]: CommandSyntax } = parse(
+    await readFile(join(__dirname, 'src/data/primitive-syntax.yaml'), { encoding: 'utf-8' })
+  );
+  const file = createInterface(
+    createReadStream(join(__dirname, 'src/data/primitive-support-by-engine.yaml'))
+  );
   for await (const line of file) {
-    if (lineNo === 0) {
-      lineNo += 1;
-      // eslint-disable-next-line no-continue
+    if (line[0] === '#') {
       continue;
     }
-    const [
-      command,
-      texSupport,
-      etexSupport,
-      pdftexSupport,
-      xetexSupport,
-      luatexSupport,
-    ] = line.split('|');
-    if (!(command && texSupport && etexSupport && pdftexSupport && xetexSupport && luatexSupport)) {
-      break;
+    let [csName, supportedEngines] = line.split(':');
+    if (csName[0] === "'") {
+      csName = csName.slice(1, -1);
     }
+    const [inTeX, inETex, inPDFTeX, inXeTeX, inLuaTeX] = supportedEngines
+      .trim()
+      .split(',')
+      .map((f) => f === '✔');
     commands.push({
-      name: command,
+      name: csName,
       dialects: (() => {
         let dct = 0;
-        if (texSupport === '✔') {
-          dct |= 1;
-        }
-        if (etexSupport === '✔') {
-          dct |= 2;
-        }
-        if (pdftexSupport === '✔') {
-          dct |= 4;
-        }
-        if (xetexSupport === '✔') {
-          dct |= 8;
-        }
-        if (luatexSupport === '✔') {
-          dct |= 16;
-        }
+        if (inTeX) dct |= 1;
+        if (inETex) dct |= 2;
+        if (inPDFTeX) dct |= 4;
+        if (inXeTeX) dct |= 8;
+        if (inLuaTeX) dct |= 16;
         if (dct === (16 | 8 | 4 | 2 | 1)) {
           return 0;
         }
         return dct;
       })(),
-      executable: false,
+      syntax: primitiveSyntax[csName],
     });
   }
   file.close();
-  fileStream.close();
-  commands.sort((a, b) => (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1));
-
-  const syntaxes: Array<{
-    name: string;
-    props: Record<string, string>;
-  }> = parse(
-    await readFile(join(__dirname, 'src/data/command-syntaxes.yaml'), { encoding: 'utf-8' })
-  );
-  let startTerm = Term.FirstTerm;
-  syntaxes.forEach((syntax) => {
-    let l = 0;
-    let r = commands.length;
-    let i = 0;
-    // eslint-disable-next-line no-labels
-    loop: while (l <= r) {
-      i = Math.floor((l + r) / 2);
-      switch (true) {
-        case commands[i].name.toLocaleLowerCase() < syntax.name.toLocaleLowerCase():
-          l = i + 1;
-          break;
-        case commands[i].name.toLocaleLowerCase() > syntax.name.toLocaleLowerCase():
-          r = i - 1;
-          break;
-        default:
-          // eslint-disable-next-line no-labels
-          break loop;
-      }
-    }
-    const cmd = commands[i];
-    cmd.executable = true;
-    commandToTerm[cmd.name] = startTerm++;
-    tokens.push(
-      cmd.dialects > 0
-        ? `${cmd.name}_token[@dialect="${(() => {
-            const dcts: string[] = [];
-            if ((cmd.dialects & 1) > 0) {
-              dcts.push('tex');
-            }
-            if ((cmd.dialects & 2) > 0) {
-              dcts.push('etex');
-            }
-            if ((cmd.dialects & 4) > 0) {
-              dcts.push('pdftex');
-            }
-            if ((cmd.dialects & 8) > 0) {
-              dcts.push('xetex');
-            }
-            if ((cmd.dialects & 16) > 0) {
-              dcts.push('luatex');
-            }
-            return dcts.join(' ');
-          })()}"]`
-        : ` ${cmd.name}_token`
-    );
-    signatures.push(
-      `${cmd.name}[@name="${cmd.name}"${syntax.props ? `,${Object.entries(syntax.props).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(',')}` : ''}] {${
-        cmd.name
-      }_token}`
-    );
-  });
+  await writeFile(join(__dirname, '.cache/supported-primitives.yaml'), stringify(commands));
+  return commands;
 }
-task('read-commands', readCommands);
 
-async function generateCommands() {
+async function generateCommandTrie() {
+  if (
+    existsSync('src/gen/supported-primitives.ts') &&
+    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/supported-primitives.ts')
+  ) {
+    return;
+  }
+  const commands = await getSupportedPrimitives();
   const commandTrie = new Trie([-1, -1]);
-  commands.forEach((desc) => {
-    commandTrie.insert(desc.name, [
-      desc.executable ? commandToTerm[desc.name] : Term.Primitive,
-      desc.dialects,
+  let currentTerm = Term.FirstTerm;
+  commands.forEach((description) => {
+    commandTrie.insert(description.name, [
+      description.syntax !== null ? currentTerm++ : Term.Primitive,
+      description.dialects,
     ]);
   });
   await writeFile(
@@ -157,24 +111,60 @@ async function generateCommands() {
     `export default '${lzwEncode(Trie.serialize(commandTrie))}';\n`
   );
 }
-task('generate-commands', series('read-commands', generateCommands));
+task('generate:command-trie', generateCommandTrie);
+
+async function renderGrammarFile(): Promise<string> {
+  if (
+    existsSync('src/gen/tex.grammar') &&
+    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/tex.grammar')
+  ) {
+    return readFile('src/gen/tex.grammar', { encoding: 'utf-8' });
+  }
+  const executableCommands = (await getSupportedPrimitives()).filter((d) => d.syntax !== null);
+  const grammarTemplate = await readFile(join(__dirname, 'src/data/tex.grammar'), { encoding: 'utf-8' });
+  const grammar = render(grammarTemplate, {
+    tokens: executableCommands
+      .map((description) => {
+        const props: Record<string, string> = {};
+        if (description.dialects > 0) {
+          props['@dialect'] = (() => {
+            const dcts: string[] = [];
+            if ((description.dialects & 1) > 0) dcts.push('tex');
+            if ((description.dialects & (1 << 1)) > 0) dcts.push('etex');
+            if ((description.dialects & (1 << 2)) > 0) dcts.push('pdftex');
+            if ((description.dialects & (1 << 3)) > 0) dcts.push('xetex');
+            if ((description.dialects & (1 << 4)) > 0) dcts.push('luatex');
+            return dcts.join(' ');
+          })();
+        }
+        return `${description.name}_token${
+          Object.keys(props).length > 0 ? `[${toKeyValuePairString(props)}]` : ``
+        }`;
+      })
+      .join(',\n  '),
+    signatures: executableCommands
+      .map((description) => {
+        const { syntax } = description;
+        return `${description.name}[@name="${description.name}"${
+          syntax?.props ? `,${toKeyValuePairString(syntax.props)}` : ''
+        }] {${description.name}_token}`;
+      })
+      .join('\n'),
+  });
+  await writeFile(join(__dirname, 'src/gen/tex.grammar'), grammar);
+  return grammar;
+}
 
 async function generateParser() {
-  const grammarFile = render(
-    await readFile(join(__dirname, 'src/tex.grammar'), { encoding: 'utf-8' }),
-    {
-      tokens: tokens.join(',\n '),
-      signatures: signatures.join('\n'),
-    }
-  );
-  const parserFile = buildParserFile(grammarFile, { includeNames: true });
+  const grammar = await renderGrammarFile();
+  const parserData = buildParserFile(grammar, { includeNames: true });
   await mkdir(join(__dirname, 'src/gen'), { recursive: true });
-  await writeFile(join(__dirname, 'src/gen/terms.ts'), parserFile.terms);
-  await writeFile(join(__dirname, 'src/gen/parser.ts'), `// @ts-nocheck\n${parserFile.parser}`);
+  await writeFile(join(__dirname, 'src/gen/terms.ts'), parserData.terms);
+  await writeFile(join(__dirname, 'src/gen/parser.ts'), `// @ts-nocheck\n${parserData.parser}`);
 }
-task('generate-parser', series('read-commands', generateParser));
+task('generate:parser', generateParser);
 
-task('generate', series('generate-parser', 'generate-commands'));
+task('generate', series('generate:command-trie', 'generate:parser'));
 
 async function buildREADME() {
   await writeFile(
@@ -227,7 +217,7 @@ async function buildREADME() {
                     return 'Built-in';
                   }
                   return dcts.join(', ');
-                })()}|\`${v.executable}\`|`,
+                })()}|\`${v.syntax !== null}\`|`,
               '|Name|Dialects|Executable?|\n|-|-|-|'
             )}`,
           ''
@@ -236,7 +226,7 @@ async function buildREADME() {
     })
   );
 }
-task('docs-readme', series('read-commands', buildREADME));
+task('docs-readme', buildREADME);
 
 task('docs', series('docs-readme'));
 

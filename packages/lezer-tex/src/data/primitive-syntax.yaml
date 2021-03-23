@@ -1,6 +1,6 @@
-- name: begingroup
+begingroup:
   props:
     closedBy: endgroup
-- name: endgroup
+endgroup:
   props:
     openedBy: begingroup
