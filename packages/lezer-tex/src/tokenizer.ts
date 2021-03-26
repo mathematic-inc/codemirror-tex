@@ -4,7 +4,7 @@
 import { ExternalTokenizer, Input, Stack, Token } from 'lezer';
 import Context from './context';
 import { CatCode, GroupType } from './enums';
-import { Term } from './gen/terms';
+import { Dialect, Term } from './gen/terms';
 import isHex from './utils/is-hex';
 
 class State {
@@ -31,17 +31,12 @@ class State {
 
   // The current dialects
   public dct!: number;
-
-  // The current stack
-  public stk!: Stack;
 }
 
 export default class Tokenizer extends ExternalTokenizer {
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #state = new State();
 
   // Used for offsetting.
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #offset = 2;
 
   constructor() {
@@ -52,30 +47,17 @@ export default class Tokenizer extends ExternalTokenizer {
         }
 
         let dct = 0;
-        if (stk.dialectEnabled(Term.Dialect_tex)) {
-          dct |= 1;
-        }
-        if (stk.dialectEnabled(Term.Dialect_etex)) {
-          dct |= 2;
-        }
-        if (stk.dialectEnabled(Term.Dialect_pdftex)) {
-          dct |= 4;
-        }
-        if (stk.dialectEnabled(Term.Dialect_xetex)) {
-          dct |= 8;
-        }
-        if (stk.dialectEnabled(Term.Dialect_latex)) {
-          dct |= 16;
-        }
-        if (stk.dialectEnabled(Term.Dialect_directives)) {
-          dct |= 1024;
-        }
+        if (stk.dialectEnabled(Dialect.tex)) dct |= 1;
+        if (stk.dialectEnabled(Dialect.etex)) dct |= 2;
+        if (stk.dialectEnabled(Dialect.pdftex)) dct |= 4;
+        if (stk.dialectEnabled(Dialect.xetex)) dct |= 8;
+        if (stk.dialectEnabled(Dialect.latex)) dct |= 16;
+        if (stk.dialectEnabled(Dialect.directives)) dct |= 1024;
 
         this.#state.buf = buf;
         this.#state.loc = tok.start;
         this.#state.chr = buf.get(this.#state.loc++);
         this.#state.tok = tok;
-        this.#state.stk = stk;
         this.#state.ctx = stk.context;
         this.#state.dct = dct;
         return this.getNext();
@@ -156,7 +138,12 @@ export default class Tokenizer extends ExternalTokenizer {
       }
       case CatCode.Escape: {
         this.scanControlSequence();
-        this.#state.tok.accept(this.#state.ctx.command(this.#state.cs), this.#state.loc);
+        const [code, sdct] = this.#state.ctx.command(this.#state.cs);
+        if (sdct !== 0 && (this.#state.dct & sdct) === 0) {
+          this.#state.tok.accept(Term.control_sequence_token, this.#state.loc);
+          break;
+        }
+        this.#state.tok.accept(code, this.#state.loc);
         break;
       }
       case CatCode.Comment: {

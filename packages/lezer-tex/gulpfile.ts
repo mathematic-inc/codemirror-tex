@@ -60,6 +60,7 @@ async function getSupportedPrimitives(): Promise<CommandDescription[]> {
     if (line[0] === '#') {
       continue;
     }
+    // eslint-disable-next-line prefer-const
     let [csName, supportedEngines] = line.split(':');
     if (csName[0] === "'") {
       csName = csName.slice(1, -1);
@@ -97,10 +98,10 @@ async function generateCommandTrie() {
   ) {
     return;
   }
-  const commands = await getSupportedPrimitives();
-  const commandTrie = new Trie([-1, -1]);
+  const cmds = await getSupportedPrimitives();
+  const commandTrie = new Trie();
   let currentTerm = Term.FirstTerm;
-  commands.forEach((description) => {
+  cmds.forEach((description) => {
     commandTrie.insert(description.name, [
       description.syntax !== null ? currentTerm++ : Term.Primitive,
       description.dialects,
@@ -121,7 +122,9 @@ async function renderGrammarFile(): Promise<string> {
     return readFile('src/gen/tex.grammar', { encoding: 'utf-8' });
   }
   const executableCommands = (await getSupportedPrimitives()).filter((d) => d.syntax !== null);
-  const grammarTemplate = await readFile(join(__dirname, 'src/data/tex.grammar'), { encoding: 'utf-8' });
+  const grammarTemplate = await readFile(join(__dirname, 'src/data/tex.grammar'), {
+    encoding: 'utf-8',
+  });
   const grammar = render(grammarTemplate, {
     tokens: executableCommands
       .map((description) => {
@@ -157,7 +160,7 @@ async function renderGrammarFile(): Promise<string> {
 
 async function generateParser() {
   const grammar = await renderGrammarFile();
-  const parserData = buildParserFile(grammar, { includeNames: true });
+  const parserData = buildParserFile(grammar);
   await mkdir(join(__dirname, 'src/gen'), { recursive: true });
   await writeFile(join(__dirname, 'src/gen/terms.ts'), parserData.terms);
   await writeFile(join(__dirname, 'src/gen/parser.ts'), `// @ts-nocheck\n${parserData.parser}`);
@@ -198,6 +201,9 @@ async function buildREADME() {
               (t, v) =>
                 `${t}\n|\`${v.name}\`|${(() => {
                   const dcts: string[] = [];
+                  if (v.dialects === 0) {
+                    return 'Built-in';
+                  }
                   if ((v.dialects & 1) > 0) {
                     dcts.push('`tex`');
                   }
@@ -212,9 +218,6 @@ async function buildREADME() {
                   }
                   if ((v.dialects & 16) > 0) {
                     dcts.push('`luatex`');
-                  }
-                  if (dcts.length === 5 || dcts.length === 0) {
-                    return 'Built-in';
                   }
                   return dcts.join(', ');
                 })()}|\`${v.syntax !== null}\`|`,

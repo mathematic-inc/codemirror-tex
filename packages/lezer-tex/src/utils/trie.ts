@@ -1,7 +1,7 @@
 export class Trie<T> {
   // Deserializes a previously-serialized string to a trie.
   public static deserialize<S>(s: string): Trie<S> {
-    const trie = new Trie((null as unknown) as S);
+    const trie = new Trie<S>();
     const [value, children] = JSON.parse(
       s
         .replaceAll('\x04', ',"')
@@ -34,7 +34,7 @@ export class Trie<T> {
   /**
    * @param value - This should be the zero value of the type T if the node is root.
    */
-  constructor(public value: T) {}
+  constructor(public value?: T) {}
 
   /**
    * Inserts the given key and value into the Trie.
@@ -47,7 +47,7 @@ export class Trie<T> {
   public insert(k: string, v: T): void {
     let n = this as Trie<T>;
     for (let i = k.length - 1; i > -1; i--) {
-      if (n.children[k[i]] === undefined) n.children[k[i]] = new Trie(n.value);
+      if (n.children[k[i]] === undefined) n.children[k[i]] = new Trie();
       n = n.children[k[i]];
     }
     n.value = v;

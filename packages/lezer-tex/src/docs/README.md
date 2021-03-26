@@ -1,6 +1,6 @@
 # `lezer-tex`<!-- omit in toc -->
 
-This responsitory holds [`lezer`](https://lezer.codemirror.net/)-compatible TeX grammar for use with
+This repository holds [`lezer`](https://lezer.codemirror.net/)-compatible TeX grammar for use with
 [codemirror 6](https://codemirror.net/6/).
 
 This package should be used in conjuction with `lang-tex`, but custom `TeX` language packs could use

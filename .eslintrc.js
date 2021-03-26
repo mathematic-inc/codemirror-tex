@@ -5,6 +5,8 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    // Private fields
+    '@typescript-eslint/explicit-member-accessibility': 0,
     // We use this sparingly.
     'no-nested-ternary': 0,
     // We use this sparingly.
