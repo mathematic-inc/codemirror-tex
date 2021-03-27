@@ -6,7 +6,7 @@ undefed
 
 ==>
 
-Document(IfStatement(if,control_sequence,control_sequence,fi))
+Document(primitive,control_sequence,control_sequence,car_ret,car_ret,primitive)
 
 # `if` `else` statement
 
@@ -18,7 +18,7 @@ test
 
 ==>
 
-Document(IfStatement(if,control_sequence,control_sequence,else,fi))
+Document(primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,car_ret,primitive)
 
 # Nested `if` `else` statement 1
 
@@ -32,7 +32,7 @@ undefed
 
 ==>
 
-Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,fi),fi))
+Document(primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive)
 
 # Nested `if` `else` statement 2
 
@@ -50,7 +50,7 @@ Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,co
 
 ==>
 
-Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,control_sequence,fi),fi),fi))
+Document(primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive,car_ret,primitive)
 
 # Nested `if` `else` statement 3
 
@@ -66,4 +66,4 @@ undefed
 
 ==>
 
-Document(IfStatement(if,control_sequence,control_sequence,else,IfStatement(if,control_sequence,else,fi),fi))
+Document(primitive,control_sequence,control_sequence,car_ret,car_ret,primitive,car_ret,primitive,control_sequence,car_ret,car_ret,primitive,car_ret,car_ret,primitive,car_ret,primitive)

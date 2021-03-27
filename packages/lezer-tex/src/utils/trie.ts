@@ -1,34 +1,4 @@
 export class Trie<T> {
-  // Deserializes a previously-serialized string to a trie.
-  public static deserialize<S>(s: string): Trie<S> {
-    const trie = new Trie<S>();
-    const [value, children] = JSON.parse(
-      s
-        .replaceAll('\x04', ',"')
-        .replaceAll('\x03', ',{\x02')
-        .replaceAll('\x02', '}]')
-        .replaceAll('\x01', '":[')
-        .replaceAll('\x00', ',{"')
-    );
-    trie.value = value;
-    Object.entries(children).forEach(([key, child]) => {
-      trie.children[key] = Trie.deserialize<S>(JSON.stringify(child));
-    });
-    return trie;
-  }
-
-  // Serializes the trie to a compact string.
-  public static serialize(t: Trie<unknown>): string {
-    return `[${JSON.stringify(t.value)},{${Object.entries(t.children)
-      .reduce((s, [k, v]) => (v ? `${s}"${k}":${Trie.serialize(v)},` : s), '')
-      .slice(0, -1)}}]`
-      .replaceAll(',{"', '\x00')
-      .replaceAll('":[', '\x01')
-      .replaceAll('}]', '\x02')
-      .replaceAll(',{\x02', '\x03')
-      .replaceAll(',"', '\x04');
-  }
-
   public children: { [s: string]: Trie<T> } = {};
 
   /**
@@ -80,4 +50,34 @@ export class Trie<T> {
     });
     return t;
   }
+}
+
+// Deserializes a previously-serialized string to a trie.
+export function deserializeTrie<S>(s: string): Trie<S> {
+  const trie = new Trie<S>();
+  const [value, children] = JSON.parse(
+    s
+      .replaceAll('\x04', ',"')
+      .replaceAll('\x03', ',{\x02')
+      .replaceAll('\x02', '}]')
+      .replaceAll('\x01', '":[')
+      .replaceAll('\x00', ',{"')
+  );
+  trie.value = value;
+  Object.entries(children).forEach(([key, child]) => {
+    trie.children[key] = deserializeTrie<S>(JSON.stringify(child));
+  });
+  return trie;
+}
+
+// Serializes the trie to a compact string.
+export function serializeTrie(t: Trie<unknown>): string {
+  return `[${JSON.stringify(t.value ?? null)},{${Object.entries(t.children)
+    .reduce((s, [k, v]) => (v ? `${s}"${k}":${serializeTrie(v)},` : s), '')
+    .slice(0, -1)}}]`
+    .replaceAll(',{"', '\x00')
+    .replaceAll('":[', '\x01')
+    .replaceAll('}]', '\x02')
+    .replaceAll(',{\x02', '\x03')
+    .replaceAll(',"', '\x04');
 }

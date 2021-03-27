@@ -34,7 +34,7 @@ Document(control_sequence,ignore)
 
 ==>
 
-Document("\\begingroup","\\endgroup",car_ret,"\\begingroup","\\endgroup",car_ret,"\\begingroup","\\begingroup","\\endgroup","\\endgroup")
+Document(SemiSimpleGroup(begingroup,endgroup),car_ret,SemiSimpleGroup(begingroup,endgroup),car_ret,SemiSimpleGroup(begingroup,SemiSimpleGroup(begingroup,endgroup),endgroup))
 
 # Control sequence 1
 

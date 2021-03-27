@@ -2,7 +2,7 @@ import { CatCode, GroupType } from './enums';
 import commands from './gen/commands';
 import { Term } from './gen/terms';
 import { lzwDecode } from './utils/lzw';
-import { Trie } from './utils/trie';
+import { deserializeTrie, Trie } from './utils/trie';
 
 const enum SpecialValue {
   LargePrime = 2 ** 13 - 1,
@@ -110,7 +110,7 @@ export default class Context {
       for (let n = this.parent; g === undefined && n !== null; n = n.parent) {
         g = n.eqtb.commands.lookup(cs);
       }
-      return g === undefined ? controlSequenceCode : g;
+      return !g ? controlSequenceCode : g;
     }
 
     const ctx = Context.clone(this);
@@ -145,7 +145,7 @@ export class BottomContext extends Context {
     }
 
     // Commands
-    this.eqtb.commands = Trie.deserialize(lzwDecode(commands));
+    this.eqtb.commands = deserializeTrie(lzwDecode(commands));
   }
 
   private _catcode(chr: number, code: number): void {

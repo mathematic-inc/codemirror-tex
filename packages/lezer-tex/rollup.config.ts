@@ -18,6 +18,6 @@ export default {
         before: [codepointTransformer],
       },
     }),
-    terser(),
+    process.env.DEV && terser(),
   ],
 } as RollupOptions;

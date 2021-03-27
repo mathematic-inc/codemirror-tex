@@ -10,12 +10,12 @@ import { parse, stringify } from 'yaml';
 import { isOlderThan, toKeyValuePairString } from './scripts/build/utils';
 import rollupConfig from './rollup.config';
 import { lzwEncode } from './src/utils/lzw';
-import { Trie } from './src/utils/trie';
+import { serializeTrie, Trie } from './src/utils/trie';
 import { buildParserFile } from './third_party/lezer-generator/src/build';
 
 const enum Term {
   FirstTerm = 35,
-  Primitive = 22,
+  Primitive = 34,
 }
 
 interface CommandDescription {
@@ -91,29 +91,6 @@ async function getSupportedPrimitives(): Promise<CommandDescription[]> {
   return commands;
 }
 
-async function generateCommandTrie() {
-  if (
-    existsSync('src/gen/supported-primitives.ts') &&
-    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/supported-primitives.ts')
-  ) {
-    return;
-  }
-  const cmds = await getSupportedPrimitives();
-  const commandTrie = new Trie();
-  let currentTerm = Term.FirstTerm;
-  cmds.forEach((description) => {
-    commandTrie.insert(description.name, [
-      description.syntax !== null ? currentTerm++ : Term.Primitive,
-      description.dialects,
-    ]);
-  });
-  await writeFile(
-    join(__dirname, 'src/gen/commands.ts'),
-    `export default '${lzwEncode(Trie.serialize(commandTrie))}';\n`
-  );
-}
-task('generate:command-trie', generateCommandTrie);
-
 async function renderGrammarFile(): Promise<string> {
   if (
     existsSync('src/gen/tex.grammar') &&
@@ -121,7 +98,7 @@ async function renderGrammarFile(): Promise<string> {
   ) {
     return readFile('src/gen/tex.grammar', { encoding: 'utf-8' });
   }
-  const executableCommands = (await getSupportedPrimitives()).filter((d) => d.syntax !== null);
+  const executableCommands = (await getSupportedPrimitives()).filter((d) => !!d.syntax);
   const grammarTemplate = await readFile(join(__dirname, 'src/data/tex.grammar'), {
     encoding: 'utf-8',
   });
@@ -167,7 +144,30 @@ async function generateParser() {
 }
 task('generate:parser', generateParser);
 
-task('generate', series('generate:command-trie', 'generate:parser'));
+async function generateCommandTrie() {
+  if (
+    existsSync('src/gen/supported-primitives.ts') &&
+    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/supported-primitives.ts')
+  ) {
+    return;
+  }
+  const cmds = await getSupportedPrimitives();
+  const commandTrie = new Trie();
+  let currentTerm = Term.FirstTerm;
+  cmds.forEach((description) => {
+    commandTrie.insert(description.name, [
+      description.syntax ? currentTerm++ : Term.Primitive,
+      description.dialects,
+    ]);
+  });
+  await writeFile(
+    join(__dirname, 'src/gen/commands.ts'),
+    `export default '${lzwEncode(serializeTrie(commandTrie))}';\n`
+  );
+}
+task('generate:command-trie', generateCommandTrie);
+
+task('generate', series('generate:parser', 'generate:command-trie'));
 
 async function buildREADME() {
   await writeFile(
@@ -254,6 +254,6 @@ task('build', series('generate', build));
 function test() {
   return runJest();
 }
-task('test', series('build', test));
+task('test', test);
 
 task('all', series('build', 'test', 'docs'));

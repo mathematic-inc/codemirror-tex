@@ -45,21 +45,22 @@ export default class Tokenizer extends ExternalTokenizer {
         if (tok.start >= buf.length) {
           return undefined;
         }
+        if (tok.start === 0) {
+          this.#state.dct = 0;
+          if (stk.dialectEnabled(Dialect.tex)) this.#state.dct |= 1;
+          if (stk.dialectEnabled(Dialect.etex)) this.#state.dct |= 2;
+          if (stk.dialectEnabled(Dialect.pdftex)) this.#state.dct |= 4;
+          if (stk.dialectEnabled(Dialect.xetex)) this.#state.dct |= 8;
+          if (stk.dialectEnabled(Dialect.latex)) this.#state.dct |= 16;
+          if (stk.dialectEnabled(Dialect.directives)) this.#state.dct |= 1024;
 
-        let dct = 0;
-        if (stk.dialectEnabled(Dialect.tex)) dct |= 1;
-        if (stk.dialectEnabled(Dialect.etex)) dct |= 2;
-        if (stk.dialectEnabled(Dialect.pdftex)) dct |= 4;
-        if (stk.dialectEnabled(Dialect.xetex)) dct |= 8;
-        if (stk.dialectEnabled(Dialect.latex)) dct |= 16;
-        if (stk.dialectEnabled(Dialect.directives)) dct |= 1024;
+          this.#state.buf = buf;
+        }
 
-        this.#state.buf = buf;
         this.#state.loc = tok.start;
         this.#state.chr = buf.get(this.#state.loc++);
         this.#state.tok = tok;
         this.#state.ctx = stk.context;
-        this.#state.dct = dct;
         return this.getNext();
       },
       { contextual: true }
