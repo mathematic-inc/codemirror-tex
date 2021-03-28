@@ -7,8 +7,8 @@ import { join } from 'path';
 import { createInterface } from 'readline';
 import { rollup } from 'rollup';
 import { parse, stringify } from 'yaml';
-import { isOlderThan, toKeyValuePairString } from './scripts/build/utils';
 import rollupConfig from './rollup.config';
+import { toKeyValuePairString } from './scripts/build/utils';
 import { lzwEncode } from './src/utils/lzw';
 import { serializeTrie, Trie } from './src/utils/trie';
 import { buildParserFile } from './third_party/lezer-generator/src/build';
@@ -26,9 +26,10 @@ interface CommandDescription {
 
 interface CommandSyntax {
   props?: Record<string, string>;
+  body?: string;
 }
 
-let commands: CommandDescription[] = [];
+const commands: CommandDescription[] = [];
 async function getSupportedPrimitives(): Promise<CommandDescription[]> {
   // Check local cache.
   if (commands.length > 0) {
@@ -39,15 +40,6 @@ async function getSupportedPrimitives(): Promise<CommandDescription[]> {
   if (!existsSync(join(__dirname, '.cache'))) {
     await mkdir(join(__dirname, '.cache'));
     await mkdir(join(__dirname, 'src/gen'), { recursive: true });
-  }
-  if (
-    existsSync('.cache/supported-primitives.yaml') &&
-    isOlderThan('src/data/primitive-syntax.yaml', '.cache/supported-primitives.yaml')
-  ) {
-    commands = parse(
-      await readFile(join(__dirname, '.cache/supported-primitives.yaml'), { encoding: 'utf-8' })
-    );
-    return commands;
   }
 
   const primitiveSyntax: { [name: string]: CommandSyntax } = parse(
@@ -62,13 +54,16 @@ async function getSupportedPrimitives(): Promise<CommandDescription[]> {
     }
     // eslint-disable-next-line prefer-const
     let [csName, supportedEngines] = line.split(':');
+
     if (csName[0] === "'") {
       csName = csName.slice(1, -1);
     }
+
     const [inTeX, inETex, inPDFTeX, inXeTeX, inLuaTeX] = supportedEngines
       .trim()
       .split(',')
       .map((f) => f === '✔');
+
     commands.push({
       name: csName,
       dialects: (() => {
@@ -92,12 +87,6 @@ async function getSupportedPrimitives(): Promise<CommandDescription[]> {
 }
 
 async function renderGrammarFile(): Promise<string> {
-  if (
-    existsSync('src/gen/tex.grammar') &&
-    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/tex.grammar')
-  ) {
-    return readFile('src/gen/tex.grammar', { encoding: 'utf-8' });
-  }
   const executableCommands = (await getSupportedPrimitives()).filter((d) => !!d.syntax);
   const grammarTemplate = await readFile(join(__dirname, 'src/data/tex.grammar'), {
     encoding: 'utf-8',
@@ -140,17 +129,16 @@ async function generateParser() {
   const parserData = buildParserFile(grammar);
   await mkdir(join(__dirname, 'src/gen'), { recursive: true });
   await writeFile(join(__dirname, 'src/gen/terms.ts'), parserData.terms);
-  await writeFile(join(__dirname, 'src/gen/parser.ts'), `// @ts-nocheck\n${parserData.parser}`);
+  await writeFile(
+    join(__dirname, 'src/gen/parser.ts'),
+    `/* eslint-disable eslint-comments/disable-enable-pair, eslint-comments/no-unlimited-disable */
+/* eslint-disable */
+// @ts-nocheck\n${parserData.parser}`
+  );
 }
 task('generate:parser', generateParser);
 
 async function generateCommandTrie() {
-  if (
-    existsSync('src/gen/supported-primitives.ts') &&
-    isOlderThan('.cache/supported-primitives.yaml', 'src/gen/supported-primitives.ts')
-  ) {
-    return;
-  }
   const cmds = await getSupportedPrimitives();
   const commandTrie = new Trie();
   let currentTerm = Term.FirstTerm;

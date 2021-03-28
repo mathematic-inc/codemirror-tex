@@ -1,8 +1,8 @@
-import { CatCode, GroupType } from './enums';
-import commands from './gen/commands';
-import { Term } from './gen/terms';
-import { lzwDecode } from './utils/lzw';
-import { deserializeTrie, Trie } from './utils/trie';
+import { CatCode, GroupType } from '../constants';
+import commands from '../gen/commands';
+import { Term } from '../gen/terms';
+import { lzwDecode } from '../utils/lzw';
+import { deserializeTrie, Trie } from '../utils/trie';
 
 const enum SpecialValue {
   LargePrime = 2 ** 13 - 1,
@@ -110,7 +110,7 @@ export default class Context {
       for (let n = this.parent; g === undefined && n !== null; n = n.parent) {
         g = n.eqtb.commands.lookup(cs);
       }
-      return !g ? controlSequenceCode : g;
+      return g === undefined ? controlSequenceCode : g;
     }
 
     const ctx = Context.clone(this);

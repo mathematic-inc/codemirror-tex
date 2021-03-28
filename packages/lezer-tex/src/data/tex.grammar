@@ -10,6 +10,7 @@
   etex,
   pdftex,
   xetex,
+  luatex,
   latex
 }
 
@@ -19,6 +20,9 @@ statement {
   SimpleGroup |
   SemiSimpleGroup |
   MathShiftGroup |
+
+  LuaExpression |
+  Environment |
   
   tab_mark |
   car_ret |
@@ -35,6 +39,7 @@ statement {
   primitive |
 
   macro_parameter |
+
   directive
 }
 
@@ -52,6 +57,39 @@ MathShiftGroup {
   display_math_mode {
     left_double_math_shift statement* right_double_math_shift
   }
+}
+
+// Various blocks and expressions
+@external grammar parser as lua empty
+LuaExpression {
+  directlua left_brace nest.lua "}" // TODO: This should be a right_token, but external tokens are for some reason not accepted.
+}
+
+// LaTeX Environments
+beginEnv<name> { begin left_brace name right_brace }
+endEnv<name> { begin left_brace name right_brace }
+env<name, content> {
+  BeginEnvironment[closedBy="EndEnvironment"] { beginEnv<name> }
+    content
+  EndEnvironment[openedBy="BeginEnvironment"] { endEnv<name> }
+}
+listEnv<name> {
+  env<name, (
+    statement |
+    Item Label { "[" statement* "]" }?
+  )*>
+}
+GenericEnvironment {
+  env<statement*, statement*>
+}
+MathEnvironment {
+  env<"math", statement*>
+}
+ListEnvironment {
+  listEnv<"description"> |
+  listEnv<"enumerate"> |
+  listEnv<"itemize"> |
+  listEnv<"list">
 }
 
 // Commands
@@ -81,8 +119,8 @@ macro_parameter[@name="macro_parameter"] {
  * character from any category after a category 0 character.
  */
 @skip { line_comment }
-@context trackContext from "../tokens"
-@external tokens tokenizer from "../tokens" {
+@context trackContext from "../parser/tokens"
+@external tokens tokenizer from "../parser/tokens" {
   /* ============================================================================================== */
   /*                                      CATEGORY CODE TOKENS                                      */
   /* ============================================================================================== */

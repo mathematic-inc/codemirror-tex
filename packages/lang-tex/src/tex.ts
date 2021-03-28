@@ -28,6 +28,7 @@ export const texLanguage = LezerLanguage.define({
         SimpleGroup: simpleIndent(),
         SemiSimpleGroup: simpleIndent(),
         MathShiftGroup: flatIndent,
+        item: flatIndent,
       }),
       foldNodeProp.add({
         'SimpleGroup SemiSimpleGroup MathShiftGroup': foldInside,

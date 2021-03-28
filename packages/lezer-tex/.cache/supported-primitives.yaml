@@ -260,7 +260,7 @@
   syntax: null
 - name: directlua
   dialects: 16
-  syntax: null
+  syntax: {}
 - name: discretionary
   dialects: 0
   syntax: null

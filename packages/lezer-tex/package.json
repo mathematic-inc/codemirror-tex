@@ -44,7 +44,7 @@
     "generate": "gulp generate",
     "build": "gulp build",
     "test": "gulp test",
-    "prepare": "PRODUCTION=true gulp build && yarn test"
+    "prepublish": "PRODUCTION=true gulp build && yarn test"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^11.2.0",

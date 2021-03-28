@@ -4,3 +4,4 @@ begingroup:
 endgroup:
   props:
     openedBy: begingroup
+directlua: {}

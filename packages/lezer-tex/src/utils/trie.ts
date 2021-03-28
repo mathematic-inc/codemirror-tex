@@ -63,7 +63,7 @@ export function deserializeTrie<S>(s: string): Trie<S> {
       .replaceAll('\x01', '":[')
       .replaceAll('\x00', ',{"')
   );
-  trie.value = value;
+  trie.value = value ?? undefined;
   Object.entries(children).forEach(([key, child]) => {
     trie.children[key] = deserializeTrie<S>(JSON.stringify(child));
   });

@@ -1,4 +1,4 @@
-import Context from '../../context';
+import Context from '../../tracker/context';
 
 export interface DirectiveSpec<Args extends unknown[]> {
   /**
